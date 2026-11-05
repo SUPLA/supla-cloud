@@ -70,4 +70,23 @@ describe('device identify submission feedback', () => {
     vi.runOnlyPendingTimers();
     vi.useRealTimers();
   });
+
+  it('hides deferred feedback and shows it again on a repeated submission', async () => {
+    vi.useFakeTimers();
+    const device = {id: 7, flags: {identifyDeviceAvailable: true}, calcfgQueueableActions: {identifyDevice: true}};
+    useDevicesStore().all[device.id] = {...device, connected: false};
+    api.patch.mockResolvedValue({body: {actionResult: {status: 'QUEUED'}}});
+
+    const wrapper = mount(IdentifyDeviceButton, {props: {device}});
+    await wrapper.find('button').trigger('click');
+    await flushPromises();
+    expect(wrapper.text()).toContain('calcfg_feedback_QUEUED');
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(wrapper.text()).not.toContain('calcfg_feedback_QUEUED');
+    await wrapper.find('button').trigger('click');
+    await flushPromises();
+    expect(wrapper.text()).toContain('calcfg_feedback_QUEUED');
+    wrapper.unmount();
+    vi.useRealTimers();
+  });
 });

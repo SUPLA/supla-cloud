@@ -55,6 +55,9 @@ class DevicesFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
+    public function __construct(private readonly string $appEnv = 'test') {
+    }
+
     public function setObjectManager(ObjectManager $m): self {
         $this->entityManager = $m;
         $this->faker = Factory::create('pl_PL');
@@ -95,7 +98,28 @@ class DevicesFixture extends SuplaFixture {
         $suplerDevice = $this->createEveryFunctionDevice($locationSupler, 'SUPLER MEGA DEVICE');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $this->createDeviceLocked($location);
+        if ($this->appEnv === 'dev') {
+            $this->createCalcfgQueueDevice($location, false);
+            $this->createCalcfgQueueDevice($location, true);
+        }
         $manager->flush();
+    }
+
+    public function createCalcfgQueueDevice(Location $location, bool $sync): IODevice {
+        $device = $this->createDevice($sync ? 'CALCFG SYNC SLEEPER' : 'CALCFG LEGACY SLEEPER', $location, [
+            [ChannelType::CONTAINER, ChannelFunction::SEPTIC_TANK, ['userConfig' => json_encode([
+                'muteAlarmSoundWithoutAdditionalAuth' => true,
+            ])]],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
+        ]);
+        AnyFieldSetter::set($device, ['flags' => IoDeviceFlags::SLEEP_MODE_ENABLED
+            | IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE | IoDeviceFlags::REMOTE_RESTART_AVAILABLE
+            | IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE | IoDeviceFlags::FACTORY_RESET_SUPPORTED
+            | IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED | IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED
+            | ($sync ? IoDeviceFlags::SYNC_DONE_SUPPORTED : 0)]);
+        $this->entityManager->persist($device);
+        $this->entityManager->flush();
+        return $device;
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {

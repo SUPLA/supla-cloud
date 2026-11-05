@@ -4,17 +4,13 @@
       <button-loading-dots v-if="loading" />
       <span v-else>{{ $t('Identify device') }}</span>
     </button>
-    <transition-expand>
-      <div v-if="timer" class="text-center mt-2">
-        {{ $t('Identify request sent.') }}
-      </div>
-      <CalcfgSubmissionFeedback :message="submissionMessage" />
-    </transition-expand>
+    <TemporaryFeedback :show="identifySent" message-i18n="Identify request sent." class="text-center mt-2" />
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
 <script>
-  import TransitionExpand from '@/common/gui/transition-expand.vue';
+  import TemporaryFeedback from '@/common/gui/temporary-feedback.vue';
   import {mapState} from 'pinia';
   import {useDevicesStore} from '@/stores/devices-store';
   import {api} from '@/api/api.js';
@@ -24,12 +20,12 @@
 
   export default {
     compatConfig: {MODE: 3},
-    components: {ButtonLoadingDots, TransitionExpand, CalcfgSubmissionFeedback},
+    components: {ButtonLoadingDots, TemporaryFeedback, CalcfgSubmissionFeedback},
     props: ['device'],
     data() {
       return {
         loading: false,
-        timer: undefined,
+        identifySent: false,
         lastPairingResult: null,
         submissionMessage: '',
       };
@@ -38,15 +34,14 @@
       identifyDevice() {
         this.loading = true;
         this.submissionMessage = '';
-        clearTimeout(this.timer);
-        this.timer = undefined;
+        this.identifySent = false;
         api
           .patch('iodevices/' + this.device.id, {action: 'identifyDevice'})
           .then((response) => {
             const result = getCalcfgActionResult(response);
             this.submissionMessage = getCalcfgSubmissionMessage(result) || '';
             if (!this.submissionMessage) {
-              this.timer = setTimeout(() => (this.timer = undefined), 3000);
+              this.identifySent = true;
             }
           })
           .catch(() => undefined)
@@ -67,9 +62,6 @@
           return '';
         }
       },
-    },
-    beforeUnmount() {
-      clearTimeout(this.timer);
     },
   };
 </script>

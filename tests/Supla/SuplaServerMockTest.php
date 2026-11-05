@@ -20,6 +20,7 @@ namespace App\Tests\Supla;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
 use App\Supla\SuplaServerMock;
 use App\Supla\SuplaServerMockCommandsCollector;
 use App\Supla\CalcfgActionResult;
@@ -66,6 +67,59 @@ class SuplaServerMockTest extends TestCase {
         $connected = $this->server->isDeviceConnected($this->device);
         $this->assertTrue($connected);
         $this->assertContains('IS-IODEV-CONNECTED:111,222', SuplaServerMock::$executedCommands);
+    }
+
+    public function testDevelopmentSleeperSimulatesOfflineQueueWithoutCompletingPassword(): void {
+        $device = $this->createMock(IODevice::class);
+        $device->method('getId')->willReturn(222);
+        $device->method('getUser')->willReturn($this->user);
+        $device->method('getName')->willReturn('CALCFG SYNC SLEEPER');
+        $device->method('getEnabled')->willReturn(true);
+        $device->method('isSleepModeEnabled')->willReturn(true);
+        $device->method('isSyncDoneSupported')->willReturn(true);
+        $device->method('getFlags')->willReturn([
+            'enterConfigurationModeAvailable' => true, 'remoteRestartAvailable' => true,
+            'automaticFirmwareUpdatesSupported' => true, 'factoryResetSupported' => true,
+            'setCfgModePasswordSupported' => true, 'identifyDeviceAvailable' => true,
+        ]);
+        $em = $this->createMock(EntityManagerInterface::class);
+        $em->method('find')->willReturn($device);
+        $em->expects($this->never())->method('persist');
+        $em->expects($this->never())->method('flush');
+        $server = new SuplaServerMock(new SuplaServerMockCommandsCollector(), $this->createMock(LoggerInterface::class), $em, 'dev');
+
+        $this->assertFalse($server->isDeviceConnected($device));
+        $this->assertSame(CalcfgActionResult::QUEUED, $server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->status);
+        $result = $server->deviceAction($device, 'SET-CFG-MODE-PASSWORD', [base64_encode('new-password')]);
+        $this->assertContains($result->status, [CalcfgActionResult::QUEUED, CalcfgActionResult::WAITING_FOR_RESULT]);
+        $this->assertSame(222, $result->id);
+        $this->assertGreaterThan(0, $result->queuedAt);
+        SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', "ERROR:222\n");
+        $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->isAccepted());
+    }
+
+    public function testDevelopmentSleeperQueuesEligibleChannelActions(): void {
+        $device = $this->createMock(IODevice::class);
+        $device->method('getId')->willReturn(222);
+        $device->method('getName')->willReturn('CALCFG SYNC SLEEPER');
+        $device->method('getUser')->willReturn($this->user);
+        $device->method('getEnabled')->willReturn(true);
+        $device->method('isSleepModeEnabled')->willReturn(true);
+        $device->method('isSyncDoneSupported')->willReturn(true);
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getId')->willReturn(333);
+        $channel->method('getUser')->willReturn($this->user);
+        $channel->method('getIoDevice')->willReturn($device);
+        $channel->method('getFunction')->willReturn(ChannelFunction::SEPTIC_TANK());
+        $em = $this->createMock(EntityManagerInterface::class);
+        $em->method('find')->willReturnCallback(fn($class) => $class === IODevice::class ? $device : $channel);
+        $server = new SuplaServerMock(new SuplaServerMockCommandsCollector(), $this->createMock(LoggerInterface::class), $em, 'dev');
+
+        $this->assertFalse($server->isChannelConnected($channel));
+        $result = $server->channelAction($channel, 'MUTE-ALARM-SOUND');
+        $this->assertSame(CalcfgActionResult::QUEUED, $result->status);
+        $this->assertSame(333, $result->id);
+        $this->assertFalse($server->channelAction($channel, 'RESTART-SUBDEVICE')->isAccepted());
     }
 
     public function testCheckingChannelConnected() {
