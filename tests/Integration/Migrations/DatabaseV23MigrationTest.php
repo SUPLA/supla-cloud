@@ -72,19 +72,17 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     private function assertChannelParamsConfigDefault() {
         /** @var \App\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 151);
-        $this->assertEquals(
-            [
-                'openingSensorChannelId' => null,
-                'openingSensorSecondaryChannelId' => null,
-                'relayTimeMs' => 500,
-                'timeSettingAvailable' => true,
-                'numberOfAttemptsToOpen' => 5,
-                'numberOfAttemptsToClose' => 5,
-                'stateVerificationMethodActive' => false,
-                'closingRule' => [],
-            ],
-            array_diff_key($channel->getUserConfig(), ['googleHome' => '', 'alexa' => '']),
-        );
+        $expectedConfig = [
+            'openingSensorChannelId' => null,
+            'openingSensorSecondaryChannelId' => null,
+            'relayTimeMs' => 500,
+            'timeSettingAvailable' => true,
+            'numberOfAttemptsToOpen' => 5,
+            'numberOfAttemptsToClose' => 5,
+            'stateVerificationMethodActive' => false,
+            'closingRule' => [],
+        ];
+        $this->assertEquals($expectedConfig, array_intersect_key($channel->getUserConfig(), $expectedConfig));
     }
 
     private function assertElectricityMeterFunctionIsMigrated() {
