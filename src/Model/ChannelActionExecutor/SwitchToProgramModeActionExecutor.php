@@ -5,7 +5,7 @@ use App\Entity\ActionableSubject;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelFunctionAction;
 
-class HvacSwitchToProgramModeActionExecutor extends SingleChannelActionExecutor {
+class SwitchToProgramModeActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::HVAC_THERMOSTAT(),
@@ -17,11 +17,11 @@ class HvacSwitchToProgramModeActionExecutor extends SingleChannelActionExecutor 
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE();
+        return ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE();
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-HVAC-SWITCH-TO-PROGRAM-MODE');
+        $command = $subject->buildServerActionCommand('ACTION-SWITCH-TO-PROGRAM-MODE');
         $this->suplaServer->executeCommand($command);
     }
 }

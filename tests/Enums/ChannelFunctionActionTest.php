@@ -37,6 +37,27 @@ class ChannelFunctionActionTest extends TestCase {
         $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('open-close'));
     }
 
+    /** @dataProvider switchModeNamesProvider */
+    public function testSwitchModeNamesRemainCompatible(string $name, string $canonicalName, int $id) {
+        $action = ChannelFunctionAction::fromString($name);
+        $this->assertSame($id, $action->getId());
+        $this->assertSame($canonicalName, $action->getName());
+        $this->assertSame($canonicalName, (new ChannelFunctionAction($id))->getName());
+    }
+
+    public static function switchModeNamesProvider(): array {
+        return [
+            ['SWITCH_TO_PROGRAM_MODE', 'SWITCH_TO_PROGRAM_MODE', 231],
+            ['HVAC_SWITCH_TO_PROGRAM_MODE', 'SWITCH_TO_PROGRAM_MODE', 231],
+            ['hvac-switch-to-program-mode', 'SWITCH_TO_PROGRAM_MODE', 231],
+            ['231', 'SWITCH_TO_PROGRAM_MODE', 231],
+            ['SWITCH_TO_MANUAL_MODE', 'SWITCH_TO_MANUAL_MODE', 232],
+            ['HVAC_SWITCH_TO_MANUAL_MODE', 'SWITCH_TO_MANUAL_MODE', 232],
+            ['hvac-switch-to-manual-mode', 'SWITCH_TO_MANUAL_MODE', 232],
+            ['232', 'SWITCH_TO_MANUAL_MODE', 232],
+        ];
+    }
+
     public function testCanSetCustomCaption() {
         $this->assertEquals('Expand', ChannelFunctionAction::SHUT()->withFunctionCaption(ChannelFunction::PROJECTOR_SCREEN())->getCaption());
     }
