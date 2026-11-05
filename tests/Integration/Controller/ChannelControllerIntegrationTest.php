@@ -22,6 +22,7 @@ use App\Auth\SuplaOAuth2;
 use App\DataFixtures\DevicesFixture;
 use App\DataFixtures\NotificationsFixture;
 use App\Entity\EntityUtils;
+use App\Entity\Main\ChannelState;
 use App\Entity\Main\DirectLink;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
@@ -2166,5 +2167,33 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('state', $body);
         $this->assertArrayHasKey('extendedState', $body['state']);
         $this->assertArrayHasKey('wifiRSSI', $body['state']['extendedState']);
+    }
+
+    /** @dataProvider batteryExtendedStates */
+    public function testBatteryExtendedStateSerialization(array $extendedState) {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $channel = $device->getChannels()[0];
+        EntityUtils::setField($channel, 'flags', ChannelFlags::HAS_EXTENDED_CHANNEL_STATE);
+        $this->persist($channel);
+        $state = new ChannelState($channel);
+        EntityUtils::setField($state, 'state', json_encode($extendedState));
+        $this->persist($state);
+        $channelId = $channel->getId();
+        $this->getEntityManager()->clear();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', "/api/channels/$channelId?include=state");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame($extendedState, $client->getResponseBody()['state']['extendedState']);
+    }
+
+    public static function batteryExtendedStates(): array {
+        return [
+            'device state without percentage' => [['batteryState' => 'LOW', 'deviceBatteryState' => true]],
+            'channel state' => [['batteryState' => 'OK']],
+            'numeric device level' => [['batteryLevel' => 72, 'deviceBatteryLevel' => true, 'batteryPowered' => true, 'batteryHealth' => 95]],
+            'level and state' => [['batteryLevel' => 72, 'batteryState' => 'LOW']],
+            'unexpected state preserved' => [['batteryState' => 'UNKNOWN']],
+        ];
     }
 }

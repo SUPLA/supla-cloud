@@ -14,7 +14,9 @@ class BatteryUserConfigTranslator extends UserConfigTranslator {
                 $config['isBatteryCoverAvailable'] = ChannelFlags::BATTERY_COVER_AVAILABLE()->isOn($subject->getFlags());
             }
             if (ChannelFlags::HAS_EXTENDED_CHANNEL_STATE()->isSupported($subject->getFlags())) {
-                $config['isBatteryAvailable'] = array_key_exists('batteryLevel', $subject->getLastKnownChannelState());
+                $state = $subject->getLastKnownChannelState();
+                $config['isBatteryAvailable'] = array_key_exists('batteryLevel', $state)
+                    || in_array($state['batteryState'] ?? null, ['OK', 'LOW'], true);
             }
         }
         return $config;
