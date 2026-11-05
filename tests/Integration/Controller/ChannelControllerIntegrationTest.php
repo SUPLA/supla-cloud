@@ -244,6 +244,63 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(4, $content);
     }
 
+    /**
+     * @medium
+     * @dataProvider alarmSensorApiCases
+     */
+    public function testAlarmSensorApi(int $functionId, string $name, int $value) {
+        $device = $this->createDevice($this->location, [[ChannelType::SENSORNO, $functionId]]);
+        $channel = $device->getChannels()[0];
+        $channel->setUserConfigValue('invertedLogic', true);
+        $this->getEntityManager()->flush();
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', 'VALUE:' . $value);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel->getId() . '?include=state');
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame($functionId, $body['function']['id']);
+        $this->assertSame($name, $body['function']['name']);
+        $this->assertTrue($body['config']['invertedLogic']);
+        $this->assertTrue($body['state']['connected']);
+        $this->assertSame((bool) $value, $body['state']['hi']);
+
+        $client->apiRequestV24('GET', '/api/channels?function=' . $name);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channels = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(1, $channels);
+        $this->assertSame($channel->getId(), $channels[0]['id']);
+        $this->getEntityManager()->remove($this->freshEntity($channel));
+        $this->getEntityManager()->remove($this->freshEntity($device));
+        $this->getEntityManager()->flush();
+    }
+
+    public static function alarmSensorApiCases(): array {
+        return [
+            [ChannelFunction::SMOKE_SENSOR, 'SMOKE_SENSOR', 0],
+            [ChannelFunction::SMOKE_SENSOR, 'SMOKE_SENSOR', 1],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR, 'CARBON_MONOXIDE_SENSOR', 0],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR, 'CARBON_MONOXIDE_SENSOR', 1],
+            [ChannelFunction::GAS_SENSOR, 'GAS_SENSOR', 0],
+            [ChannelFunction::GAS_SENSOR, 'GAS_SENSOR', 1],
+        ];
+    }
+
+    /** @medium */
+    public function testAlarmSensorDisconnectedState() {
+        $device = $this->createDevice($this->location, [[ChannelType::SENSORNC, ChannelFunction::GAS_SENSOR]]);
+        $channel = $device->getChannels()[0];
+        SuplaServerMock::mockResponse('IS-CHANNEL-CONNECTED', 'DISCONNECTED:' . $channel->getId());
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel->getId() . '?include=state');
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($body['state']['connected']);
+        $this->assertArrayNotHasKey('hi', $body['state']);
+        $this->getEntityManager()->remove($this->freshEntity($channel));
+        $this->getEntityManager()->remove($this->freshEntity($device));
+        $this->getEntityManager()->flush();
+    }
+
     public function testFilteringByType() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channels?type=THERMOMETER');

@@ -84,6 +84,32 @@ class ChannelFunctionTest extends TestCase {
         $this->assertEquals([ChannelFunction::THERMOMETER], $supportedFunctions);
     }
 
+    /** @dataProvider alarmSensorFunctions */
+    public function testAlarmSensorFunction(int $id, string $name, string $caption) {
+        $function = ChannelFunction::fromString($name);
+        $this->assertSame($id, $function->getId());
+        $this->assertSame($name, $function->getName());
+        $this->assertSame($caption, $function->getCaption());
+        $this->assertSame(['low', 'hi'], $function->getPossibleVisualStates());
+        $this->assertContains($id, ChannelFunction::inputFunctions());
+        $this->assertNotContains($id, ChannelFunction::outputFunctions());
+        foreach ([ChannelType::SENSORNO(), ChannelType::SENSORNC()] as $type) {
+            $channel = $this->createMock(IODeviceChannel::class);
+            $channel->method('getType')->willReturn($type);
+            $this->assertContains($id, EntityUtils::mapToIds(ChannelFunction::forChannel($channel)));
+        }
+        $this->assertNotContains($id, EntityUtils::mapToIds(ChannelType::functions()[ChannelType::IMPULSECOUNTER]));
+        $this->assertNotSame(ChannelFunction::IC_GASMETER, $id);
+    }
+
+    public static function alarmSensorFunctions(): array {
+        return [
+            [1030, 'SMOKE_SENSOR', 'Smoke sensor'],
+            [1040, 'CARBON_MONOXIDE_SENSOR', 'Carbon monoxide sensor'],
+            [1050, 'GAS_SENSOR', 'Gas sensor'],
+        ];
+    }
+
     public function testSupportedFunctionsForRelay() {
         $channel = $this->createMock(IODeviceChannel::class);
         $channel->method('getType')->willReturn(ChannelType::RELAY());
@@ -115,7 +141,9 @@ class ChannelFunctionTest extends TestCase {
         }, $functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = ArrayUtils::flattenOnce($functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = array_map('intval', $functionIdsUsedInFrontend);
-        $skip = [ChannelFunction::SCENE, ChannelFunction::SCHEDULE, ChannelFunction::NOTIFICATION];
+        // Frontend filter support for protocol v29 sensors is handled in Task 04.
+        $skip = [ChannelFunction::SCENE, ChannelFunction::SCHEDULE, ChannelFunction::NOTIFICATION,
+            ChannelFunction::SMOKE_SENSOR, ChannelFunction::CARBON_MONOXIDE_SENSOR, ChannelFunction::GAS_SENSOR];
         foreach (ChannelFunction::values() as $functionName => $channelFunction) {
             $functionId = $channelFunction->getValue();
             if (in_array($functionId, $skip)) {
