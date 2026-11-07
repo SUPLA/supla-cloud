@@ -94,9 +94,10 @@
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
   import {api} from '@/api/api.js';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import ModalConfirm from '@/common/modal-confirm.vue';
 
   export default {
-    components: {LoadingCover},
+    components: {LoadingCover, ModalConfirm},
     props: ['model', 'icon'],
     data() {
       return {
