@@ -17,6 +17,7 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
 use App\Entity\Main\DirectLink;
 use App\Entity\Main\IODeviceChannelGroup;
 use App\Entity\Main\PushNotification;
@@ -424,6 +425,38 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $response);
         $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
         $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
+    }
+
+    public function testDeletingSceneWithUnsupportedActionTrigger() {
+        $scene = $this->testCreatingScene();
+        $device = $this->createDeviceSonoff($this->freshEntity($this->user)->getLocations()[0]);
+        $trigger = $device->getChannels()[2];
+        EntityUtils::setField($trigger, 'properties', json_encode(['actionTriggerCapabilities' => ['SHORT_PRESS_X1']]));
+        $trigger->setUserConfigValue('actions', [
+            'TURN_ON' => [
+                'subjectType' => ActionableSubjectType::SCENE,
+                'subjectId' => $scene['id'],
+                'action' => ['id' => ChannelFunctionAction::EXECUTE, 'param' => []],
+            ],
+            'SHORT_PRESS_X1' => [
+                'subjectType' => ActionableSubjectType::CHANNEL,
+                'subjectId' => $device->getChannels()[0]->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+        ]);
+        $this->persist($trigger);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $scene['id'] . '?safe=true');
+        $this->assertStatusCode(409, $client->getResponse());
+        $dependencies = json_decode($client->getResponse()->getContent(), true)['dependencies'];
+        $this->assertCount(1, $dependencies['actionTriggers']);
+        $this->assertEquals($trigger->getId(), $dependencies['actionTriggers'][0]['id']);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $scene['id']);
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $scene['id']));
+        $actions = $this->freshEntity($trigger)->getUserConfig()['actions'];
+        $this->assertArrayNotHasKey('TURN_ON', $actions);
+        $this->assertArrayHasKey('SHORT_PRESS_X1', $actions);
     }
 
     public function testDeletingSceneWithConfirmation() {
