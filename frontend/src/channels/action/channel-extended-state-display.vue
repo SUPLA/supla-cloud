@@ -6,7 +6,9 @@
     <div v-for="state in sourceStates" :key="state.key">
       <dl class="m-0">
         <dt>{{ $t(state.label) }}</dt>
-        <dd>{{ state.format(source.state.extendedState[state.key]) }}</dd>
+        <dd>
+          <span :class="state.valueClass">{{ state.format(source.state.extendedState[state.key]) }}</span>
+        </dd>
       </dl>
     </div>
   </div>
@@ -20,6 +22,8 @@
   import {useSuplaApi} from '@/api/use-supla-api';
   import {useTimeoutPoll} from '@vueuse/core';
   import {useDevicesStore} from '@/stores/devices-store';
+
+  defineOptions({compatConfig: {MODE: 3}});
 
   const props = defineProps({channel: Object, device: Object, condensed: Boolean});
 
@@ -35,6 +39,16 @@
   const percent = (v) => `${v}%`;
   const duration = (v) => Duration.fromObject({seconds: v}).rescale().toHuman({maxUnits: 2});
   const yesNo = (v) => (v ? i18n.t('Yes') : i18n.t('No'));
+
+  const batteryStatusForDisplay = (extendedState, deviceView = false) => {
+    if (!extendedState || extendedState.batteryLevel !== undefined || !['OK', 'LOW'].includes(extendedState.batteryState)) {
+      return undefined;
+    }
+    if (deviceView && extendedState.deviceBatteryState !== true) {
+      return undefined;
+    }
+    return {status: extendedState.batteryState, deviceWide: extendedState.deviceBatteryState === true};
+  };
 
   const source = computed(() => props.channel || channelsStore.list.find((c) => c.iodeviceId === props.device.id));
 
@@ -86,6 +100,16 @@
           {label: 'Battery health', key: 'batteryHealth', format: percent}, // i18n
         ]
       );
+    }
+    const batteryStatus = batteryStatusForDisplay(source.value.state.extendedState, !!props.device);
+    if (batteryStatus) {
+      // i18n: ['Device battery status', 'Battery status']
+      states.push({
+        label: batteryStatus.deviceWide ? 'Device battery status' : 'Battery status',
+        key: 'batteryState',
+        format: () => (batteryStatus.status === 'LOW' ? i18n.t('Low battery') : i18n.t('OK')),
+        valueClass: batteryStatus.status === 'LOW' ? 'label label-warning' : undefined,
+      });
     }
     return states;
   });

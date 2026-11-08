@@ -55,6 +55,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * @OA\Schema(
@@ -140,6 +141,7 @@ class UserController extends RestController {
     private $mqttAuthEnabled;
     private TimeProvider $timeProvider;
     private BrokerRequestSecurityVoter $brokerRequestSecurityVoter;
+    private MessageBusInterface $messageBus;
 
     public function __construct(
         UserManager $userManager,
@@ -157,7 +159,8 @@ class UserController extends RestController {
         bool $mqttBrokerEnabled,
         bool $mqttAuthEnabled,
         TimeProvider $timeProvider,
-        BrokerRequestSecurityVoter $brokerRequestSecurityVoter
+        BrokerRequestSecurityVoter $brokerRequestSecurityVoter,
+        MessageBusInterface $messageBus
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -175,6 +178,7 @@ class UserController extends RestController {
         $this->mqttAuthEnabled = $mqttAuthEnabled;
         $this->timeProvider = $timeProvider;
         $this->brokerRequestSecurityVoter = $brokerRequestSecurityVoter;
+        $this->messageBus = $messageBus;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -490,7 +494,7 @@ class UserController extends RestController {
     public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $this->dispatchMessage(new EmailToAdmin(new UserActivatedAdminEmailNotification($user)));
+        $this->messageBus->dispatch(new EmailToAdmin(new UserActivatedAdminEmailNotification($user)));
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 

@@ -19,6 +19,7 @@
         }}
       </p>
     </modal-confirm>
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
@@ -27,18 +28,29 @@
   import {computed, ref} from 'vue';
   import {devicesApi} from '@/api/devices-api';
   import ModalConfirm from '@/common/modal-confirm.vue';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
+
+  defineOptions({compatConfig: {MODE: 3}});
 
   const props = defineProps({device: Object});
 
   const showConfirmDialog = ref(false);
   const loading = ref(false);
 
-  const disabledReason = computed(() => (props.device.connected ? '' : 'Device is disconnected.'));
+  const disabledReason = computed(() => (canSubmitCalcfgAction(props.device, 'factoryReset') ? '' : 'Device is disconnected.'));
+  const submissionMessage = ref('');
 
   async function factoryResetDevice() {
     try {
       loading.value = true;
-      await devicesApi.factoryReset(props.device.id);
+      submissionMessage.value = '';
+      const response = await devicesApi.factoryReset(props.device.id);
+      const message = getCalcfgSubmissionMessage(getCalcfgActionResult(response));
+      if (message) {
+        submissionMessage.value = message;
+        return;
+      }
       loading.value = false;
       successNotification('The factory reset was successful.');
     } finally {

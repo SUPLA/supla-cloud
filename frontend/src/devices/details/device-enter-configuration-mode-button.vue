@@ -25,6 +25,7 @@
         {{ $t('If the device is not awaken now, it will enter the configuration mode at the next wake up.') }}
       </p>
     </modal-confirm>
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
@@ -34,22 +35,36 @@
   import {useDevicesStore} from '@/stores/devices-store';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
 
   export default {
-    components: {ModalConfirm},
+    compatConfig: {MODE: 3},
+    components: {ModalConfirm, CalcfgSubmissionFeedback},
     props: ['device'],
     data() {
       return {
         enterConfirm: false,
         loading: false,
+        submissionMessage: '',
       };
     },
     methods: {
       enterConfigurationMode() {
         this.loading = true;
+        this.submissionMessage = '';
         api
           .patch('iodevices/' + this.device.id, {action: 'enterConfigurationMode'})
-          .then(() => setTimeout(() => this.assumeEntered(), 5000))
+          .then((response) => {
+            const result = getCalcfgActionResult(response);
+            this.submissionMessage = getCalcfgSubmissionMessage(result) || '';
+            if (this.submissionMessage) {
+              this.enterConfirm = false;
+              this.loading = false;
+            } else {
+              setTimeout(() => this.assumeEntered(), 5000);
+            }
+          })
           .catch(() => (this.loading = false));
       },
       assumeEntered() {
@@ -64,7 +79,7 @@
         return this.devices[this.device.id]?.connected;
       },
       disabledReason() {
-        if (!this.isConnected) {
+        if (!canSubmitCalcfgAction({...this.device, connected: this.isConnected}, 'enterConfigurationMode')) {
           return this.$t('Device is disconnected.');
         } else if (this.device.hasPendingChanges) {
           return this.$t('Save or discard configuration changes first.');

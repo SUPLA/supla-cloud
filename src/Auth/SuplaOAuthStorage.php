@@ -19,6 +19,7 @@ namespace App\Auth;
 
 use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\OAuth\AuthCode;
 use App\Entity\Main\OAuth\RefreshToken;
 use App\Entity\Main\User;
 use App\Enums\ApiClientType;
@@ -33,6 +34,7 @@ use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2AuthenticateException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -62,12 +64,39 @@ class SuplaOAuthStorage extends OAuthStorage {
         UserLoginAttemptListener $userLoginAttemptListener,
         SuplaAutodiscover $autodiscover,
         ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
+        private readonly RequestStack $requestStack,
+        private readonly OAuthPkce $oauthPkce,
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $passwordHasherFactory);
         $this->entityManager = $entityManager;
         $this->userLoginAttemptListener = $userLoginAttemptListener;
         $this->autodiscover = $autodiscover;
         $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
+    }
+
+    /** Preserve FOS issuance while setting code metadata before its single insert/flush. */
+    public function createAuthCode($code, IOAuth2Client $client, $data, $redirect_uri, $expires, $scope = null): AuthCode {
+        if (!$client instanceof ClientInterface) {
+            throw new \InvalidArgumentException('Client has to implement the ClientInterface');
+        }
+        $authCode = $this->authCodeManager->createAuthCode();
+        if (!$authCode instanceof AuthCode) {
+            throw new \LogicException('The configured FOS auth-code class must support SUPLA PKCE metadata.');
+        }
+        $authCode->setToken($code);
+        $authCode->setClient($client);
+        $authCode->setUser($data);
+        $authCode->setRedirectUri($redirect_uri);
+        $authCode->setExpiresAt($expires);
+        $authCode->setScope($scope);
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request) {
+            [$challenge, $method] = $this->oauthPkce->getChallenge($request, true);
+            $authCode->setCodeChallenge($challenge);
+            $authCode->setCodeChallengeMethod($method);
+        }
+        $this->authCodeManager->updateAuthCode($authCode);
+        return $authCode;
     }
 
     /**
@@ -89,6 +118,25 @@ class SuplaOAuthStorage extends OAuthStorage {
             }
         }
         return $credentialsValid;
+    }
+
+    /** Password-backed consent must use WebApp login's status checks and audit/lockout, regardless of client type. */
+    public function authenticateAuthorizationUser(ApiClient $client, string $username, string $password): ?User {
+        try {
+            $this->userProvider->loadUserByIdentifier($username);
+        } catch (AuthenticationException $e) {
+            $this->onAuthenticationFailure($username);
+            throw $e;
+        }
+        $credentials = $this->checkUserCredentials($client, $username, $password);
+        if ($client->getType() != ApiClientType::WEBAPP()) {
+            if ($credentials) {
+                $this->userLoginAttemptListener->onAuthenticationSuccess($username);
+            } else {
+                $this->onAuthenticationFailure($username);
+            }
+        }
+        return $credentials ? $credentials['data'] : null;
     }
 
     /**
@@ -150,6 +198,9 @@ class SuplaOAuthStorage extends OAuthStorage {
 
     public function checkClientCredentials(IOAuth2Client $client, $clientSecret = null): bool {
         if ($client instanceof AutodiscoverPublicClientStub) {
+            if (!is_string($clientSecret) || $clientSecret === '') {
+                return false;
+            }
             $client->setSecret($clientSecret);
             return true;
         } else {

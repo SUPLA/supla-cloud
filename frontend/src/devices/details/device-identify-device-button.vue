@@ -4,38 +4,47 @@
       <button-loading-dots v-if="loading" />
       <span v-else>{{ $t('Identify device') }}</span>
     </button>
-    <transition-expand>
-      <div v-if="timer" class="text-center mt-2">
-        {{ $t('Identify request sent.') }}
-      </div>
-    </transition-expand>
+    <TemporaryFeedback :show="identifySent" message-i18n="Identify request sent." class="text-center mt-2" />
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
 <script>
-  import TransitionExpand from '@/common/gui/transition-expand.vue';
+  import TemporaryFeedback from '@/common/gui/temporary-feedback.vue';
   import {mapState} from 'pinia';
   import {useDevicesStore} from '@/stores/devices-store';
   import {api} from '@/api/api.js';
   import ButtonLoadingDots from '@/common/gui/loaders/button-loading-dots.vue';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
 
   export default {
-    components: {ButtonLoadingDots, TransitionExpand},
+    compatConfig: {MODE: 3},
+    components: {ButtonLoadingDots, TemporaryFeedback, CalcfgSubmissionFeedback},
     props: ['device'],
     data() {
       return {
         loading: false,
-        timer: undefined,
+        identifySent: false,
         lastPairingResult: null,
+        submissionMessage: '',
       };
     },
     methods: {
       identifyDevice() {
         this.loading = true;
-        clearTimeout(this.timer);
+        this.submissionMessage = '';
+        this.identifySent = false;
         api
           .patch('iodevices/' + this.device.id, {action: 'identifyDevice'})
-          .then(() => (this.timer = setTimeout(() => (this.timer = undefined), 3000)))
+          .then((response) => {
+            const result = getCalcfgActionResult(response);
+            this.submissionMessage = getCalcfgSubmissionMessage(result) || '';
+            if (!this.submissionMessage) {
+              this.identifySent = true;
+            }
+          })
+          .catch(() => undefined)
           .finally(() => (this.loading = false));
       },
     },
@@ -45,7 +54,7 @@
         return this.devices[this.device.id]?.connected;
       },
       disabledReason() {
-        if (!this.isConnected) {
+        if (!canSubmitCalcfgAction({...this.device, connected: this.isConnected}, 'identifyDevice')) {
           return this.$t('Device is disconnected.');
         } else if (this.device.hasPendingChanges) {
           return this.$t('Save or discard configuration changes first.');
@@ -53,9 +62,6 @@
           return '';
         }
       },
-    },
-    beforeUnmount() {
-      clearTimeout(this.timer);
     },
   };
 </script>

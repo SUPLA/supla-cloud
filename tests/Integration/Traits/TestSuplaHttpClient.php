@@ -15,7 +15,13 @@ class TestSuplaHttpClient extends SuplaHttpClient {
         self::$mockedResponses[$url] = $response;
     }
 
-    public function request(string $fullUrl, ?string $method = null, ?array $payload = null, array $headers = []): array {
+    public function request(
+        string $fullUrl,
+        ?string $method = null,
+        ?array $payload = null,
+        array $headers = [],
+        bool $trustedPeer = false
+    ): array {
         foreach (self::$mockedResponses as $url => $response) {
             if (preg_match("#$url#i", $fullUrl)) {
                 unset(self::$mockedResponses[$url]);

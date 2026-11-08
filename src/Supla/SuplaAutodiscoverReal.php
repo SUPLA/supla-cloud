@@ -23,6 +23,6 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
             return null;
         }
         $endpointUrl = $this->autodiscoverUrl . $endpoint;
-        return $this->brokerHttpClient->request($endpointUrl, $post ?: null, $responseStatus, $headers, $method);
+        return $this->brokerHttpClient->requestWithStoredToken($endpointUrl, $post ?: null, $responseStatus, $headers, $method);
     }
 }

@@ -20,13 +20,18 @@ namespace App\Command\Cyclic;
 use App\Model\Transactional;
 use App\Model\VirtualChannel\VirtualChannelStateUpdater;
 use App\Repository\IODeviceChannelRepository;
+use App\Supla\SuplaAutodiscover;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class VirtualChannelsUpdateStateCommand extends AbstractCyclicCommand {
     use Transactional;
 
-    public function __construct(private VirtualChannelStateUpdater $updater, private IODeviceChannelRepository $channelRepository) {
+    public function __construct(
+        private VirtualChannelStateUpdater $updater,
+        private IODeviceChannelRepository $channelRepository,
+        private SuplaAutodiscover $ad
+    ) {
         parent::__construct();
     }
 
@@ -38,6 +43,9 @@ class VirtualChannelsUpdateStateCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        if (!$this->ad->isTarget()) {
+            return 0;
+        }
         $channels = $this->channelRepository->findBy(['isVirtual' => true]);
         $this->updater->updateChannels($channels);
         return 0;

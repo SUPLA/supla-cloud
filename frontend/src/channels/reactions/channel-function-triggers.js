@@ -929,6 +929,9 @@ ChannelFunctionTriggers[ChannelFunction.HUMIDITY] = [
 
 ChannelFunctionTriggers[ChannelFunction.LIGHTSWITCH] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
 ChannelFunctionTriggers[ChannelFunction.STAIRCASETIMER] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
+ChannelFunctionTriggers[ChannelFunction.SMOKE_SENSOR] = ChannelFunctionTriggers[ChannelFunction.BINARY_SENSOR];
+ChannelFunctionTriggers[ChannelFunction.CARBON_MONOXIDE_SENSOR] = ChannelFunctionTriggers[ChannelFunction.BINARY_SENSOR];
+ChannelFunctionTriggers[ChannelFunction.GAS_SENSOR] = ChannelFunctionTriggers[ChannelFunction.BINARY_SENSOR];
 
 ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
 ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];

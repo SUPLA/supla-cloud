@@ -17,7 +17,6 @@ use Assert\Assertion;
  * )
  */
 class SendActionExecutor extends SingleChannelActionExecutor {
-
     /**
      * @var AccessIdRepository
      */

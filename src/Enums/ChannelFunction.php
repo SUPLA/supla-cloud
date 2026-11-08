@@ -112,6 +112,9 @@ use UnexpectedValueException;
  * @method static ChannelFunction FLOOD_SENSOR()
  * @method static ChannelFunction MOTION_SENSOR()
  * @method static ChannelFunction BINARY_SENSOR()
+ * @method static ChannelFunction SMOKE_SENSOR()
+ * @method static ChannelFunction CARBON_MONOXIDE_SENSOR()
+ * @method static ChannelFunction GAS_SENSOR()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -190,6 +193,9 @@ final class ChannelFunction extends Enum {
     const FLOOD_SENSOR = 1000;
     const MOTION_SENSOR = 1010;
     const BINARY_SENSOR = 1020;
+    const SMOKE_SENSOR = 1030;
+    const CARBON_MONOXIDE_SENSOR = 1040;
+    const GAS_SENSOR = 1050;
 
     private $unsupportedFunctionId;
 
@@ -238,8 +244,10 @@ final class ChannelFunction extends Enum {
         $type = $channel->getType();
         if (in_array($type->getId(), [ChannelType::RELAY, ChannelType::BRIDGE, ChannelType::HVAC])) {
             return ChannelFlistRelay::getSupportedFunctions($channel->getFuncList());
-        } elseif (in_array($type->getId(), [ChannelType::DIMMER, ChannelType::RGBLEDCONTROLLER, ChannelType::DIMMERANDRGBLED])
-            && $channel->getFuncList() > 0) {
+        } elseif (
+            in_array($type->getId(), [ChannelType::DIMMER, ChannelType::RGBLEDCONTROLLER, ChannelType::DIMMERANDRGBLED])
+            && $channel->getFuncList() > 0
+        ) {
             return ChannelFlistRgbw::getSupportedFunctions($channel->getFuncList());
         } else {
             return ChannelType::functions()[$type->getValue()];
@@ -370,50 +378,50 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_THERMOSTAT_HEAT_COOL => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_DRYER => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_FAN => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_THERMOSTAT_DIFFERENTIAL => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_DOMESTIC_HOT_WATER => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::VALVEOPENCLOSE => [
@@ -529,6 +537,9 @@ final class ChannelFunction extends Enum {
             self::FLOOD_SENSOR => 'Flood sensor', // i18n
             self::MOTION_SENSOR => 'Motion sensor', // i18n
             self::BINARY_SENSOR => 'Binary sensor', // i18n
+            self::SMOKE_SENSOR => 'Smoke sensor', // i18n
+            self::CARBON_MONOXIDE_SENSOR => 'Carbon monoxide sensor', // i18n
+            self::GAS_SENSOR => 'Gas sensor', // i18n
         ];
     }
 
@@ -638,6 +649,9 @@ final class ChannelFunction extends Enum {
             self::FLOOD_SENSOR => ['low', 'hi'],
             self::MOTION_SENSOR => ['low', 'hi'],
             self::BINARY_SENSOR => ['low', 'hi'],
+            self::SMOKE_SENSOR => ['low', 'hi'],
+            self::CARBON_MONOXIDE_SENSOR => ['low', 'hi'],
+            self::GAS_SENSOR => ['low', 'hi'],
         ];
     }
 

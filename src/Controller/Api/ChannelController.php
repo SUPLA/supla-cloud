@@ -30,6 +30,7 @@ use App\Enums\VirtualChannelType;
 use App\EventListener\UnavailableInMaintenance;
 use App\Exception\ApiException;
 use App\Model\ApiVersions;
+use App\Model\CalcfgQueueEligibility;
 use App\Model\ChannelActionExecutor\ChannelActionExecutor;
 use App\Model\ChannelStateGetter\ChannelStateGetter;
 use App\Model\Dependencies\ChannelDependencies;
@@ -549,7 +550,9 @@ class ChannelController extends RestController {
      *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate", "ocr:takePhoto"})
      *       ),
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Channel"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      * )
      * @Rest\Patch("/channels/{channel}/settings")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
@@ -564,7 +567,7 @@ class ChannelController extends RestController {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
         $channelConfig = $paramConfigTranslator->getConfig($channel);
-        $channel = $this->transactional(function (EntityManagerInterface $em) use (
+        [$channel, $actionResult] = $this->transactional(function (EntityManagerInterface $em) use (
             $channelStateGetter,
             $ocr,
             $body,
@@ -572,26 +575,35 @@ class ChannelController extends RestController {
             $channelConfig
         ) {
             $action = $body['action'];
+            $result = null;
             if ($action === 'resetCounters') {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
-                Assertion::true($result, 'Could not reset the counters.');
+                Assertion::true($result->isAccepted(), 'Could not reset the counters.');
                 if ($channelConfig['ocr'] ?? false) {
                     $ocr->resetCounter($channel);
                 }
             } elseif ($action === 'recalibrate') {
                 Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');
-                Assertion::true($result, 'Could not recalibrate.');
+                Assertion::true($result->isAccepted(), 'Could not recalibrate.');
             } elseif ($action === 'muteAlarm') {
                 $state = $channelStateGetter->getState($channel);
-                Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
+                Assertion::true(
+                    array_key_exists('soundAlarmOn', $state)
+                        || CalcfgQueueEligibility::forChannel(
+                            $channel,
+                            CalcfgQueueEligibility::supportsMuteAlarm($channel),
+                            false
+                        )['muteAlarm'],
+                    'Cannot mute alarm for this channel.'
+                );
                 $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM-SOUND');
-                Assertion::true($result, 'Could not mute alarm.');
+                Assertion::true($result->isAccepted(), 'Could not mute alarm.');
             } elseif ($action === 'ocr:takePhoto') {
                 Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 $result = $this->suplaServer->channelAction($channel, 'TAKE-OCR-PHOTO');
-                Assertion::true($result, 'Could not take OCR photo.');
+                Assertion::true($result->isAccepted(), 'Could not take OCR photo.');
             } elseif ($action === 'ocr:markLastMeasurementValid') {
                 Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 Assertion::keyExists($body, 'imageId');
@@ -604,9 +616,9 @@ class ChannelController extends RestController {
                 throw new ApiException('Invalid action given.');
             }
             $em->persist($channel);
-            return $channel;
+            return [$channel, $result];
         });
-        return $this->getChannelAction($request, $channel->clearRelationsCount());
+        return $this->withActionResult($this->getChannelAction($request, $channel->clearRelationsCount()), $actionResult, $request);
     }
 
     /**
@@ -680,9 +692,9 @@ class ChannelController extends RestController {
             $idsToRemove = EntityUtils::mapToIds($channelsToRemoveWith);
             $idsToRemove[] = $channel->getId();
             $hiddenConfigTranslator->setIdsToIgnore($idsToRemove);
-            $channelDependencies->clearDependencies($channel);
+            $channelDependencies->clearDependencies($channel, true);
             foreach ($channelsToRemoveWith as $channelToRemove) {
-                $channelDependencies->clearDependencies($channelToRemove);
+                $channelDependencies->clearDependencies($channelToRemove, true);
                 $em->remove($channelToRemove);
             }
             $channelId = $channel->getId();
@@ -714,7 +726,9 @@ class ChannelController extends RestController {
      *          @OA\Property(property="action", type="string"),
      *       )
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="object")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Channel"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      *    ),
      * )
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
@@ -730,18 +744,18 @@ class ChannelController extends RestController {
                 'Device identification is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'IDENTIFY-SUBDEVICE');
-            Assertion::true($result, 'Could not send the identify command.'); // i18n
+            Assertion::true($result->isAccepted(), 'Could not send the identify command.'); // i18n
         } elseif ($body['action'] === 'restart') {
             Assertion::true(
                 ChannelFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
                 'Remote restart is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'RESTART-SUBDEVICE');
-            Assertion::true($result, 'Could not restart the device.'); // i18n
+            Assertion::true($result->isAccepted(), 'Could not restart the device.'); // i18n
         } else {
             throw new ApiException('Invalid action given.');
         }
-        return $this->getChannelAction($request, $channel->clearRelationsCount());
+        return $this->withActionResult($this->getChannelAction($request, $channel->clearRelationsCount()), $result, $request);
     }
 
     /**

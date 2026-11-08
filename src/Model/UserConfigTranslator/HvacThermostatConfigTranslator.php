@@ -411,8 +411,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $this->validateTemperatures($subject, $temps);
             $subject->setUserConfigValue('temperatures', $temps);
         }
-        if (array_key_exists('minAllowedTemperatureSetpointFromLocalUI', $config) ||
-            array_key_exists('maxAllowedTemperatureSetpointFromLocalUI', $config)) {
+        if (
+            array_key_exists('minAllowedTemperatureSetpointFromLocalUI', $config) ||
+            array_key_exists('maxAllowedTemperatureSetpointFromLocalUI', $config)
+        ) {
             if (!array_key_exists('localUILock', $config)) {
                 $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
             }
@@ -579,8 +581,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'Too small difference between aux setpoint temperatures.', // i18n
             );
         }
-        if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT_HEAT_COOL &&
-            isset($temps['freezeProtection']) && isset($temps['heatProtection'])) {
+        if (
+            $subject->getFunction()->getId() === CF::HVAC_THERMOSTAT_HEAT_COOL &&
+            isset($temps['freezeProtection']) && isset($temps['heatProtection'])
+        ) {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
             Assertion::lessOrEqualThan(
                 $temps['freezeProtection'] / 100,

@@ -39,12 +39,16 @@ class SuplaOcrClient {
         if (!$authKey) {
             throw new ApiException('Channel did not specify the authKey in properties.');
         }
-        $response = $this->brokerHttpClient->request($fullUrl, [
-            'guid' => $channel->getIoDevice()->getGUIDString(),
-            'channelNo' => $channel->getChannelNumber(),
-            'authKey' => $authKey,
-            'userId' => $channel->getUser()->getShortUniqueId(),
-        ], $responseStatus);
+        $response = $this->brokerHttpClient->requestWithStoredToken(
+            $fullUrl,
+            [
+                'guid' => $channel->getIoDevice()->getGUIDString(),
+                'channelNo' => $channel->getChannelNumber(),
+                'authKey' => $authKey,
+                'userId' => $channel->getUser()->getShortUniqueId(),
+            ],
+            $responseStatus
+        );
         if ($responseStatus !== 201) {
             throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
         }
@@ -52,7 +56,12 @@ class SuplaOcrClient {
 
     public function getLatestImage(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
-        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
+        $response = $this->brokerHttpClient->requestWithStoredToken(
+            $fullUrl,
+            null,
+            $responseStatus,
+            ['X-AuthKey' => $this->getAuthKey($channel)]
+        );
         if ($responseStatus === 200) {
             return $response;
         } else {
@@ -62,7 +71,12 @@ class SuplaOcrClient {
 
     public function getLatestImages(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images');
-        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
+        $response = $this->brokerHttpClient->requestWithStoredToken(
+            $fullUrl,
+            null,
+            $responseStatus,
+            ['X-AuthKey' => $this->getAuthKey($channel)]
+        );
         if ($responseStatus === 200) {
             return $response;
         } else {
@@ -72,7 +86,7 @@ class SuplaOcrClient {
 
     public function updateSettings(IODeviceChannel $channel, array $ocrConfig): void {
         $fullUrl = $this->deviceEndpoint($channel);
-        $response = $this->brokerHttpClient->request(
+        $response = $this->brokerHttpClient->requestWithStoredToken(
             $fullUrl,
             ['config' => $ocrConfig],
             $responseStatus,
@@ -86,7 +100,7 @@ class SuplaOcrClient {
 
     public function resetCounter(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel);
-        $response = $this->brokerHttpClient->request(
+        $response = $this->brokerHttpClient->requestWithStoredToken(
             $fullUrl,
             ['action' => 'resetCounter'],
             $responseStatus,
@@ -102,7 +116,7 @@ class SuplaOcrClient {
 
     public function markLastMeasurementValid(IODeviceChannel $channel, string $imageId): array {
         $fullUrl = $this->deviceEndpoint($channel);
-        $response = $this->brokerHttpClient->request(
+        $response = $this->brokerHttpClient->requestWithStoredToken(
             $fullUrl,
             ['action' => 'markLastMeasurementValid', 'imageId' => $imageId],
             $responseStatus,

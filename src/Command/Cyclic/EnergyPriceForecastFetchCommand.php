@@ -39,6 +39,9 @@ class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        if (!$this->ad->isTarget()) {
+            return 0;
+        }
         $repo = $this->measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class);
         $forecast = $this->ad->fetchEnergyPriceForecast();
         foreach ($forecast as $forecastItem) {
@@ -58,6 +61,12 @@ class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
             }
             if (($forecastItem['fixing2'] ?? null) !== null) {
                 $log->setFixing2($forecastItem['fixing2']);
+            }
+            if (($forecastItem['fixing1_hourly'] ?? null) !== null) {
+                $log->setFixing1Hourly($forecastItem['fixing1_hourly']);
+            }
+            if (($forecastItem['fixing2_hourly'] ?? null) !== null) {
+                $log->setFixing2Hourly($forecastItem['fixing2_hourly']);
             }
             $this->measurementLogsEntityManager->persist($log);
         }

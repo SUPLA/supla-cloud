@@ -17,6 +17,7 @@
 
 namespace App\Tests\Integration\Command;
 
+use App\Entity\EntityUtils;
 use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -48,6 +49,7 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(4, $this->user->getLimitChannelGroup());
         $this->assertEquals(10, $this->user->getLimitOperationsPerScene());
         $this->assertEquals(11, $this->user->getLimitSchedule());
+        $this->assertEquals(count(User::PREDEFINED_LIMITS['default']), EntityUtils::getField($this->user, 'limitVirtualChannels'));
         $this->assertEquals('5/10', $this->user->getApiRateLimit());
     }
 
@@ -60,6 +62,7 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(123, $this->user->getLimitAid());
         $this->assertEquals(123, $this->user->getLimitChannelGroup());
         $this->assertEquals(123, $this->user->getLimitSchedule());
+        $this->assertEquals(123, EntityUtils::getField($this->user, 'limitVirtualChannels'));
     }
 
     public function testChangingLimitsToPredefined() {
@@ -71,6 +74,7 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(User::PREDEFINED_LIMITS['big']['limitAid'], $this->user->getLimitAid());
         $this->assertEquals(User::PREDEFINED_LIMITS['big']['limitChannelGroup'], $this->user->getLimitChannelGroup());
         $this->assertEquals(User::PREDEFINED_LIMITS['big']['limitSchedule'], $this->user->getLimitSchedule());
+        $this->assertEquals(User::PREDEFINED_LIMITS['big']['limitVirtualChannels'], EntityUtils::getField($this->user, 'limitVirtualChannels'));
     }
 
     public function testChangingLimitsToRelativeAdd() {
@@ -84,6 +88,7 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitAid'] + 3, $this->user->getLimitAid());
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitChannelGroup'] + 3, $this->user->getLimitChannelGroup());
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitSchedule'] + 3, $this->user->getLimitSchedule());
+        $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitVirtualChannels'] + 3, EntityUtils::getField($this->user, 'limitVirtualChannels'));
     }
 
     public function testChangingLimitsToRelativeMul() {
@@ -97,6 +102,7 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitAid'] * 3, $this->user->getLimitAid());
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitChannelGroup'] * 3, $this->user->getLimitChannelGroup());
         $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitSchedule'] * 3, $this->user->getLimitSchedule());
+        $this->assertEquals(User::PREDEFINED_LIMITS['default']['limitVirtualChannels'] * 3, EntityUtils::getField($this->user, 'limitVirtualChannels'));
     }
 
     public function testChangingLimitsInvalid() {

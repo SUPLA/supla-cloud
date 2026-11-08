@@ -325,6 +325,7 @@ class IODevice implements HasLocation, HasRelationsCount {
             'setCfgModePasswordSupported' => IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED()->isOn($this->flags),
             'enterConfigurationModeAvailable' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isOn($this->flags),
             'remoteRestartAvailable' => IoDeviceFlags::REMOTE_RESTART_AVAILABLE()->isOn($this->flags),
+            'syncDoneSupported' => IoDeviceFlags::SYNC_DONE_SUPPORTED()->isOn($this->flags),
         ];
     }
 
@@ -339,6 +340,10 @@ class IODevice implements HasLocation, HasRelationsCount {
     /** @Groups({"basic"}) */
     public function isSleepModeEnabled(): bool {
         return IoDeviceFlags::SLEEP_MODE_ENABLED()->isSupported($this->flags);
+    }
+
+    public function isSyncDoneSupported(): bool {
+        return IoDeviceFlags::SYNC_DONE_SUPPORTED()->isOn($this->flags);
     }
 
     /** @return Collection|PushNotification[] */

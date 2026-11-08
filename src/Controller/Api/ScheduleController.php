@@ -31,6 +31,7 @@ use App\Repository\ScheduleRepository;
 use Assert\Assert;
 use Assert\Assertion;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -84,15 +85,18 @@ class ScheduleController extends RestController {
     private $scheduleManager;
     /** @var ActionableSubjectRepository */
     private $subjectRepository;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
         ActionableSubjectRepository $subjectRepository,
-        ScheduleManager $scheduleManager
+        ScheduleManager $scheduleManager,
+        EntityManagerInterface $entityManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->scheduleManager = $scheduleManager;
         $this->subjectRepository = $subjectRepository;
+        $this->entityManager = $entityManager;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -171,8 +175,8 @@ class ScheduleController extends RestController {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
         $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data, $request);
-        $this->getDoctrine()->getManager()->persist($schedule);
-        $this->getDoctrine()->getManager()->flush();
+        $this->entityManager->persist($schedule);
+        $this->entityManager->flush();
         if ($schedule->isSubjectEnabled()) {
             $this->scheduleManager->enable($schedule);
         }
@@ -191,7 +195,7 @@ class ScheduleController extends RestController {
             $data['subjectType'] = 'channel';
         }
         $this->fillSchedule($schedule, $data, $request);
-        return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
+        return $this->entityManager->transactional(function ($em) use ($schedule, $request, $data) {
             $this->scheduleManager->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
             if (!$schedule->getEnabled() && ($request->get('enable') || ($data['enabled'] ?? false))) {
@@ -241,7 +245,7 @@ class ScheduleController extends RestController {
      */
     public function patchSchedulesAction(Request $request) {
         $data = $request->request->all();
-        $this->getDoctrine()->getManager()->transactional(function () use ($data) {
+        $this->entityManager->transactional(function () use ($data) {
             if (isset($data['enable'])) {
                 foreach ($this->getCurrentUser()->getSchedules() as $schedule) {
                     if (in_array($schedule->getId(), $data['enable']) && !$schedule->getEnabled()) {

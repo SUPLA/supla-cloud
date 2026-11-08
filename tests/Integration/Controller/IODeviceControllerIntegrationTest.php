@@ -106,6 +106,23 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getRegIpv4(), $content[0]->regIpv4);
     }
 
+    public function testNewManufacturerInDeviceListAndDetails() {
+        EntityUtils::setField($this->device, 'manufacturer', 23);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $expected = ['id' => 23, 'name' => 'SMARTBOB', 'caption' => 'SmartBOB'];
+
+        $client->apiRequestV24('GET', '/api/iodevices');
+        $this->assertStatusCode(200, $client->getResponse());
+        $list = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($expected, $list[0]['manufacturer']);
+
+        $client->apiRequestV24('GET', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(200, $client->getResponse());
+        $details = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($expected, $details['manufacturer']);
+    }
+
     public function testGettingDevicesWithChannels22() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices?include=channels', [], [], $this->versionHeader(ApiVersions::V2_2()));
@@ -262,6 +279,48 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted('ENTER-CONFIGURATION-MODE:1,' . $device->getId());
     }
 
+    public function testDeviceActionReturnsQueuedReceiptWithoutChangingGet() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', "QUEUED:{$device->getId()},1793577600\n");
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(['status' => 'QUEUED', 'id' => $device->getId(), 'queuedAt' => 1793577600], $body['actionResult']);
+        $client->apiRequestV3('GET', '/api/iodevices/' . $device->getId());
+        $resource = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('actionResult', $resource);
+        unset($body['actionResult']);
+        $this->assertEquals($resource, $body);
+    }
+
+    public function testDeviceActionReceiptsAcrossApiVersions() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        foreach (['2.1.0', '2.2.0', '2.3.0', '2.4.0', '3'] as $version) {
+            foreach (
+                ['ACCEPTED' => "OK:{$device->getId()}\n", 'QUEUED' => "QUEUED:{$device->getId()},1793577600\n",
+                'WAITING_FOR_RESULT' => "WAITING_FOR_RESULT:{$device->getId()},1793577600\n"] as $status => $reply
+            ) {
+                SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', $reply);
+                $client->apiRequest('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode'], [], [], [], $version);
+                $this->assertStatusCode(200, $client->getResponse());
+                $body = $client->getResponseBody();
+                if ($version === '3') {
+                    $this->assertSame(['status' => $status, 'id' => $device->getId(),
+                        'queuedAt' => $status === 'ACCEPTED' ? null : 1793577600], $body['actionResult']);
+                    unset($body['actionResult']);
+                } elseif ($version === '2.1.0') {
+                    $this->assertArrayNotHasKey('actionResult', $body[0]);
+                } else {
+                    $this->assertArrayNotHasKey('actionResult', $body);
+                }
+                $client->apiRequest('GET', '/api/iodevices/' . $device->getId(), [], [], [], [], $version);
+                $this->assertEquals($client->getResponseBody(), $body);
+            }
+        }
+    }
+
     public function testEnteringConfigurationModeWhenDeviceDoesNotSupportIt() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         AnyFieldSetter::set($device, 'flags', 0);
@@ -312,8 +371,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRemoteOtaUpdate() {
-        SuplaServerMock::mockResponse('OTA-PERFORM-UPDATE', 'OK:TEST');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('OTA-PERFORM-UPDATE', 'OK:' . $device->getUser()->getId() . "\n");
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();
@@ -324,8 +383,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRemoteFactoryReset() {
-        SuplaServerMock::mockResponse('FACTORY-RESET', 'OK:TEST');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('FACTORY-RESET', 'OK:' . $device->getId() . "\n");
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::FACTORY_RESET_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();
@@ -351,9 +410,12 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'setCfgModePassword', 'password' => 'ala123']);
+        $client->apiRequestV3('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'setCfgModePassword', 'password' => 'ala123']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->assertStringNotContainsString('ala123', $response->getContent());
+        $this->assertStringNotContainsString(base64_encode('ala123'), $response->getContent());
+        $this->assertSame(['status' => 'ACCEPTED', 'id' => $device->getId(), 'queuedAt' => null], $client->getResponseBody()['actionResult']);
         $this->assertSuplaCommandExecuted('SET-CFG-MODE-PASSWORD:1,' . $device->getId() . ',' . base64_encode('ala123'));
         return $device->getId();
     }
@@ -444,6 +506,66 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function testNotifiesSuplaServerAboutIoDeviceDeletion(int $deviceId) {
         $this->assertContains('USER-BEFORE-DEVICE-DELETE:1,' . $deviceId, SuplaServerMock::$executedCommands);
         $this->assertContains('USER-ON-DEVICE-DELETED:1,' . $deviceId, SuplaServerMock::$executedCommands);
+    }
+
+    public function testDeletingDeviceWithUnsupportedActionTriggerConfig() {
+        $device = $this->createDevice($this->freshEntity($this->location), [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
+        ]);
+        [$firstChannel, $secondChannel, $actionTrigger] = $device->getChannels()->toArray();
+        EntityUtils::setField($actionTrigger, 'properties', json_encode([
+            'actionTriggerCapabilities' => ['TURN_ON'],
+        ]));
+        $actionTrigger->setUserConfigValue('actions', [
+            'TURN_ON' => [
+                'subjectType' => 'channel',
+                'subjectId' => $firstChannel->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+            // Simulates a configuration persisted before the hardware stopped reporting this capability.
+            'SHORT_PRESS_X1' => [
+                'subjectType' => 'channel',
+                'subjectId' => $secondChannel->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+        ]);
+        $this->persist($actionTrigger);
+
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+
+        $this->assertStatusCode(204, $client->getResponse());
+    }
+
+    public function testDeletingDeviceClearsActionsFromExternalActionTriggerWithUnsupportedConfig() {
+        $device = $this->createDevice($this->freshEntity($this->location), [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+        ]);
+        $externalDevice = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $actionTrigger = $externalDevice->getChannels()[2];
+        $actionTrigger->setUserConfigValue('actions', [
+            'TURN_ON' => [
+                'subjectType' => 'channel',
+                'subjectId' => $device->getChannels()[0]->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+            'SHORT_PRESS_X1' => [
+                'subjectType' => 'channel',
+                'subjectId' => $externalDevice->getChannels()[0]->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+        ]);
+        $this->persist($actionTrigger);
+
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+
+        $this->assertStatusCode(204, $client->getResponse());
+        $actionTrigger = $this->freshEntity($actionTrigger);
+        $this->assertArrayNotHasKey('TURN_ON', $actionTrigger->getUserConfig()['actions']);
+        $this->assertArrayHasKey('SHORT_PRESS_X1', $actionTrigger->getUserConfig()['actions']);
     }
 
     public function testSuplaServerCanPreventDeviceDeletion() {

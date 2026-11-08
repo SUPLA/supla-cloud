@@ -8,6 +8,12 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(schema="ChannelConfig", description="Configuration of the channel.",
+ *   @OA\Property(property="buttonModeSupported", type="boolean", readOnly=true, description="Device-advertised button mode capability, for Action Trigger channels."),
+ *   @OA\Property(property="buttonTemporaryUnlockSupported", type="boolean", readOnly=true, description="Device-advertised temporary button unlock capability, for Action Trigger channels."),
+ *   @OA\Property(property="relayModeStartSupported", type="boolean", readOnly=true, description="Device-advertised relay start mode capability."),
+ *   @OA\Property(property="relayModeForcedSupported", type="boolean", readOnly=true, description="Device-advertised relay forced mode capability."),
+ *   @OA\Property(property="relayModeAutomaticSupported", type="boolean", readOnly=true, description="Device-advertised relay automatic mode capability."),
+ *   @OA\Property(property="relayModeNotSetSupported", type="boolean", readOnly=true, description="Device-advertised relay not-set capability for no-op weekly schedule programs."),
  *   oneOf={
  *     @OA\Schema(type="object"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigActionTrigger"),
@@ -57,6 +63,15 @@ class SubjectConfigTranslator {
         foreach ($this->translators as $translator) {
             if ($translator->supports($subject)) {
                 $translator->clearConfig($subject);
+            }
+        }
+        $subject->setUserConfig([]);
+    }
+
+    public function clearConfigForDeletion(HasUserConfig $subject): void {
+        foreach ($this->translators as $translator) {
+            if ($translator->supports($subject)) {
+                $translator->clearConfigForDeletion($subject);
             }
         }
         $subject->setUserConfig([]);

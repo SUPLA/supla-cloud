@@ -6,7 +6,6 @@
         <dt>{{ $t('Energy attribute') }}</dt>
         <dd>
           <div class="d-flex flex-wrap">
-            <!-- i18n: ['energyPriceForecast_field_rce', 'energyPriceForecast_field_fixing1', 'energyPriceForecast_field_fixing2'] -->
             <button
               v-for="energyField in energyPricesForecastStore.availableParameters"
               :key="energyField"

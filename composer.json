@@ -20,6 +20,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "ext-zip": "*",
         "composer-runtime-api": "^2",
         "beberlei/assert": "^3.3.3",
@@ -45,11 +47,13 @@
         "symfony/flex": "^2.10",
         "symfony/form": "^5.4",
         "symfony/framework-bundle": "^5.4",
+        "symfony/lock": "^5.4",
         "symfony/mailer": "^5.4",
         "symfony/messenger": "^5.4",
         "symfony/mime": "^5.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/polyfill-apcu": "^1.0",
+        "symfony/process": "^5.4",
         "symfony/runtime": "^5.4",
         "symfony/security-bundle": "^5.4",
         "symfony/serializer": "^5.4",
@@ -68,8 +72,7 @@
         "rector/rector": "^2.3",
         "squizlabs/php_codesniffer": "^3.6",
         "symfony/browser-kit": "^5.4",
-        "symfony/phpunit-bridge": "^5.4",
-        "symfony/process": "^5.4"
+        "symfony/phpunit-bridge": "^5.4"
     },
     "scripts": {
         "auto-scripts": {
@@ -91,17 +94,20 @@
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
-            "phpcs src --standard=config/phpcs-rules.xml"
+            "phpcbf",
+            "phpcs"
         ],
         "lint-frontend": [
-            "cd frontend && npm run lint -s"
+            "cd frontend && npm run lint -s",
+            "cd frontend && npm run format -s"
         ],
         "lint": [
+            "bin/console lint:yaml config/ --parse-tags",
             "@lint-frontend",
             "@lint-backend"
         ],
         "phpcbf": [
-            "phpcbf src --standard=config/phpcs-rules.xml"
+            "phpcbf"
         ],
         "webpack": [
             "cd frontend && npm install",

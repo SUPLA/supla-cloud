@@ -154,6 +154,12 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, null, null], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],
             [ChannelFunction::LIGHTSWITCH(), [], []],
             [ChannelFunction::MAILSENSOR(), [null, null, null], ['invertedLogic' => true]],
+            [ChannelFunction::BINARY_SENSOR(), [null, null, null], ['invertedLogic' => true]],
+            [ChannelFunction::FLOOD_SENSOR(), [null, null, null], ['invertedLogic' => false]],
+            [ChannelFunction::MOTION_SENSOR(), [null, null, null], ['invertedLogic' => true]],
+            [ChannelFunction::SMOKE_SENSOR(), [null, null, null], ['invertedLogic' => true]],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR(), [null, null, null], ['invertedLogic' => false]],
+            [ChannelFunction::GAS_SENSOR(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::NOLIQUIDSENSOR(), [null, null, null], ['invertedLogic' => false]],
             [ChannelFunction::OPENINGSENSOR_DOOR(), [null, null, null], ['invertedLogic' => false]],
             [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), [null, null, null], ['invertedLogic' => true]],
@@ -177,6 +183,26 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1]);
         $this->assertEquals(100, $channel->getUserConfigValue('temperatureAdjustment'));
         $this->assertEquals(124, $channel->getUserConfigValue('humidityAdjustment'));
+    }
+
+    /** @dataProvider alarmSensorFunctions */
+    public function testAlarmSensorOptionalConfig(ChannelFunction $function) {
+        $channel = new IODeviceChannel();
+        $channel->setFunction($function);
+        $channel->setUserConfigValue('filteringTimeMs', 100);
+        $channel->setUserConfigValue('timeout', 10);
+        $channel->setUserConfigValue('sensitivity', 50);
+        $config = ['invertedLogic' => true, 'filteringTimeMs' => 250, 'timeoutS' => 2.5, 'sensitivity' => 75];
+        $this->configTranslator->setConfig($channel, $config);
+        $this->assertEquals($config, $this->configTranslator->getConfig($channel));
+    }
+
+    public static function alarmSensorFunctions(): array {
+        return [
+            [ChannelFunction::SMOKE_SENSOR()],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR()],
+            [ChannelFunction::GAS_SENSOR()],
+        ];
     }
 
     public function testReturningDefaultsIfNoneSet() {

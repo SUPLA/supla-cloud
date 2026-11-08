@@ -17,6 +17,7 @@
 
 namespace App\Controller\Api;
 
+use App\Auth\OAuthAuthorizationApi;
 use App\Model\ApiVersions;
 use App\Model\RealClientIpResolver;
 use App\Supla\SuplaServerAware;
@@ -72,6 +73,7 @@ class ServerController extends RestController {
      *       @OA\Property(property="apiVersion", type="string"),
      *       @OA\Property(property="serverStatus", type="string", description="SUPLA Server status"),
      *       @OA\Property(property="supportedApiVersions", type="array", @OA\Items(type="string"), example={"2.1.0", "2.2.0", "2.3.0"}),
+     *       @OA\Property(property="oauthAuthorizationApiVersion", type="integer", description="Version of the internal OAuth authorization API implemented by this instance"),
      *       @OA\Property(property="config", type="object", description="Configuration options for frontend webapp"),
      *     ))
      * )
@@ -86,6 +88,10 @@ class ServerController extends RestController {
                 'name' => $dt->getTimezone()->getName(),
                 'offset' => $dt->getOffset(),
             ],
+            // Advertised on every API version: this is a fact about the
+            // running build (it implements the internal OAuth authorization
+            // contract), not about the requested API version.
+            'oauthAuthorizationApiVersion' => OAuthAuthorizationApi::VERSION,
         ];
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $user = $this->getUser();

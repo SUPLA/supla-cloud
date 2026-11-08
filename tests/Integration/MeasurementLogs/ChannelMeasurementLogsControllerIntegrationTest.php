@@ -912,7 +912,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertArrayHasKey('min', $log);
         $this->assertArrayHasKey('max', $log);
         $this->assertArrayHasKey('avg', $log);
-        $this->assertSame($log['min'], floatval($log['min']));
+        $this->assertIsNotString($log['min']);
+        $this->assertIsNumeric($log['min']);
     }
 
     public function testGettingCurrentHistoryLogs() {

@@ -28,6 +28,7 @@ use App\Enums\HvacIpcValueFlags;
 use App\Enums\RollerShutterStateBits;
 use App\Enums\SceneInitiatiorType;
 use App\Model\LocalSuplaCloud;
+use App\Model\CalcfgQueueEligibility;
 use App\Tests\AnyFieldSetter;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,6 +82,10 @@ class SuplaServerMock extends SuplaServer {
                 return $response;
             }
         }
+        $scenarioReply = $this->handleSleepingFixture($cmd);
+        if ($scenarioReply !== null) {
+            return $scenarioReply;
+        }
         $isTests = in_array($this->appEnv, ['e2e', 'test']);
         if (preg_match('#^IS-(IODEV|CLIENT|CHANNEL)-CONNECTED:(\d+),(\d+),?(\d+)?$#', $cmd, $match)) {
             if ($match[1] === 'CHANNEL') {
@@ -112,8 +117,8 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(CG-)?(.+?):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^(RESTART-(SUB)?DEVICE|OTA-PERFORM-UPDATE):.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
+        } elseif (preg_match('#^(RESTART-(SUB)?DEVICE|OTA-PERFORM-UPDATE):(\d+),(\d+)(?:,(\d+))?$#', $cmd, $match)) {
+            return "OK:" . ($match[1] === 'OTA-PERFORM-UPDATE' ? $match[3] : (!empty($match[2]) && !empty($match[5]) ? $match[5] : $match[4])) . "\n";
         } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
@@ -125,7 +130,7 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'properties', json_encode($properties));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
+            return "OK:$match[1]\n";
         } elseif (preg_match('#^SET-CFG-MODE-PASSWORD:(\d+),(\d+).*$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
@@ -137,7 +142,7 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'properties', json_encode($properties));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
+            return "OK:$match[2]\n";
         } elseif (preg_match('#^PAIR-SUBDEVICE:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $statuses = [
@@ -150,11 +155,11 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'pairingResult', json_encode($this->faker->randomElement($statuses)));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
-        } elseif (preg_match('#^(DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
-        } elseif (preg_match('#^IDENTIFY-(SUB)?DEVICE:.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
+            return "OK:$match[2]\n";
+        } elseif (preg_match('#^IDENTIFY-SUBDEVICE:\d+,\d+,(\d+)(?:,.*)?$#', $cmd, $match)) {
+            return "OK:$match[1]\n";
+        } elseif (preg_match('#^(DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE|FACTORY-RESET|IDENTIFY-(SUB)?DEVICE):\d+,(\d+)(?:,.*)?$#', $cmd, $match)) {
+            return "OK:$match[3]\n";
         } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE|TAKE-OCR-PHOTO|MUTE-ALARM-SOUND):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
             return "OK:$match[4]\n";
         } elseif (preg_match('#^(EXECUTE|INTERRUPT|INTERRUPT-AND-EXECUTE)-SCENE:.+$#', $cmd, $match)) {
@@ -357,6 +362,66 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         }
         return false;
+    }
+
+    private function handleSleepingFixture(string $cmd): string|false|null {
+        if ($this->appEnv !== 'dev' || !preg_match('/^([A-Z-]+):(\d+),(\d+)(?:,(\d+))?/', $cmd, $match)) {
+            return null;
+        }
+        $deviceCommands = [
+            'ENTER-CONFIGURATION-MODE' => 'enterConfigurationMode',
+            'RESTART-DEVICE' => 'restartDevice',
+            'IDENTIFY-DEVICE' => 'identifyDevice',
+            'FACTORY-RESET' => 'factoryReset',
+            'OTA-CHECK-UPDATES' => 'otaCheckUpdates',
+            'OTA-PERFORM-UPDATE' => 'otaPerformUpdate',
+            'SET-CFG-MODE-PASSWORD' => 'setCfgModePassword',
+        ];
+        $channelCommands = [
+            'MUTE-ALARM-SOUND' => 'muteAlarm',
+            'TAKE-OCR-PHOTO' => 'ocr:takePhoto',
+            'IDENTIFY-SUBDEVICE' => 'identify',
+            'RESTART-SUBDEVICE' => 'restart',
+        ];
+        $name = $match[1];
+        $unsupportedOffline = ['DEVICE-SET-TIME', 'PAIR-SUBDEVICE', 'RESET-COUNTERS', 'RECALIBRATE'];
+        $connectionCheck = in_array($name, ['IS-IODEV-CONNECTED', 'IS-CHANNEL-CONNECTED'], true);
+        if (
+            !$connectionCheck && !isset($deviceCommands[$name]) && !isset($channelCommands[$name])
+            && !in_array($name, $unsupportedOffline, true)
+        ) {
+            return null;
+        }
+        $device = $this->em->find(IODevice::class, $match[3]);
+        if (!$device || !in_array($device->getName(), ['CALCFG LEGACY SLEEPER', 'CALCFG SYNC SLEEPER'], true)) {
+            return null;
+        }
+        if ($device->getUser()->getId() !== (int) $match[2] || in_array($name, $unsupportedOffline, true)) {
+            return false;
+        }
+        if ($connectionCheck) {
+            return "OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:$match[3]\n";
+        }
+        $target = (int) $match[3];
+        if (isset($channelCommands[$name])) {
+            $channel = isset($match[4]) ? $this->em->find(IODeviceChannel::class, $match[4]) : null;
+            if (!$channel || $channel->getIoDevice()->getId() !== $device->getId()) {
+                return false;
+            }
+            $properties = $channel->getProperties();
+            $eligible = CalcfgQueueEligibility::forChannel($channel, CalcfgQueueEligibility::supportsMuteAlarm($channel), isset($properties['ocr']));
+            $allowed = $eligible[$channelCommands[$name]];
+            $target = (int) $match[4];
+        } else {
+            $allowed = CalcfgQueueEligibility::forDevice($device)[$deviceCommands[$name]];
+        }
+        if (!$allowed) {
+            return false;
+        }
+        $status = in_array($name, ['OTA-CHECK-UPDATES', 'SET-CFG-MODE-PASSWORD'], true) && $this->faker->boolean()
+            ? 'WAITING_FOR_RESULT' : 'QUEUED';
+        $timestamp = time() - ($status === 'WAITING_FOR_RESULT' ? random_int(60, 3600) : 0);
+        return "$status:$target,$timestamp\n";
     }
 
     protected function ensureCanConnect(): void {

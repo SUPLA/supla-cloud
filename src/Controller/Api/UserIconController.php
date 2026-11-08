@@ -142,13 +142,13 @@ class UserIconController extends RestController {
 
     private function adjustImageSize(ImageResize $imageFromRequest) {
         if ($imageFromRequest->getSourceHeight() !== 156 || $imageFromRequest->getSourceWidth() !== 210) {
-            $image = $imageFromRequest
-                ->resizeToHeight(156, true)
-                ->crop(210, 156);
-        } else {
-            $image = $imageFromRequest;
+            $imageFromRequest->resizeToHeight(156, true);
+            if ($imageFromRequest->getDestWidth() > 210) {
+                $imageFromRequest->crop(210, 156, true);
+            }
         }
-        return $image->getImageAsString(IMAGETYPE_PNG);
+        $imageFromRequest->interlace = 0;
+        return $imageFromRequest->getImageAsString(IMAGETYPE_PNG);
     }
 
     private function storeIcon(Request $request, callable $getImageFromRequest) {

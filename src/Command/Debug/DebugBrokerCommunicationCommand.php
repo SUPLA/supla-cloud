@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DebugBrokerCommunicationCommand extends Command {
-
     private SuplaAutodiscover $autodiscover;
     private TargetSuplaCloudRequestForwarder $requestForwarder;
     private LocalSuplaCloud $localSuplaCloud;

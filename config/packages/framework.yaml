@@ -6,6 +6,7 @@ framework:
 
   session:
     handler_id: null
+    name: '%env(string:SESSION_COOKIE_NAME)%'
     cookie_secure: auto
     cookie_samesite: lax
     storage_factory_id: session.storage.factory.native

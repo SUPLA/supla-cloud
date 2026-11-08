@@ -55,7 +55,7 @@ class AmazonAlexaParamConverter extends AbstractBodyParamConverter {
             $interval = new \DateInterval('P20Y');
         }
 
-        $date = new \DateTime;
+        $date = new \DateTime();
         $expiresAt = $date->add($interval);
 
         $aegc->setAccessToken($accessToken);

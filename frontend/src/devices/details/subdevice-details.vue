@@ -5,6 +5,8 @@
   import PromiseConfirmButton from '@/devices/details/promise-confirm-button.vue';
   import ChannelDeleteButton from '@/channels/channel-delete-button.vue';
 
+  defineOptions({compatConfig: {MODE: 3}});
+
   const props = defineProps({
     channels: Array,
   });
@@ -27,8 +29,8 @@
     <h3 v-if="subDevice && subDevice.name" class="mt-3 mb-2">{{ subDevice.name }}</h3>
     <h3 v-else class="mt-3 mb-2">{{ $t('Subdevice #{id}', {id: channels[0].subDeviceId}) }}</h3>
     <div v-if="identifyAvailable || restartAvailable || deleteAvailable" class="mb-3 d-flex">
-      <PromiseConfirmButton v-if="identifyAvailable" :action="identify" label-i18n="Identify device" class="mr-2" />
-      <PromiseConfirmButton v-if="restartAvailable" :action="restart" label-i18n="Restart device" class="mr-2" />
+      <PromiseConfirmButton v-if="identifyAvailable" :action="identify" :disabled="!channels[0].connected" label-i18n="Identify device" class="mr-2" />
+      <PromiseConfirmButton v-if="restartAvailable" :action="restart" :disabled="!channels[0].connected" label-i18n="Restart device" class="mr-2" />
       <ChannelDeleteButton v-if="deleteAvailable" :channel="channels[0]" deleting-subdevice />
     </div>
     <div v-if="subDevice" class="mb-3">

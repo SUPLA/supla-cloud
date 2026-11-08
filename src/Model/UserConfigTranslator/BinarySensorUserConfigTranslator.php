@@ -71,6 +71,9 @@ class BinarySensorUserConfigTranslator extends UserConfigTranslator {
             ChannelFunction::FLOOD_SENSOR,
             ChannelFunction::MOTION_SENSOR,
             ChannelFunction::BINARY_SENSOR,
+            ChannelFunction::SMOKE_SENSOR,
+            ChannelFunction::CARBON_MONOXIDE_SENSOR,
+            ChannelFunction::GAS_SENSOR,
         ]);
     }
 }

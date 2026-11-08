@@ -77,7 +77,7 @@ class CompositeSchedulePlanner {
                     $nextExecution = $this->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
                     $scheduleExecutions[] = $nextExecution;
                 } while ($nextExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
-            } catch (\RuntimeException|InvalidArgumentException $e) {
+            } catch (\RuntimeException | InvalidArgumentException $e) {
                 // impossible cron expression
             }
             if ($nextExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {

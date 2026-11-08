@@ -122,6 +122,8 @@ class VirtualChannelStateUpdater {
                 'pdgsz' => $log->getPdgsz(),
                 'fixing1' => $log->getFixing1(),
                 'fixing2' => $log->getFixing2(),
+                'fixing1_hourly' => $log->getFixing1Hourly(),
+                'fixing2_hourly' => $log->getFixing2Hourly(),
             ];
             foreach ($energyPriceForecastUpdates as $field => $channelIds) {
                 $query = sprintf(

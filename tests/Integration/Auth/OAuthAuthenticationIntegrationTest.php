@@ -45,7 +45,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function init() {
-        $clientManager = self::$container->get(ClientManagerInterface::class);
+        $clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $client = $clientManager->createClient();
         $client->setRedirectUris(['https://unicorns.pl']);
         $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
@@ -98,7 +98,14 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRequestForInvalidScopeResultsInRedirectionWithError() {
-        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'scope' => 'account_r unicorn']);
+        $client = $this->createHttpsClient(false);
+        $client->request('GET', '/oauth/v2/auth?' . http_build_query([
+            'client_id' => $this->client->getPublicId(),
+            'redirect_uri' => 'https://unicorns.pl',
+            'response_type' => 'code',
+            'state' => 'horse',
+            'scope' => 'account_r unicorn',
+        ]));
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirection());
         $targetUrl = $response->headers->get('Location');
@@ -118,7 +125,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRequestForInvalidRedirectUriResultsInError() {
-        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'redirect_uri' => 'https://horses.pl']);
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'redirect_uri' => 'https://horses.pl'], ['login' => false]);
         $response = $client->getResponse();
         $this->assertFalse($response->isRedirection());
         $this->assertStatusCode(400, $response);
@@ -126,10 +133,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testLogsOutAfterGrantingAccess() {
         $this->makeOAuthAuthorizeRequest();
-        $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
+        $client = $this->makeOAuthAuthorizeRequest([], ['login' => false]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
+        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {
@@ -162,6 +169,27 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('scope', $response);
         $this->assertArrayHasKey('target_url', $response);
         $this->assertEquals('account_r offline_access', $response['scope']);
+    }
+
+    public function testLegacyBrowserAuthorizationAndTokenExchangePreserveS256Binding() {
+        $verifier = str_repeat('legacy_verifier_', 4);
+        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+        $browserClient = $this->makeOAuthAuthorizeRequest([
+            'code_challenge' => $challenge,
+            'code_challenge_method' => 'S256',
+        ]);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(1, $authCodes, sprintf(
+            'OAuth browser response: %d %s %s',
+            $browserClient->getResponse()->getStatusCode(),
+            $browserClient->getResponse()->headers->get('Location'),
+            substr($browserClient->getResponse()->getContent(), 0, 3000)
+        ));
+        $this->assertSame($challenge, $authCodes[0]->getCodeChallenge());
+        $this->assertSame('S256', $authCodes[0]->getCodeChallengeMethod());
+
+        $response = $this->issueTokenBasedOnAuthCode($authCodes[0], ['code_verifier' => $verifier]);
+        $this->assertArrayHasKey('access_token', $response);
     }
 
     public function testErrorWhenWrongSecret() {

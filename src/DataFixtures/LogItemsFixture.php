@@ -25,6 +25,7 @@ use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use App\Entity\MeasurementLogs\EnergyPriceLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
@@ -75,6 +76,7 @@ class LogItemsFixture extends SuplaFixture {
         $this->createGeneralPurposeMeasurementLogItems();
         $this->entityManager->flush();
         $this->createGeneralPurposeMeterLogItems();
+        $this->createEnergyPriceLogItems();
         $this->entityManager->flush();
     }
 
@@ -412,6 +414,31 @@ class LogItemsFixture extends SuplaFixture {
             if ($this->faker->boolean(.2)) {
                 $counter = 0;
             }
+        }
+    }
+
+    private function createEnergyPriceLogItems() {
+        $date = new \DateTimeImmutable('today midnight');
+        $fixing1Hourly = 432.10;
+        $fixing2Hourly = 438.40;
+        for ($slot = 0; $slot < 96; $slot++) {
+            $dateFrom = $date->modify('+' . ($slot * 15) . ' minutes');
+            $dateTo = $dateFrom->modify('+14 minutes 59 seconds');
+            if ($slot > 0 && $slot % 4 === 0) {
+                $fixing1Hourly += ($this->faker->boolean() ? 1 : -1) * $this->faker->biasedNumberBetween(1, 100) / 100;
+                $fixing2Hourly += ($this->faker->boolean() ? 1 : -1) * $this->faker->biasedNumberBetween(1, 100) / 100;
+            }
+            $logItem = new EnergyPriceLogItem(new \DateTime($dateFrom->format(\DateTime::ATOM)), new \DateTime($dateTo->format(\DateTime::ATOM)));
+            $rce = 400 + $this->faker->biasedNumberBetween(0, 5000) / 10;
+            $fixing1 = 400 + $this->faker->biasedNumberBetween(0, 5000) / 10;
+            $fixing2 = 400 + $this->faker->biasedNumberBetween(0, 5000) / 10;
+            $logItem->setRce($rce);
+            $logItem->setPdgsz($this->faker->numberBetween(0, 3));
+            $logItem->setFixing1($fixing1);
+            $logItem->setFixing2($fixing2);
+            $logItem->setFixing1Hourly(round($fixing1Hourly, 2));
+            $logItem->setFixing2Hourly(round($fixing2Hourly, 2));
+            $this->entityManager->persist($logItem);
         }
     }
 }

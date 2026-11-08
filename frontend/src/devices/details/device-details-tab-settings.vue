@@ -37,6 +37,8 @@
 </template>
 
 <script setup>
+  defineOptions({compatConfig: {MODE: 3}});
+
   import DeviceDetailsTabBasicSettings from '@/devices/details/device-details-tab-basic-settings.vue';
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
@@ -55,6 +57,7 @@
   import DeviceDetailsTabSettingsDatetime from '@/devices/details/device-details-tab-settings-datetime.vue';
 
   const props = defineProps({device: Object});
+  const emit = defineEmits(['pending-change']);
 
   const availableComponents = [
     {
@@ -97,6 +100,7 @@
 
   function onNewChanges(changes) {
     editableConfig.value = {...editableConfig.value, ...changes};
+    emit('pending-change', hasPendingChanges.value);
   }
 
   const cloneConfig = () => {
@@ -107,6 +111,7 @@
       ...props.device.config,
     });
     originalConfig.value = deepCopy(editableConfig.value);
+    emit('pending-change', false);
   };
 
   const hasPendingChanges = computed(() => JSON.stringify(editableConfig.value) !== JSON.stringify(originalConfig.value));
@@ -135,9 +140,7 @@
         if (error.body?.dependencies) {
           dependenciesThatWillBeDisabled.value = error.body;
         } else {
-          warningNotification(
-            'The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.'
-          );
+          warningNotification('channel_config_changed_warning'); // i18n
         }
       }
     } finally {

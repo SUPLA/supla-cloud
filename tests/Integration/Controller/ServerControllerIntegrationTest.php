@@ -112,6 +112,42 @@ class ServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('OK', $content->serverStatus);
     }
 
+    public function testServerInfoAdvertisesOauthAuthorizationApiVersion() {
+        $client = self::createClient();
+        $client->followRedirects(true);
+        $client->request('GET', '/api/server-info');
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        // v2.1 wraps the payload in 'data'; the capability must be present on
+        // every API version, as it is a fact about this build, not about the
+        // requested API version.
+        $this->assertSame(1, $content['data']['oauthAuthorizationApiVersion']);
+    }
+
+    public function testServerInfoAdvertisesOauthAuthorizationApiVersionForVersion22() {
+        $client = self::createClient();
+        $client->followRedirects(true);
+        $client->request('GET', '/api/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        $this->assertSame(1, $content['oauthAuthorizationApiVersion']);
+        // the capability is an integer contract version, independent of the
+        // generic application version string
+        $this->assertIsString($content['cloudVersion']);
+    }
+
+    public function testServerInfoAdvertisesOauthAuthorizationApiVersionForVersion24() {
+        $client = self::createClient();
+        $client->followRedirects(true);
+        $client->request('GET', '/api/v2.4.0/server-info');
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent(), true);
+        $this->assertSame(1, $content['oauthAuthorizationApiVersion']);
+    }
+
     protected static function createClient(array $options = [], array $server = []) {
         self::ensureKernelShutdown();
         return parent::createClient($options, $server);

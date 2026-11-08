@@ -168,7 +168,7 @@ trait UserFixtures {
         return $schedule;
     }
 
-    protected function createScene(Location $location, ActionableSubject...$subjectForOperation): Scene {
+    protected function createScene(Location $location, ActionableSubject ...$subjectForOperation): Scene {
         $scene = new Scene($this->freshEntity($location));
         $operations = array_map(
             fn(ActionableSubject $subject) => new SceneOperation(

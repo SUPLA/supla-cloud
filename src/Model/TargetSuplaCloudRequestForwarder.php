@@ -23,20 +23,26 @@ use Symfony\Component\HttpFoundation\Request;
 class TargetSuplaCloudRequestForwarder {
     private SuplaBrokerHttpClient $brokerHttpClient;
     private RealClientIpResolver $clientIpResolver;
+    private TrustedPeerDestinationSelector $trustedPeerDestinationSelector;
 
     /**
      * For the sake of tests.
-     * @var callable
+     * @var callable|null
      */
     public static $requestExecutor;
 
-    public function __construct(SuplaBrokerHttpClient $brokerHttpClient, RealClientIpResolver $clientIpResolver) {
+    public function __construct(
+        SuplaBrokerHttpClient $brokerHttpClient,
+        RealClientIpResolver $clientIpResolver,
+        TrustedPeerDestinationSelector $trustedPeerDestinationSelector
+    ) {
         $this->brokerHttpClient = $brokerHttpClient;
         $this->clientIpResolver = $clientIpResolver;
+        $this->trustedPeerDestinationSelector = $trustedPeerDestinationSelector;
     }
 
     public function issueWebappToken(TargetSuplaCloud $target, string $username, string $password): array {
-        return $this->sendRequest($target, 'webapp-tokens', ['username' => $username, 'password' => $password]);
+        return $this->sendBrokerRequest($target, 'webapp-tokens', ['username' => $username, 'password' => $password]);
     }
 
     public function issueOAuthToken(TargetSuplaCloud $target, Request $request, array $mappedClientData): array {
@@ -50,27 +56,32 @@ class TargetSuplaCloudRequestForwarder {
             'client_secret' => $mappedClientData['secret'],
         ]);
 
-        return $this->sendRequest($target, '/oauth/v2/token', $inputData);
+        return $this->sendBrokerRequest($target, '/oauth/v2/token', $inputData);
+    }
+
+    /** Forward a fresh-password authorization request to its trusted owner. */
+    public function authorizeOAuth(TargetSuplaCloud $target, array $authorizationData): array {
+        return $this->sendBrokerRequest($target, '/api/internal/oauth/authorize', $authorizationData);
     }
 
     public function resetPasswordToken(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'forgotten-password', ['email' => $username]);
+        return $this->sendBrokerRequest($target, 'forgotten-password', ['email' => $username]);
     }
 
     public function resendActivationEmail(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'register-resend', ['email' => $username]);
+        return $this->sendBrokerRequest($target, 'register-resend', ['email' => $username]);
     }
 
     public function requestUserDeletion(TargetSuplaCloud $target, string $username, string $password): array {
-        return $this->sendRequest($target, 'account-deletion', ['username' => $username, 'password' => $password], 'PUT');
+        return $this->sendBrokerRequest($target, 'account-deletion', ['username' => $username, 'password' => $password], 'PUT');
     }
 
     public function getUserInfo(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'user-info', ['username' => $username], 'PATCH');
+        return $this->sendBrokerRequest($target, 'user-info', ['username' => $username], 'PATCH');
     }
 
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
-        return $this->sendRequest($target, 'register', $request->request->all());
+        return $this->sendBrokerRequest($target, 'register', $request->request->all());
     }
 
     public function getInfo(TargetSuplaCloud $target, array $headers = []): ?array {
@@ -82,15 +93,47 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
-    private function sendRequest(
+    /**
+     * Probe a submitted origin only for private-cloud registration. This
+     * narrow exception may read public server metadata, but does not establish
+     * peer trust and never sends broker credentials.
+     * @return array<string, mixed>|null
+     */
+    public function getRegistrationInfo(string $submittedOrigin): ?array {
+        $origin = TargetSuplaCloud::canonicalOrigin($submittedOrigin);
+        if (self::$requestExecutor) {
+            [$response, $status] = (self::$requestExecutor)($origin, 'server-info', null);
+        } else {
+            $response = $this->brokerHttpClient->requestTrusted(
+                $origin . '/api/v' . ApiVersions::V2_3 . '/server-info',
+                null,
+                $status
+            );
+        }
+        return $status === 200 ? $response : null;
+    }
+
+    private function sendBrokerRequest(
         TargetSuplaCloud $target,
         string $apiEndpoint,
         ?array $data = null,
         ?string $method = null,
         array $headers = []
     ): array {
+        return $this->sendRequest($target, $apiEndpoint, $data, $method, $headers, true);
+    }
+
+    private function sendRequest(
+        TargetSuplaCloud $target,
+        string $apiEndpoint,
+        ?array $data = null,
+        ?string $method = null,
+        array $headers = [],
+        bool $withBrokerToken = false
+    ): array {
+        $destination = $this->trustedPeerDestinationSelector->select($target);
         if (self::$requestExecutor) {
-            return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
+            return (self::$requestExecutor)($destination->getOrigin(), $apiEndpoint, $data);
         }
         if (!str_starts_with($apiEndpoint, '/')) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
@@ -98,8 +141,19 @@ class TargetSuplaCloudRequestForwarder {
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers['X-Real-Ip'] = $ip;
         }
-        $fullUrl = $target->getAddress() . $apiEndpoint;
-        $response = $this->brokerHttpClient->request($fullUrl, $data, $responseStatus, $headers, $method, 'SUPLA-Broker-Token');
+        $fullUrl = $destination->getOrigin() . $apiEndpoint;
+        if ($withBrokerToken) {
+            $response = $this->brokerHttpClient->requestTrustedWithStoredToken(
+                $fullUrl,
+                $data,
+                $responseStatus,
+                $headers,
+                $method,
+                'SUPLA-Broker-Token'
+            );
+        } else {
+            $response = $this->brokerHttpClient->requestTrusted($fullUrl, $data, $responseStatus, $headers, $method);
+        }
         return [$response, $responseStatus];
     }
 }

@@ -127,9 +127,11 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
             }
             $subject->setUserConfigValue('usedCTType', $type);
         }
-        if (array_key_exists('usedPhaseLedType', $config)
+        if (
+            array_key_exists('usedPhaseLedType', $config)
             || array_key_exists('phaseLedParam1', $config)
-            || array_key_exists('phaseLedParam2', $config)) {
+            || array_key_exists('phaseLedParam2', $config)
+        ) {
             $currentLedType = $subject->getUserConfigValue('usedPhaseLedType');
             $type = ($config['usedPhaseLedType'] ?? null) ?: $currentLedType;
             if ($type && $type !== $currentLedType) {

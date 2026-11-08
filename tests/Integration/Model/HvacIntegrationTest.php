@@ -613,11 +613,13 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 0], 'ACTION-TURN-OFF:1,1,4'],
             [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 100], 'ACTION-TURN-OFF-WITH-DURATION:1,1,3,100'],
             [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 31535000000], 'ACTION-TURN-OFF-WITH-DURATION:1,1,4,31535000000'],
-            [3, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,3'],
-            [4, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,4'],
-            [8, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,8'],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3'],
-            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4'],
+            [3, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-SWITCH-TO-PROGRAM-MODE:1,1,3'],
+            [4, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-SWITCH-TO-PROGRAM-MODE:1,1,4'],
+            [8, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-SWITCH-TO-PROGRAM-MODE:1,1,8'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-SWITCH-TO-MANUAL-MODE:1,1,3'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-SWITCH-TO-MANUAL-MODE:1,1,4'],
+            [3, ['action' => 'SWITCH_TO_PROGRAM_MODE'], 'ACTION-SWITCH-TO-PROGRAM-MODE:1,1,3'],
+            [3, ['action' => 'SWITCH_TO_MANUAL_MODE'], 'ACTION-SWITCH-TO-MANUAL-MODE:1,1,3'],
             [3, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,3,2250'],
             [4, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,4,2250'],
             [8, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,8,2250'],
@@ -672,7 +674,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->hvacChannel->getId(),
-            'actionId' => ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE,
+            'actionId' => ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE,
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
@@ -681,7 +683,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
         $config = $scheduleFromResponse['config'][0];
         $this->assertEquals('2 2 * * *', $config['crontab']);
-        $this->assertEquals(ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE, $config['action']['id']);
+        $this->assertEquals(ChannelFunctionAction::SWITCH_TO_PROGRAM_MODE, $config['action']['id']);
     }
 
     /** @dataProvider stateExamples */

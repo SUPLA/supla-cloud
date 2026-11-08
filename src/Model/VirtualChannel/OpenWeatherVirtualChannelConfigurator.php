@@ -152,4 +152,8 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
     public static function fieldNameToFunction(string $fieldName): ChannelFunction {
         return new ChannelFunction(self::CONFIGS[$fieldName]['function']);
     }
+
+    public static function getSupportedFields(): array {
+        return array_keys(self::CONFIGS);
+    }
 }

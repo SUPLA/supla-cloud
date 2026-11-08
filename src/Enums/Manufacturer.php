@@ -34,9 +34,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static Manufacturer FAKRO()
  * @method static Manufacturer PEVEKO()
  * @method static Manufacturer WEKTA()
- * @method static Manufacturer STA_STSTEM()
+ * @method static Manufacturer STA_SYSTEM()
  * @method static Manufacturer DGF()
  * @method static Manufacturer COMELIT()
+ * @method static Manufacturer POLIER()
+ * @method static Manufacturer ERGO_ENERGIA()
+ * @method static Manufacturer SOMEF()
+ * @method static Manufacturer AURATON()
+ * @method static Manufacturer HPD()
+ * @method static Manufacturer LUKFUD()
+ * @method static Manufacturer WALA()
+ * @method static Manufacturer PROVENT()
+ * @method static Manufacturer SMARTBOB()
  */
 final class Manufacturer extends Enum {
     const UNKNOWN = 0;
@@ -54,6 +63,15 @@ final class Manufacturer extends Enum {
     const STA_SYSTEM = 12;
     const DGF = 13;
     const COMELIT = 14;
+    const POLIER = 15;
+    const ERGO_ENERGIA = 16;
+    const SOMEF = 17;
+    const AURATON = 18;
+    const HPD = 19;
+    const LUKFUD = 20;
+    const WALA = 21;
+    const PROVENT = 22;
+    const SMARTBOB = 23;
 
     public function __construct($value) {
         $value = $value && $this->isValid($value) ? $value : 0;
@@ -92,6 +110,15 @@ final class Manufacturer extends Enum {
             self::STA_SYSTEM => 'STA SYSTEM',
             self::DGF => 'DIGI GLASS FACTORY',
             self::COMELIT => 'COMELIT',
+            self::POLIER => 'POLIER',
+            self::ERGO_ENERGIA => 'Ergo Energia',
+            self::SOMEF => 'SOMEF',
+            self::AURATON => 'AURATON',
+            self::HPD => 'HPD',
+            self::LUKFUD => 'LUKFUD',
+            self::WALA => 'WALA',
+            self::PROVENT => 'Pro-Vent',
+            self::SMARTBOB => 'SmartBOB',
         ];
     }
 

@@ -19,6 +19,7 @@ namespace App\Serialization;
 
 use App\Entity\Main\IODevice;
 use App\Model\ApiVersions;
+use App\Model\CalcfgQueueEligibility;
 use App\Model\CurrentUserAware;
 use App\Model\Schedule\ScheduleManager;
 use App\Model\TimeProvider;
@@ -57,6 +58,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $ioDevice, array $context) {
+        $normalized['calcfgQueueableActions'] = CalcfgQueueEligibility::forDevice($ioDevice);
         $normalized['locationId'] = $ioDevice->getLocation()->getId();
         $normalized['originalLocationId'] = $ioDevice->getOriginalLocation() ? $ioDevice->getOriginalLocation()->getId() : null;
         if ($this->isSerializationGroupRequested('connected', $context)) {

@@ -45,6 +45,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * @OA\Schema(
@@ -87,9 +88,11 @@ class IODeviceController extends RestController {
 
     /** @var IODeviceChannelRepository */
     private $iodeviceRepository;
+    private MessageBusInterface $messageBus;
 
-    public function __construct(IODeviceRepository $iodeviceRepository) {
+    public function __construct(IODeviceRepository $iodeviceRepository, MessageBusInterface $messageBus) {
         $this->iodeviceRepository = $iodeviceRepository;
+        $this->messageBus = $messageBus;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -358,7 +361,9 @@ class IODeviceController extends RestController {
      *          @OA\Property(property="action", type="string"),
      *       )
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Device"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      *    ),
      * )
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
@@ -368,28 +373,29 @@ class IODeviceController extends RestController {
     public function patchIodeviceAction(Request $request, IODevice $ioDevice, SuplaAutodiscover $ad) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
-        $device = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
+        [$device, $actionResult] = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
             $action = $body['action'];
+            $result = null;
             if ($action === 'enterConfigurationMode') {
                 Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
-                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'restartDevice') {
                 Assertion::true($ioDevice->getFlags()['remoteRestartAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'RESTART-DEVICE');
-                Assertion::true($result, 'Could not restart the device.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not restart the device.'); // i18n
             } elseif ($action === 'otaCheckUpdates') {
                 Assertion::true($ioDevice->getFlags()['automaticFirmwareUpdatesSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-CHECK-UPDATES');
-                Assertion::true($result, 'Could not check updates.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not check updates.'); // i18n
             } elseif ($action === 'otaPerformUpdate') {
                 Assertion::true($ioDevice->getFlags()['automaticFirmwareUpdatesSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-PERFORM-UPDATE');
-                Assertion::true($result, 'Could not perform firmware update.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not perform firmware update.'); // i18n
             } elseif ($action === 'factoryReset') {
                 Assertion::true($ioDevice->getFlags()['factoryResetSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'FACTORY-RESET');
-                Assertion::true($result, 'Could not perform factory reset.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not perform factory reset.'); // i18n
             } elseif ($action === 'setCfgModePassword') {
                 $userToken = $this->getCurrentUserToken();
                 Assertion::true($this->isGranted('ROLE_WEBAPP'), 'Device password can be changed from the web interface only.');
@@ -399,15 +405,15 @@ class IODeviceController extends RestController {
                     ->minLength(5, 'Password is too short.') // i18n
                     ->maxLength(64, 'Password is too long.'); // i18n
                 $result = $this->suplaServer->deviceAction($ioDevice, 'SET-CFG-MODE-PASSWORD', [base64_encode($body['password'])]);
-                Assertion::true($result, 'Could not set device password.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not set device password.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true($ioDevice->getFlags()['pairingSubdevicesAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'PAIR-SUBDEVICE');
-                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'identifyDevice') {
                 Assertion::true($ioDevice->getFlags()['identifyDeviceAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'IDENTIFY-DEVICE');
-                Assertion::true($result, 'Could not send the identify command.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not send the identify command.'); // i18n
             } elseif ($action === 'setTime') {
                 Assertion::keyExists($body, 'time', 'Missing time.');
                 $timestamp = strtotime($body['time']);
@@ -418,20 +424,20 @@ class IODeviceController extends RestController {
                 $suplaDayOfWeek = intval($dateTime->format('w')) + 1; // 1 - Sunday, ... 7 - Monday
                 $params = $dateTime->format("Y,n,j,$suplaDayOfWeek,G,i,s,") . base64_encode($timezoneName);
                 $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$params]);
-                Assertion::true($result, 'Could not set the device time.'); // i18n
+                Assertion::true($result->isAccepted(), 'Could not set the device time.'); // i18n
             } elseif ($action === 'unlock') {
                 Assertion::keyExists($body, 'email');
                 Assertion::email($body['email']);
                 $unlockCode = $ad->requestDeviceUnlockCode($ioDevice, $body['email']);
                 $email = new ConfirmDeviceUnlockEmailNotification($body['email'], $ioDevice, $unlockCode);
-                $this->dispatchMessage($email);
+                $this->messageBus->dispatch($email);
             } else {
                 throw new ApiException('Invalid action given.');
             }
             $em->persist($ioDevice);
-            return $ioDevice;
+            return [$ioDevice, $result];
         });
-        return $this->getIodeviceAction($request, $device->clearRelationsCount());
+        return $this->withActionResult($this->getIodeviceAction($request, $device->clearRelationsCount()), $actionResult, $request);
     }
 
     /**
@@ -494,7 +500,7 @@ class IODeviceController extends RestController {
         $this->transactional(function (EntityManagerInterface $em) use ($hiddenConfigTranslator, $channelDependencies, $ioDevice) {
             $hiddenConfigTranslator->setIdsToIgnore(EntityUtils::mapToIds($ioDevice->getChannels()));
             foreach ($ioDevice->getChannels() as $channel) {
-                $channelDependencies->clearDependencies($channel);
+                $channelDependencies->clearDependencies($channel, true);
             }
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);
@@ -525,7 +531,7 @@ class IODeviceController extends RestController {
             $em->persist($device);
         });
         $email = new ConfirmationAfterDeviceUnlockEmailNotification($device);
-        $this->dispatchMessage($email);
+        $this->messageBus->dispatch($email);
         return $this->view($device);
     }
 }

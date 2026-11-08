@@ -1,7 +1,6 @@
 import {printAsciiLogoAndVersion} from './logo.js';
 import {version} from './version.js';
 import ora from 'ora';
-import {deleteAsync, deleteSync} from 'del';
 import * as fs from 'node:fs';
 import * as async from 'async';
 import * as child from 'child_process';
@@ -26,7 +25,7 @@ async function start() {
 async function clearVendorDirectory() {
   const spinner = ora({text: 'Cleaning vendor directory.', color: 'yellow'}).start();
   try {
-    await deleteAsync('vendor/**/.git');
+    deleteEntriesNamed('vendor', '.git');
     spinner.succeed('Vendor directory cleaned.');
     await clearReleaseDirectory();
   } catch (error) {
@@ -38,7 +37,7 @@ async function clearVendorDirectory() {
 async function clearReleaseDirectory() {
   const spinner = ora({text: 'Deleting release directory.', color: 'yellow'}).start();
   try {
-    await deleteAsync('release');
+    fs.rmSync('release', {recursive: true, force: true});
     spinner.succeed('Release directory deleted.');
     copyToReleaseDirectory();
   } catch (error) {
@@ -91,12 +90,25 @@ function copySingleRequiredFiles() {
 }
 
 function clearLocalConfigFiles() {
-  let pathsToDelete = ['release/**/.gitignore'];
+  deleteEntriesNamed('release', '.gitignore');
   if (process.env.NODE_ENV !== 'development') {
-    pathsToDelete.push('release/src/DataFixtures');
-    pathsToDelete.push('release/src/Command/Dev');
+    fs.rmSync('release/src/DataFixtures', {recursive: true, force: true});
+    fs.rmSync('release/src/Command/Dev', {recursive: true, force: true});
   }
-  deleteSync(pathsToDelete);
+}
+
+function deleteEntriesNamed(directory, name) {
+  if (!fs.existsSync(directory)) {
+    return;
+  }
+  for (const entry of fs.readdirSync(directory, {withFileTypes: true})) {
+    const path = `${directory}/${entry.name}`;
+    if (entry.name === name) {
+      fs.rmSync(path, {recursive: true, force: true});
+    } else if (entry.isDirectory()) {
+      deleteEntriesNamed(path, name);
+    }
+  }
 }
 
 function createZipArchive() {

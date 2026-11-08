@@ -36,6 +36,12 @@ namespace App\Enums;
  * @method static ChannelFlags RGBW_COMMANDS_SUPPORTED()
  * @method static ChannelFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  * @method static ChannelFlags HAS_EXTENDED_CHANNEL_STATE()
+ * @method static ChannelFlags BUTTON_MODE_SUPPORTED()
+ * @method static ChannelFlags RELAY_MODE_START_SUPPORTED()
+ * @method static ChannelFlags RELAY_MODE_FORCED_SUPPORTED()
+ * @method static ChannelFlags RELAY_MODE_AUTOMATIC_SUPPORTED()
+ * @method static ChannelFlags RELAY_MODE_NOT_SET_SUPPORTED()
+ * @method static ChannelFlags BUTTON_TEMPORARY_UNLOCK_SUPPORTED()
  */
 final class ChannelFlags extends ChannelBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -63,4 +69,11 @@ final class ChannelFlags extends ChannelBits {
     const RGBW_COMMANDS_SUPPORTED = 0x0100;
     const ALWAYS_ALLOW_CHANNEL_DELETION = 0x0200;
     const HAS_EXTENDED_CHANNEL_STATE = 0x00010000;
+    /** @see https://github.com/SUPLA/supla-core/blob/1e7cdb628/supla-common/proto.h#L687 */
+    const BUTTON_MODE_SUPPORTED = 0x100000000;
+    const RELAY_MODE_START_SUPPORTED = 0x200000000;
+    const RELAY_MODE_FORCED_SUPPORTED = 0x400000000;
+    const RELAY_MODE_AUTOMATIC_SUPPORTED = 0x800000000;
+    const RELAY_MODE_NOT_SET_SUPPORTED = 0x1000000000;
+    const BUTTON_TEMPORARY_UNLOCK_SUPPORTED = 0x2000000000;
 }

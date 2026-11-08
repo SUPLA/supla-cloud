@@ -13,6 +13,7 @@
     >
       <p>{{ $t('This action will result in restarting the device. It will not be available for a while.') }}</p>
     </modal-confirm>
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
@@ -22,22 +23,36 @@
   import {useDevicesStore} from '@/stores/devices-store';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
 
   export default {
-    components: {ModalConfirm},
+    compatConfig: {MODE: 3},
+    components: {ModalConfirm, CalcfgSubmissionFeedback},
     props: ['device'],
     data() {
       return {
         restartConfirm: false,
         loading: false,
+        submissionMessage: '',
       };
     },
     methods: {
       restartDevice() {
         this.loading = true;
+        this.submissionMessage = '';
         api
           .patch('iodevices/' + this.device.id, {action: 'restartDevice'})
-          .then(() => setTimeout(() => this.assumeEntered(), 5000))
+          .then((response) => {
+            const result = getCalcfgActionResult(response);
+            this.submissionMessage = getCalcfgSubmissionMessage(result) || '';
+            if (this.submissionMessage) {
+              this.restartConfirm = false;
+              this.loading = false;
+            } else {
+              setTimeout(() => this.assumeEntered(), 5000);
+            }
+          })
           .catch(() => (this.loading = false));
       },
       assumeEntered() {
@@ -52,7 +67,7 @@
         return this.devices[this.device.id]?.connected;
       },
       disabledReason() {
-        if (!this.isConnected) {
+        if (!canSubmitCalcfgAction({...this.device, connected: this.isConnected}, 'restartDevice')) {
           return this.$t('Device is disconnected.');
         } else if (this.device.hasPendingChanges) {
           return this.$t('Save or discard configuration changes first.');

@@ -21,6 +21,7 @@ use App\Auth\ForwardRequestToTargetCloudException;
 use App\Model\TargetSuplaCloudRequestForwarder;
 use FOS\OAuthServerBundle\Controller\TokenController;
 use OAuth2\OAuth2;
+use OAuth2\OAuth2ServerException;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,6 +69,11 @@ class BrokerTokenController extends TokenController {
      * @Route("/api/oauth/v2/token", methods={"GET", "POST"})
      */
     public function tokenAction(Request $request): Response {
+        if ($request->query->has('code_verifier')) {
+            return (new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, OAuth2::ERROR_INVALID_REQUEST))
+                ->getHttpResponse();
+        }
+
         try {
             return parent::tokenAction($request);
         } catch (ForwardRequestToTargetCloudException $e) {

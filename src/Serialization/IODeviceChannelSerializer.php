@@ -20,6 +20,7 @@ namespace App\Serialization;
 use App\Entity\EntityUtils;
 use App\Entity\Main\IODeviceChannel;
 use App\Model\ApiVersions;
+use App\Model\CalcfgQueueEligibility;
 use App\Model\ChannelStateGetter\ChannelStateGetter;
 use App\Model\CurrentUserAware;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
@@ -54,6 +55,12 @@ class IODeviceChannelSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $channel, array $context) {
+        $config = $this->configTranslator->getPublicConfig($channel);
+        $normalized['calcfgQueueableActions'] = CalcfgQueueEligibility::forChannel(
+            $channel,
+            CalcfgQueueEligibility::supportsMuteAlarm($channel),
+            is_array($config) ? array_key_exists('ocr', $config) : property_exists($config, 'ocr')
+        );
         $normalized['iodeviceId'] = $channel->getIoDevice()->getId();
         $normalized['locationId'] = $channel->getLocation()->getId();
         $normalized['functionId'] = $channel->getFunction()->getId();
@@ -68,14 +75,16 @@ class IODeviceChannelSerializer extends AbstractSerializer {
                 $normalized['state'] = new JsonArrayObject($state);
             }
         }
-        if (!isset($normalized['relationsCount']) && (
+        if (
+            !isset($normalized['relationsCount']) && (
                 $this->isSerializationGroupRequested('channel.relationsCount', $context)
                 || $this->isSerializationGroupRequested('subject.relationsCount', $context)
-            )) {
+            )
+        ) {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $normalized['config'] = $this->configTranslator->getPublicConfig($channel);
+            $normalized['config'] = $config;
             if ($this->isSerializationGroupRequested('channel.actionTriggers', $context)) {
                 $actionTriggers = $this->channelRepository->findActionTriggers($channel);
                 $normalized['actionTriggersIds'] = EntityUtils::mapToIds($actionTriggers);

@@ -51,8 +51,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction TURN_OFF_WITH_DURATION()
  * @method static ChannelFunctionAction SET_RGBW_PARAMETERS()
  * @method static ChannelFunctionAction HVAC_SET_PARAMETERS()
- * @method static ChannelFunctionAction HVAC_SWITCH_TO_PROGRAM_MODE()
- * @method static ChannelFunctionAction HVAC_SWITCH_TO_MANUAL_MODE()
+ * @method static ChannelFunctionAction SWITCH_TO_PROGRAM_MODE()
+ * @method static ChannelFunctionAction SWITCH_TO_MANUAL_MODE()
  * @method static ChannelFunctionAction HVAC_SET_TEMPERATURES()
  * @method static ChannelFunctionAction HVAC_SET_TEMPERATURE()
  * @method static ChannelFunctionAction OPEN_CLOSE()
@@ -98,8 +98,8 @@ final class ChannelFunctionAction extends Enum {
     const STEP_BY_STEP = 160;
 
     const HVAC_SET_PARAMETERS = 230;
-    const HVAC_SWITCH_TO_PROGRAM_MODE = 231;
-    const HVAC_SWITCH_TO_MANUAL_MODE = 232;
+    const SWITCH_TO_PROGRAM_MODE = 231;
+    const SWITCH_TO_MANUAL_MODE = 232;
     const HVAC_SET_TEMPERATURES = 233;
     const HVAC_SET_TEMPERATURE = 234;
 
@@ -113,6 +113,11 @@ final class ChannelFunctionAction extends Enum {
     const AT_DISABLE_LOCAL_FUNCTION = 10200;
 
     private string $customCaption = '';
+
+    private static $deprecatedNames = [
+        'HVAC_SWITCH_TO_PROGRAM_MODE' => 'SWITCH_TO_PROGRAM_MODE',
+        'HVAC_SWITCH_TO_MANUAL_MODE' => 'SWITCH_TO_MANUAL_MODE',
+    ];
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -215,8 +220,8 @@ final class ChannelFunctionAction extends Enum {
             self::AT_DISABLE_LOCAL_FUNCTION => 'Disable local function', // i18n
             self::AT_FORWARD_OUTSIDE => 'Publish to integrations', // i18n
             self::HVAC_SET_PARAMETERS => 'Set HVAC parameters', // i18n
-            self::HVAC_SWITCH_TO_PROGRAM_MODE => 'Switch to program mode', // i18n
-            self::HVAC_SWITCH_TO_MANUAL_MODE => 'Switch to manual mode', // i18n
+            self::SWITCH_TO_PROGRAM_MODE => 'Switch to program mode', // i18n
+            self::SWITCH_TO_MANUAL_MODE => 'Switch to manual mode', // i18n
             self::HVAC_SET_TEMPERATURES => 'Adjust temperatures', // i18n
             self::HVAC_SET_TEMPERATURE => 'Adjust temperature', // i18n
         ];
@@ -228,6 +233,7 @@ final class ChannelFunctionAction extends Enum {
             return new self(intval($action));
         } else {
             $action = str_replace('-', '_', strtoupper($action));
+            $action = self::$deprecatedNames[$action] ?? $action;
             Assertion::true(self::isValidKey($action), 'Invalid action: ' . $action);
             return self::$action();
         }

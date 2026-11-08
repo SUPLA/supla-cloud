@@ -46,6 +46,28 @@ class AuthCode extends BaseAuthCode {
      */
     protected ?UserInterface $user;
 
+    /** Nullable for authorization codes issued before PKCE support or without PKCE. @ORM\Column(type="string", length=128, nullable=true) */
+    private ?string $codeChallenge = null;
+
+    /** Nullable for authorization codes issued before PKCE support or without PKCE. @ORM\Column(type="string", length=20, nullable=true) */
+    private ?string $codeChallengeMethod = null;
+
+    public function getCodeChallenge(): ?string {
+        return $this->codeChallenge;
+    }
+
+    public function setCodeChallenge(?string $codeChallenge): void {
+        $this->codeChallenge = $codeChallenge;
+    }
+
+    public function getCodeChallengeMethod(): ?string {
+        return $this->codeChallengeMethod;
+    }
+
+    public function setCodeChallengeMethod(?string $codeChallengeMethod): void {
+        $this->codeChallengeMethod = $codeChallengeMethod;
+    }
+
     public function setScope($scope) {
         parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());
     }

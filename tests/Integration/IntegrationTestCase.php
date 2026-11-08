@@ -44,6 +44,12 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     /** @before */
     public function prepareIntegrationTest() {
+        $projectDir = dirname(__DIR__, 2);
+        $spaIndex = $projectDir . '/public/index.html';
+        if (!file_exists($spaIndex) && !copy($projectDir . '/frontend/index.html', $spaIndex)) {
+            throw new \RuntimeException('Unable to prepare the SPA entry point for integration tests.');
+        }
+
         if (!$this->requires()) {
             TestTimeProvider::reset();
             TestMailerTransport::reset();
@@ -122,6 +128,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $application = new Application($client->getKernel());
             $application->setAutoExit(false);
         }
+        $application->setSignalsToDispatchEvent();
         $output = new BufferedOutput();
         $input->setInteractive(false);
         $error = $application->run($input, $output);

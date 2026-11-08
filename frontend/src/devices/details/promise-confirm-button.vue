@@ -12,7 +12,10 @@
       type: String,
       default: 'Success', // i18n
     },
+    disabled: Boolean,
   });
+
+  defineOptions({compatConfig: {MODE: 3}});
 
   const button = ref(null);
   const {width} = useElementBounding(button);
@@ -43,6 +46,7 @@
     type="button"
     :class="['btn', actionSuccess ? 'btn-green' : 'btn-white']"
     :style="{minWidth: ((executingAction || actionSuccess) && fixedWidth) || 'auto'}"
+    :disabled="disabled || executingAction || actionSuccess"
     @click="executeAction()"
   >
     <button-loading-dots v-if="executingAction" />

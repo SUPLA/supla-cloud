@@ -26,6 +26,26 @@ class DefaultControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
+    public function testGettingOAuthAuthorizationServerMetadata(): void {
+        self::ensureKernelShutdown();
+        $client = self::createClient();
+        $issuer = rtrim(self::getContainer()->getParameter('supla.broker_public_url'), '/');
+        $client->request('GET', '/.well-known/oauth-authorization-server');
+
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSame('application/json', $response->headers->get('Content-Type'));
+        $this->assertSame([
+            'issuer' => $issuer,
+            'authorization_endpoint' => $issuer . '/oauth/v2/auth',
+            'token_endpoint' => $issuer . '/oauth/v2/token',
+            'response_types_supported' => ['code'],
+            'grant_types_supported' => ['authorization_code', 'refresh_token'],
+            'code_challenge_methods_supported' => ['S256'],
+            'token_endpoint_auth_methods_supported' => ['client_secret_basic', 'client_secret_post'],
+        ], json_decode($response->getContent(), true));
+    }
+
     public function testGettingApiDocs() {
         self::ensureKernelShutdown();
         $client = self::createClient();

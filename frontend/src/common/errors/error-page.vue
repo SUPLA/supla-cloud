@@ -16,20 +16,17 @@
         </div>
       </div>
       <div class="my-3">
-        <router-link to="/">{{ $t('Start from the homepage.') }}</router-link>
+        <a href="/">{{ $t('Start from the homepage.') }}</a>
       </div>
       <slot></slot>
     </div>
   </div>
 </template>
 
-<script>
-  export default {
-    props: ['headerI18n', 'messageI18n', 'icon', 'guruMeditation', 'statusCode'],
-    data() {
-      return {
-        guruMeditationVisible: false,
-      };
-    },
-  };
+<script setup>
+  import {ref} from 'vue';
+
+  defineProps(['headerI18n', 'messageI18n', 'icon', 'guruMeditation', 'statusCode']);
+
+  const guruMeditationVisible = ref(false);
 </script>

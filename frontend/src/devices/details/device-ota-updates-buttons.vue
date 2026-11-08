@@ -17,7 +17,7 @@
     </div>
     <div class="d-flex mt-2">
       <FormButton
-        :disabled-reason="disabledReason"
+        :disabled-reason="disabledReason('otaCheckUpdates')"
         :loading="isCheckingUpdates"
         button-class="btn-default btn-xs btn-block"
         class="flex-basis-50 pr-1"
@@ -26,7 +26,7 @@
         {{ $t('Check available updates') }}
       </FormButton>
       <FormButton
-        :disabled-reason="disabledReason"
+        :disabled-reason="disabledReason('otaPerformUpdate')"
         :loading="isPerformingUpdate"
         button-class="btn-default btn-xs btn-block"
         class="flex-basis-50 pl-1"
@@ -35,6 +35,7 @@
         {{ $t('Perform firmware update') }}
       </FormButton>
     </div>
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
     <modal-confirm
       v-if="updateConfirm"
       class="modal-warning"
@@ -57,15 +58,20 @@
   import {errorNotification, successNotification} from '@/common/notifier';
   import {waitForDeviceOperation} from '@/devices/details/device-details-helpers';
   import ModalConfirm from '@/common/modal-confirm.vue';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
+
+  defineOptions({compatConfig: {MODE: 3}});
 
   const props = defineProps({device: Object});
   const devicesStore = useDevicesStore();
 
-  const disabledReason = computed(() => (props.device.connected ? '' : 'Device is disconnected.'));
+  const disabledReason = (action) => (canSubmitCalcfgAction(props.device, action) ? '' : 'Device is disconnected.');
 
   const updateConfirm = ref(false);
   const isPerformingUpdate = ref(false);
   const isCheckingUpdates = ref(false);
+  const submissionMessage = ref('');
   const updateUrl = computed(() => {
     const url = props.device?.config.otaUpdate?.url;
     if (url) {
@@ -77,8 +83,14 @@
 
   async function checkUpdates() {
     isCheckingUpdates.value = true;
+    submissionMessage.value = '';
     try {
-      await devicesApi.otaCheckUpdates(props.device.id);
+      const response = await devicesApi.otaCheckUpdates(props.device.id);
+      const message = getCalcfgSubmissionMessage(getCalcfgActionResult(response));
+      if (message) {
+        submissionMessage.value = message;
+        return;
+      }
       await promiseTimeout(1000);
       await devicesStore.fetchDevice(props.device.id);
       await waitForDeviceOperation(() => ['AVAILABLE', 'NOT_AVAILABLE'].includes(props.device.config?.otaUpdate?.status));
@@ -91,8 +103,14 @@
 
   async function performUpdate() {
     isPerformingUpdate.value = true;
+    submissionMessage.value = '';
     try {
-      await devicesApi.otaPerformUpdate(props.device.id);
+      const response = await devicesApi.otaPerformUpdate(props.device.id);
+      const message = getCalcfgSubmissionMessage(getCalcfgActionResult(response));
+      if (message) {
+        submissionMessage.value = message;
+        return;
+      }
       await promiseTimeout(5000);
       await devicesStore.fetchDevice(props.device.id);
       successNotification('Device should be checking and installing updates.'); // i18n

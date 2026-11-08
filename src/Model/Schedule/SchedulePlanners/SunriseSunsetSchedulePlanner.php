@@ -23,7 +23,6 @@ use DateTime;
 use DateTimeZone;
 
 class SunriseSunsetSchedulePlanner extends SchedulePlanner {
-
     // SR -> SunRise, SS -> SunSet
     private const SPECIFICATION_REGEX = '#^S([SR])(-?\d+)#';
     private const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
@@ -35,8 +34,10 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
         $nextRunDate = $this->calculateNextRunDateBasedOnSun($crontab, $currentDate);
         $retries = 5; // PHP sometimes returns past sunset even if we query for midnight of the next day...
         $calculatingFromDate = clone max($nextRunDate, $currentDate);
-        while ((($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN)
-                || (!$this->isDue($crontab, $nextRunDate))) && --$retries) {
+        while (
+            (($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN)
+                || (!$this->isDue($crontab, $nextRunDate))) && --$retries
+        ) {
             $nextRunDate->setTime(0, 0);
             while ($nextRunDate <= $calculatingFromDate) {
                 $nextRunDate->add(new DateInterval('P1D'));

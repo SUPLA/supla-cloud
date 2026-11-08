@@ -21,7 +21,6 @@ use App\Model\TargetSuplaCloud;
 use PHPUnit\Framework\TestCase;
 
 class TargetSuplaCloudTest extends TestCase {
-
     /** @dataProvider creatingFromDomainNameData */
     public function testCreatingFromDomainName(string $scheme, $domainName, $expectedAddress) {
         if (!$expectedAddress) {

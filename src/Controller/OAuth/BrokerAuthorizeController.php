@@ -57,6 +57,13 @@ class BrokerAuthorizeController extends AuthorizeController {
         try {
             try {
                 try {
+                    if (
+                        $request->isMethod('GET') && (
+                        $request->query->has('code_challenge') || $request->query->has('code_challenge_method')
+                        )
+                    ) {
+                        $this->oauth2Server->validateAuthorizationRequest($request);
+                    }
                     return parent::authorizeAction($request);
                 } catch (OAuthReauthenticateException $exception) {
                     return new RedirectResponse($request->getUri());

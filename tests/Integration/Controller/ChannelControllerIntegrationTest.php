@@ -22,6 +22,7 @@ use App\Auth\SuplaOAuth2;
 use App\DataFixtures\DevicesFixture;
 use App\DataFixtures\NotificationsFixture;
 use App\Entity\EntityUtils;
+use App\Entity\Main\ChannelState;
 use App\Entity\Main\DirectLink;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
@@ -136,6 +137,59 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
 
+    public function testChannelFlagsSurviveRegistrationUpdateHydrationAndApi(): void {
+        $connection = $this->getEntityManager()->getConnection();
+        $deviceId = $this->device->getId();
+        $userId = $this->user->getId();
+        $connection->executeStatement(
+            'CALL supla_add_channel(?, ?, 0, 0, 0, ?, 127, ?, 0, ?, 0, 0)',
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, $userId, $deviceId, 0x100000000]
+        );
+        $channelId = (int) $connection->fetchOne('SELECT id FROM supla_dev_channel WHERE iodevice_id = ? AND channel_number = 127', [$deviceId]);
+        $this->assertGreaterThan(0, $channelId);
+        $this->getEntityManager()->clear();
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
+        $this->assertSame(0x100000000, $channel->getFlags());
+        $this->assertTrue(ChannelFlags::BUTTON_MODE_SUPPORTED()->isOn($channel->getFlags()));
+
+        foreach ([0x2000000000, 0x2118010000, ChannelFlags::RELAY_MODE_START_SUPPORTED | ChannelFlags::HAS_EXTENDED_CHANNEL_STATE] as $flags) {
+            $connection->executeStatement('UPDATE supla_dev_channel SET flags = ? WHERE id = ?', [ChannelFlags::HAS_EXTENDED_CHANNEL_STATE, $channelId]);
+            $connection->executeStatement('CALL supla_update_channel_flags(?, ?, ?)', [$channelId, $userId, $flags]);
+            $this->getEntityManager()->clear();
+            $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
+            $expected = $flags | ChannelFlags::HAS_EXTENDED_CHANNEL_STATE;
+            $this->assertSame($expected, $channel->getFlags());
+            $this->assertNotSame($expected & 0xFFFFFFFF, $channel->getFlags());
+        }
+
+        $client = $this->createAuthenticatedClient($this->freshEntity($this->user));
+        $client->apiRequestV24('GET', '/api/channels/' . $channelId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($content['config']['relayModeStartSupported']);
+        $this->assertFalse($content['config']['relayModeForcedSupported']);
+        $this->assertFalse($content['config']['relayModeAutomaticSupported']);
+        $this->assertFalse($content['config']['relayModeNotSetSupported']);
+        $this->assertArrayNotHasKey('buttonModeSupported', $content['config']);
+
+        $client->apiRequestV23('GET', '/api/channels/' . $channelId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertArrayNotHasKey('config', json_decode($client->getResponse()->getContent(), true));
+
+        $connection->executeStatement(
+            'CALL supla_add_channel(?, ?, 0, 0, 0, ?, 126, ?, 0, ?, 0, 0)',
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, $userId, $deviceId, 0x2118010000]
+        );
+        $actionTriggerId = (int) $connection->fetchOne('SELECT id FROM supla_dev_channel WHERE iodevice_id = ? AND channel_number = 126', [$deviceId]);
+        $client->apiRequestV24('GET', '/api/channels/' . $actionTriggerId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $config = json_decode($client->getResponse()->getContent(), true)['config'];
+        $this->assertTrue($config['buttonModeSupported']);
+        $this->assertTrue($config['buttonTemporaryUnlockSupported']);
+        $this->assertArrayNotHasKey('relayModeStartSupported', $config);
+        $connection->executeStatement('DELETE FROM supla_dev_channel WHERE id IN (?, ?)', [$channelId, $actionTriggerId]);
+    }
+
     public function testGettingChannelInfoV3() {
         $client = $this->createAuthenticatedClient($this->user);
         $channel = $this->device->getChannels()[0];
@@ -189,6 +243,63 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(4, $content);
+    }
+
+    /**
+     * @medium
+     * @dataProvider alarmSensorApiCases
+     */
+    public function testAlarmSensorApi(int $functionId, string $name, int $value) {
+        $device = $this->createDevice($this->location, [[ChannelType::SENSORNO, $functionId]]);
+        $channel = $device->getChannels()[0];
+        $channel->setUserConfigValue('invertedLogic', true);
+        $this->getEntityManager()->flush();
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', 'VALUE:' . $value);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel->getId() . '?include=state');
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame($functionId, $body['function']['id']);
+        $this->assertSame($name, $body['function']['name']);
+        $this->assertTrue($body['config']['invertedLogic']);
+        $this->assertTrue($body['state']['connected']);
+        $this->assertSame((bool) $value, $body['state']['hi']);
+
+        $client->apiRequestV24('GET', '/api/channels?function=' . $name);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channels = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(1, $channels);
+        $this->assertSame($channel->getId(), $channels[0]['id']);
+        $this->getEntityManager()->remove($this->freshEntity($channel));
+        $this->getEntityManager()->remove($this->freshEntity($device));
+        $this->getEntityManager()->flush();
+    }
+
+    public static function alarmSensorApiCases(): array {
+        return [
+            [ChannelFunction::SMOKE_SENSOR, 'SMOKE_SENSOR', 0],
+            [ChannelFunction::SMOKE_SENSOR, 'SMOKE_SENSOR', 1],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR, 'CARBON_MONOXIDE_SENSOR', 0],
+            [ChannelFunction::CARBON_MONOXIDE_SENSOR, 'CARBON_MONOXIDE_SENSOR', 1],
+            [ChannelFunction::GAS_SENSOR, 'GAS_SENSOR', 0],
+            [ChannelFunction::GAS_SENSOR, 'GAS_SENSOR', 1],
+        ];
+    }
+
+    /** @medium */
+    public function testAlarmSensorDisconnectedState() {
+        $device = $this->createDevice($this->location, [[ChannelType::SENSORNC, ChannelFunction::GAS_SENSOR]]);
+        $channel = $device->getChannels()[0];
+        SuplaServerMock::mockResponse('IS-CHANNEL-CONNECTED', 'DISCONNECTED:' . $channel->getId());
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel->getId() . '?include=state');
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($body['state']['connected']);
+        $this->assertArrayNotHasKey('hi', $body['state']);
+        $this->getEntityManager()->remove($this->freshEntity($channel));
+        $this->getEntityManager()->remove($this->freshEntity($device));
+        $this->getEntityManager()->flush();
     }
 
     public function testFilteringByType() {
@@ -785,6 +896,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
             'stateVerificationMethodActive' => false,
+            'relayModeStartSupported' => false,
+            'relayModeForcedSupported' => false,
+            'relayModeAutomaticSupported' => false,
+            'relayModeNotSetSupported' => false,
         ];
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $config = $channelParamConfigTranslator->getConfig($gateChannel);
@@ -1143,6 +1258,75 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuplaCommandExecuted("MUTE-ALARM-SOUND:1,{$septicDevice->getId()},{$tankChannel->getId()}");
+    }
+
+    public function testMutingAlarmCanBeQueuedWhenSleepingDeviceIsOffline() {
+        $septicDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        EntityUtils::setField(
+            $septicDevice,
+            'flags',
+            IoDeviceFlags::SLEEP_MODE_ENABLED | IoDeviceFlags::SYNC_DONE_SUPPORTED
+        );
+        $this->getEntityManager()->persist($septicDevice);
+        $this->getEntityManager()->flush();
+        $tankChannel = $septicDevice->getChannels()[0];
+        SuplaServerMock::mockResponse('IS-', "OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:1\n");
+
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', "/api/channels/{$tankChannel->getId()}/settings", ['action' => 'muteAlarm']);
+
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuplaCommandExecuted("MUTE-ALARM-SOUND:1,{$septicDevice->getId()},{$tankChannel->getId()}");
+    }
+
+    public function testMutingAlarmStillRequiresLiveStateForNonQueueableDevice() {
+        $septicDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $tankChannel = $septicDevice->getChannels()[0];
+        SuplaServerMock::mockResponse('IS-', "OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:1\n");
+
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', "/api/channels/{$tankChannel->getId()}/settings", ['action' => 'muteAlarm']);
+
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testChannelActionReturnsWaitingReceiptWithoutChangingGet() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $channel = $device->getChannels()[0];
+        SuplaServerMock::mockResponse('MUTE-ALARM-SOUND', "WAITING_FOR_RESULT:{$channel->getId()},1793577600\n");
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'muteAlarm']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(['status' => 'WAITING_FOR_RESULT', 'id' => $channel->getId(), 'queuedAt' => 1793577600], $body['actionResult']);
+        $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}");
+        $resource = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('actionResult', $resource);
+        unset($body['actionResult']);
+        $this->assertEquals($resource, $body);
+    }
+
+    public function testChannelActionReceiptsAcrossApiVersions() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $channel = $device->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        foreach (['2.1.0', '2.2.0', '2.3.0', '2.4.0', '3'] as $version) {
+            foreach (
+                ['ACCEPTED' => "OK:{$channel->getId()}\n", 'QUEUED' => "QUEUED:{$channel->getId()},1793577600\n",
+                'WAITING_FOR_RESULT' => "WAITING_FOR_RESULT:{$channel->getId()},1793577600\n"] as $status => $reply
+            ) {
+                SuplaServerMock::mockResponse('MUTE-ALARM-SOUND', $reply);
+                $client->apiRequest('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'muteAlarm'], [], [], [], $version);
+                $this->assertStatusCode(200, $client->getResponse());
+                $body = $client->getResponseBody();
+                if ($version === '3') {
+                    $this->assertSame(['status' => $status, 'id' => $channel->getId(),
+                        'queuedAt' => $status === 'ACCEPTED' ? null : 1793577600], $body['actionResult']);
+                } else {
+                    $this->assertArrayNotHasKey('actionResult', $body);
+                }
+            }
+        }
     }
 
     public function testFetchingActionTriggers() {
@@ -1945,10 +2129,14 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         EntityUtils::setField($channel, 'flags', ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE);
         $this->persist($channel);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
+        $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->assertSame(['status' => 'ACCEPTED', 'id' => $channel->getId(), 'queuedAt' => null], $client->getResponseBody()['actionResult']);
         $this->assertSuplaCommandExecuted("IDENTIFY-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
+        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertArrayNotHasKey('actionResult', $client->getResponseBody());
     }
 
     public function testRestartingSubDevice() {
@@ -1971,6 +2159,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->persist($channel);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'refreshState']);
+        $this->assertArrayNotHasKey('actionResult', $client->getResponseBody());
         $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}?include=state");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -1978,5 +2167,33 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('state', $body);
         $this->assertArrayHasKey('extendedState', $body['state']);
         $this->assertArrayHasKey('wifiRSSI', $body['state']['extendedState']);
+    }
+
+    /** @dataProvider batteryExtendedStates */
+    public function testBatteryExtendedStateSerialization(array $extendedState) {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $channel = $device->getChannels()[0];
+        EntityUtils::setField($channel, 'flags', ChannelFlags::HAS_EXTENDED_CHANNEL_STATE);
+        $this->persist($channel);
+        $state = new ChannelState($channel);
+        EntityUtils::setField($state, 'state', json_encode($extendedState));
+        $this->persist($state);
+        $channelId = $channel->getId();
+        $this->getEntityManager()->clear();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', "/api/channels/$channelId?include=state");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame($extendedState, $client->getResponseBody()['state']['extendedState']);
+    }
+
+    public static function batteryExtendedStates(): array {
+        return [
+            'device state without percentage' => [['batteryState' => 'LOW', 'deviceBatteryState' => true]],
+            'channel state' => [['batteryState' => 'OK']],
+            'numeric device level' => [['batteryLevel' => 72, 'deviceBatteryLevel' => true, 'batteryPowered' => true, 'batteryHealth' => 95]],
+            'level and state' => [['batteryLevel' => 72, 'batteryState' => 'LOW']],
+            'unexpected state preserved' => [['batteryState' => 'UNKNOWN']],
+        ];
     }
 }

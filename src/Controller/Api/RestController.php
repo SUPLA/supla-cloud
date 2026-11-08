@@ -19,6 +19,8 @@ namespace App\Controller\Api;
 
 use App\Entity\Main\User;
 use App\Model\CurrentUserAware;
+use App\Model\ApiVersions;
+use App\Supla\CalcfgActionResult;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
@@ -72,5 +74,16 @@ abstract class RestController extends AbstractFOSRestController {
         $view = $this->view($data, $statusCode);
         $this->setSerializationGroups($view, $request, null, $extraSerializationGroups);
         return $view;
+    }
+
+    protected function withActionResult($view, ?CalcfgActionResult $result, Request $request) {
+        if (!$result || !ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+            return $view;
+        }
+        $response = $view instanceof Response ? $view : $this->handleView($view);
+        $body = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $body['actionResult'] = ['status' => $result->status, 'id' => $result->id, 'queuedAt' => $result->queuedAt];
+        $response->setContent(json_encode($body, JSON_THROW_ON_ERROR));
+        return $response;
     }
 }

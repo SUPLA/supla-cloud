@@ -3,13 +3,7 @@
     <button class="btn btn-default btn-block btn-wrapped" type="button" :disabled="!!disabledReason" @click="showDialog = true">
       {{ $t('Set the configuration password') }}
     </button>
-    <modal-confirm
-      v-if="showDialog"
-      :header="$t('Set the configuration password')"
-      :loading="loading"
-      @cancel="showDialog = false"
-      @confirm="setDevicePassword()"
-    >
+    <modal-confirm v-if="showDialog" :header="$t('Set the configuration password')" :loading="loading" @cancel="cancelDialog()" @confirm="setDevicePassword()">
       <p>{{ $t('Set the password that restricts access to the device configuration page (https://192.168.4.1).') }}</p>
       <p>{{ $t('Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.') }}</p>
       <div class="form-group">
@@ -21,6 +15,7 @@
         <input v-model="passwordConfirmation" type="password" class="form-control" />
       </div>
     </modal-confirm>
+    <CalcfgSubmissionFeedback :message="submissionMessage" />
   </div>
 </template>
 
@@ -32,17 +27,32 @@
   import {waitForDeviceOperation} from '@/devices/details/device-details-helpers';
   import {useDevicesStore} from '@/stores/devices-store';
   import ModalConfirm from '@/common/modal-confirm.vue';
+  import CalcfgSubmissionFeedback from './calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from './calcfg-submission.js';
+
+  defineOptions({compatConfig: {MODE: 3}});
 
   const props = defineProps({device: Object});
 
   const showDialog = ref(false);
   const loading = ref(false);
+  const submissionMessage = ref('');
 
   const password = ref('');
   const passwordConfirmation = ref('');
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
 
-  const disabledReason = computed(() => (props.device.connected ? '' : 'Device is disconnected.'));
+  const disabledReason = computed(() => (canSubmitCalcfgAction(props.device, 'setCfgModePassword') ? '' : 'Device is disconnected.'));
+
+  function clearPassword() {
+    password.value = '';
+    passwordConfirmation.value = '';
+  }
+
+  function cancelDialog() {
+    showDialog.value = false;
+    clearPassword();
+  }
 
   async function setDevicePassword() {
     if (password.value !== passwordConfirmation.value) {
@@ -52,8 +62,17 @@
       return errorNotification('Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.');
     }
     loading.value = true;
+    submissionMessage.value = '';
     try {
-      await devicesApi.setCfgModePassword(props.device.id, password.value);
+      const response = await devicesApi.setCfgModePassword(props.device.id, password.value);
+      const message = getCalcfgSubmissionMessage(getCalcfgActionResult(response), {password: true});
+      if (message) {
+        submissionMessage.value = message;
+        showDialog.value = false;
+        password.value = '';
+        passwordConfirmation.value = '';
+        return;
+      }
       await promiseTimeout(1000);
       await useDevicesStore().fetchDevice(props.device.id);
       await waitForDeviceOperation(() => ['TRUE', 'FALSE'].includes(props.device.config?.setCfgModePassword?.status));
@@ -65,6 +84,7 @@
       password.value = '';
       passwordConfirmation.value = '';
     } catch (error) {
+      clearPassword();
       errorNotification('Could not change the password.');
     } finally {
       loading.value = false;

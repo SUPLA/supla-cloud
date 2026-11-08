@@ -22,7 +22,6 @@ use DateTime;
 use DateTimeZone;
 
 class IntervalSchedulePlanner extends SchedulePlanner {
-
     const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,7})( \*)*$#';
 
     public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
