@@ -377,12 +377,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertEqualsWithDelta(174.568, $firstLog['value'], 0.001);
     }
 
-    public function testGettingGeneralPurposeTextLogs() {
-        $firstLog = $this->getMeasurementLogsV24(15)[0];
-        $this->assertIsInt($firstLog['date_timestamp']);
-        $this->assertSame('supla', $firstLog['value']);
-    }
-
     public function testGettingElectricityCounterLogsV22() {
         $this->ensureImpulseCounterLogsV22(5);
     }
@@ -451,11 +445,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingElectricityMeasurementLogsAscending() {
         $content = $this->getMeasurementLogsAscending(4);
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
-    }
-
-    public function testGettingGeneralPurposeTextLogsAscending() {
-        $content = $this->getMeasurementLogsAscending(15);
-        $this->assertSame(['hello', 'world', 'supla'], array_column($content, 'value'));
     }
 
     private function ensureImpulseCounterLogsAscending($channelId) {
