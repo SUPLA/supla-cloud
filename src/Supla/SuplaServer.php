@@ -303,7 +303,10 @@ abstract class SuplaServer {
     public function getRawValue($type, IODeviceChannel $channel) {
         $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
         $result = $this->doExecuteCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
-        if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
+        if (
+            $result !== false &&
+            (str_starts_with($result, 'VALUE:') || str_starts_with($result, 'VALUE-B64:'))
+        ) {
             return $result;
         }
         return false;

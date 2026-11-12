@@ -9,7 +9,7 @@
             <span v-else>&ne;</span>
           </a>
         </span>
-        <input v-model="threshold" type="text" required class="form-control" @input="updateModel()" />
+        <input v-model="threshold" type="text" class="form-control" @input="updateModel()" />
       </span>
     </div>
     <div>
@@ -63,7 +63,7 @@
         },
       },
       validValue() {
-        return typeof this.threshold === 'string' && this.threshold.length > 0;
+        return typeof this.threshold === 'string';
       },
     },
     watch: {

@@ -25,11 +25,29 @@ class GeneralPurposeTextChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $value = $this->suplaServer->getRawValue('GPT', $channel);
-        $value = rtrim($value);
+        $response = $this->suplaServer->getRawValue('GPT', $channel);
+        if (!is_string($response)) {
+            return ['value' => null];
+        }
+
+        if (str_ends_with($response, "\n")) {
+            $response = substr($response, 0, -1);
+            if (str_ends_with($response, "\r")) {
+                $response = substr($response, 0, -1);
+            }
+        }
+
+        $base64Prefix = 'VALUE-B64:';
         $prefix = 'VALUE:';
-        if (str_starts_with($value, $prefix)) {
-            $value = substr($value, strlen($prefix));
+        if (str_starts_with($response, $base64Prefix)) {
+            $value = base64_decode(substr($response, strlen($base64Prefix)), true);
+            if ($value === false) {
+                throw new \UnexpectedValueException(
+                    'Invalid Base64 response for general-purpose text channel.'
+                );
+            }
+        } elseif (str_starts_with($response, $prefix)) {
+            $value = substr($response, strlen($prefix));
         } else {
             $value = null;
         }

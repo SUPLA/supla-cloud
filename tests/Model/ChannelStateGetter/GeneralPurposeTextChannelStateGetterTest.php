@@ -40,7 +40,36 @@ class GeneralPurposeTextChannelStateGetterTest extends TestCase {
         $stateGetter->setSuplaServer($suplaServer);
 
         $state = $stateGetter->getState($channel);
-        $this->assertSame(['value' => 'Hello GPT!'], $state);
+        $this->assertSame(['value' => 'Hello GPT!  '], $state);
+    }
+
+    public function testGettingStateWithBase64PrefixedValue() {
+        $channel = $this->createEntityMock(IODeviceChannel::class, 111);
+        $value = "Temperatura\n25°C ";
+        $suplaServer = $this->createMock(SuplaServer::class);
+        $suplaServer
+            ->expects($this->once())
+            ->method('getRawValue')
+            ->with('GPT', $channel)
+            ->willReturn("VALUE-B64:" . base64_encode($value) . "\n");
+
+        $stateGetter = new GeneralPurposeTextChannelStateGetter();
+        $stateGetter->setSuplaServer($suplaServer);
+
+        $state = $stateGetter->getState($channel);
+        $this->assertSame(['value' => $value], $state);
+    }
+
+    public function testGettingStateWithLiteralBase64Prefix() {
+        $channel = $this->createEntityMock(IODeviceChannel::class, 111);
+        $suplaServer = $this->createMock(SuplaServer::class);
+        $suplaServer->method('getRawValue')->willReturn("VALUE:B64:literal\n");
+
+        $stateGetter = new GeneralPurposeTextChannelStateGetter();
+        $stateGetter->setSuplaServer($suplaServer);
+
+        $state = $stateGetter->getState($channel);
+        $this->assertSame(['value' => 'B64:literal'], $state);
     }
 
     public function testGettingStateWithUnexpectedValueFormat() {
@@ -53,6 +82,18 @@ class GeneralPurposeTextChannelStateGetterTest extends TestCase {
 
         $state = $stateGetter->getState($channel);
         $this->assertSame(['value' => null], $state);
+    }
+
+    public function testGettingStateWithInvalidBase64Value() {
+        $channel = $this->createEntityMock(IODeviceChannel::class, 111);
+        $suplaServer = $this->createMock(SuplaServer::class);
+        $suplaServer->method('getRawValue')->willReturn("VALUE-B64:%%% \n");
+
+        $stateGetter = new GeneralPurposeTextChannelStateGetter();
+        $stateGetter->setSuplaServer($suplaServer);
+
+        $this->expectException(\UnexpectedValueException::class);
+        $stateGetter->getState($channel);
     }
 
     public function testSupportedFunctions() {

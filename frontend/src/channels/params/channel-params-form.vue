@@ -42,7 +42,6 @@
   import ChannelParamsIcHeatmeter from './channel-params-impulsecounter.vue';
   import ChannelParamsGeneralPurposeMeasurement from './channel-params-general-purpose-measurement.vue';
   import ChannelParamsGeneralPurposeMeter from './channel-params-general-purpose-meter.vue';
-  import ChannelParamsGeneralPurposeText from './channel-params-general-purpose-text.vue';
   import ChannelParamsDigiglassVertical from './channel-params-digiglass.vue';
   import ChannelParamsDigiglassHorizontal from './channel-params-digiglass.vue';
   import ChannelParamsPowerswitch from './channel-params-powerswitch.vue';
@@ -95,7 +94,6 @@
       ChannelParamsIcHeatmeter,
       ChannelParamsGeneralPurposeMeasurement,
       ChannelParamsGeneralPurposeMeter,
-      ChannelParamsGeneralPurposeText,
       ChannelParamsDigiglassVertical,
       ChannelParamsDigiglassHorizontal,
       ChannelParamsPowerswitch,
