@@ -414,8 +414,6 @@
       frozenShownInClientsState() {
         if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {
           return true;
-        } else if (this.channel.function.name === 'ACTION_TRIGGER') {
-          return false;
         }
         return undefined;
       },

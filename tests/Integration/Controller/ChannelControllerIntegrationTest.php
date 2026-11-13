@@ -1762,6 +1762,31 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ));
     }
 
+    public function testActionTriggerAndRelatedChannelVisibilityAreIndependent() {
+        $device = $this->createDeviceSonoff($this->location);
+        $parentId = $device->getChannels()[0]->getId();
+        $atId = $device->getChannels()[2]->getId();
+        $client = $this->createAuthenticatedClient();
+
+        $client->apiRequestV3('PUT', "/api/channels/$atId?safe=true", ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertTrue($this->freshEntityById(IODeviceChannel::class, $atId)->getHidden());
+        $this->assertFalse($this->freshEntityById(IODeviceChannel::class, $parentId)->getHidden());
+
+        $client->apiRequestV3('PUT', "/api/channels/$parentId?safe=true", ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV3('PUT', "/api/channels/$atId?safe=true", ['hidden' => false]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertFalse($this->freshEntityById(IODeviceChannel::class, $atId)->getHidden());
+        $this->assertTrue($this->freshEntityById(IODeviceChannel::class, $parentId)->getHidden());
+
+        $client->apiRequestV3('PUT', "/api/channels/$atId?safe=true", ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV3('PUT', "/api/channels/$parentId?safe=true", ['hidden' => false]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertTrue($this->freshEntityById(IODeviceChannel::class, $atId)->getHidden());
+    }
+
     public function testCannotLinkHiddenAndNotHiddenChannel() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $deviceLocation = $this->createLocation($this->user);

@@ -482,13 +482,11 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     }
 
     public function getHidden(): bool {
-        return $this->function === ChannelFunction::ACTION_TRIGGER ? true : $this->hidden;
+        return $this->hidden;
     }
 
     public function setHidden(bool $hidden) {
-        if ($this->function !== ChannelFunction::ACTION_TRIGGER) {
-            $this->hidden = $hidden;
-        }
+        $this->hidden = $hidden;
     }
 
     /** @return Collection|IODeviceChannelGroup[] */
