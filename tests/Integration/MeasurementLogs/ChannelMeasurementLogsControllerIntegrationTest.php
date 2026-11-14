@@ -183,6 +183,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::HUMIDITYSENSOR, ChannelFunction::HUMIDITY],
             [ChannelType::GENERAL_PURPOSE_MEASUREMENT, ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
             [ChannelType::GENERAL_PURPOSE_METER, ChannelFunction::GENERAL_PURPOSE_METER],
+            [ChannelType::GENERAL_PURPOSE_TEXT, ChannelFunction::GENERAL_PURPOSE_TEXT],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
@@ -225,6 +226,18 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public static function measurementLogsCounts() {
         return [[2], [3], [4], [5], [6], [7], [8], [9], [10]];
+    }
+
+    public function testGeneralPurposeTextMeasurementLogsAreUnavailable() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/15/measurement-logs');
+        $this->assertStatusCode('4xx', $client->getResponse());
+
+        $client->apiRequestV24('GET', '/api/channels/15/measurement-logs-csv');
+        $this->assertStatusCode('4xx', $client->getResponse());
+
+        $client->apiRequestV23('DELETE', '/api/channels/15/measurement-logs');
+        $this->assertStatusCode('4xx', $client->getResponse());
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
@@ -969,7 +982,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testDeletingMeasurementLogs() {
         foreach ($this->device1->getChannels() as $channel) {
-            if ($channel->getType()->getId() != ChannelType::RELAY) {
+            if (!in_array($channel->getType()->getId(), [ChannelType::RELAY, ChannelType::GENERAL_PURPOSE_TEXT])) {
                 $this->testMeasurementLogsCount($channel->getId());
                 $this->deleteMeasurementLogs($channel->getId());
                 $this->testMeasurementLogsCount($channel->getId(), 0);
@@ -977,7 +990,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
 
         foreach ($this->device2->getChannels() as $channel) {
-            if ($channel->getType()->getId() != ChannelType::RELAY) {
+            if (!in_array($channel->getType()->getId(), [ChannelType::RELAY, ChannelType::GENERAL_PURPOSE_TEXT])) {
                 $this->testMeasurementLogsCount($channel->getId());
             }
         }

@@ -2,6 +2,23 @@ import {mount} from '@vue/test-utils';
 import ChannelFunction from '@/common/enums/channel-function';
 import ChannelReactionConditionChooser from '@/channels/reactions/channel-reaction-condition-chooser.vue';
 
+describe('ChannelReactionConditionChooser', () => {
+  it('shows delayed no-change condition for general purpose text', async () => {
+    const channel = {id: 1, functionId: ChannelFunction.GENERAL_PURPOSE_TEXT, config: {}};
+    const wrapper = await mount({
+      data: () => ({channel, condition: undefined}),
+      template: '<div><cc :subject="channel" v-model="condition" /></div>',
+      components: {cc: ChannelReactionConditionChooser},
+    });
+
+    const headings = wrapper.findAll('.panel-heading');
+    expect(headings.length).toBeGreaterThan(0);
+
+    const delayedCondition = headings.find((heading) => heading.text().includes("doesn't change"));
+    expect(delayedCondition).toBeDefined();
+  });
+});
+
 describe.skip('ChannelReactionsConfig', () => {
   describe('OPENINGSENSOR_GARAGEDOOR', () => {
     const GARAGEDOOR = {id: 5, functionId: ChannelFunction.OPENINGSENSOR_GARAGEDOOR};

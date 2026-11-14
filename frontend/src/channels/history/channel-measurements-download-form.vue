@@ -168,6 +168,7 @@
   export default {
     components: {TransitionExpand},
     props: {
+      channel: Object,
       storage: Object,
       dateRange: Object,
       chartMode: String,
@@ -185,9 +186,6 @@
       };
     },
     computed: {
-      channel() {
-        return this.storage.channel;
-      },
       filename() {
         return [
           latinize((this.channel.caption || '').toLowerCase().trim())
@@ -208,7 +206,7 @@
         return EXPORT_DEFINITIONS[fncDescriptor];
       },
       supportsFrontendExport() {
-        return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
+        return window.indexedDB && !!this.storage && this.storage.hasSupport && !!this.exportFields;
       },
       supportsIncrementalLogs() {
         return (
