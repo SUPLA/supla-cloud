@@ -3,69 +3,51 @@
 namespace App\Tests\Supla;
 
 use App\Supla\SuplaHttpClient;
-use App\Supla\BoundedProcessRunner;
 use App\Supla\TrustedPeerDnsResolver;
 use PHPUnit\Framework\TestCase;
 
 class SuplaHttpClientTest extends TestCase {
-    public function testMissingCliExecutableFailsBeforeStartingDnsProcess(): void {
-        $runner = new class extends BoundedProcessRunner {
-            public bool $started = false;
-
-            public function run(array $command, float $timeoutSeconds, ?array $environment = null): string {
-                $this->started = true;
-                return parent::run($command, $timeoutSeconds, $environment);
-            }
-        };
-        $resolver = new class ($runner) extends TrustedPeerDnsResolver {
-            protected function phpCliExecutable(): string {
-                return '/definitely/missing/php';
-            }
-        };
-
-        try {
-            $resolver->resolve('peer.example');
-            $this->fail('Expected missing PHP CLI to fail closed.');
-        } catch (\InvalidArgumentException $exception) {
-            $this->assertStringContainsString('available PHP CLI', $exception->getMessage());
-        }
-
-        $this->assertFalse($runner->started);
-    }
-
-    public function testDnsResolutionRunsWithTheCliExecutableDiscoveredFromPhpBindir(): void {
+    public function testDnsResolutionUsesTheSystemResolver(): void {
         $addresses = (new TrustedPeerDnsResolver())->resolve('localhost');
 
         $this->assertNotEmpty($addresses);
         $this->assertContains('127.0.0.1', $addresses);
     }
 
-    public function testTimedOutDnsResolutionIsRejectedBeforeOpeningSocket(): void {
-        $listener = stream_socket_server('tcp://127.0.0.1:0', $errorCode, $errorMessage);
-        $this->assertNotFalse($listener, $errorMessage);
-        stream_set_blocking($listener, false);
-        $address = stream_socket_get_name($listener, false);
-        $port = (int) substr(strrchr($address, ':'), 1);
-        $runner = new class extends BoundedProcessRunner {
-            public function run(array $command, float $timeoutSeconds, ?array $environment = null): string {
-                return parent::run([PHP_BINARY, '-r', 'usleep(5000000);'], 0.15);
+    public function testIpLiteralDoesNotRequireDns(): void {
+        $this->assertSame(['8.8.8.8'], (new TrustedPeerDnsResolver())->resolve('8.8.8.8'));
+    }
+
+    /** @dataProvider invalidDnsAnswers */
+    public function testInvalidDnsAnswersAreRejectedBeforeConnecting(array $addresses): void {
+        $resolver = new class ($addresses) extends TrustedPeerDnsResolver {
+            public function __construct(private array $addresses) {
+            }
+
+            public function resolve(string $host): array {
+                return $this->addresses;
             }
         };
-        $client = new SuplaHttpClient(new TrustedPeerDnsResolver($runner));
-        $startedAt = microtime(true);
+        $this->expectException(\InvalidArgumentException::class);
+        (new SuplaHttpClient($resolver))->request('https://peer.example/', 'GET', null, [], true);
+    }
 
-        try {
-            $client->request("https://slow-dns.test:$port/", 'GET', null, [], true);
-            $this->fail('Expected bounded DNS resolution to fail closed.');
-        } catch (\InvalidArgumentException $exception) {
-            $this->assertStringContainsString('deadline', $exception->getMessage());
-        }
+    public static function invalidDnsAnswers(): array {
+        return [
+            'empty' => [[]],
+            'mixed public and private' => [['8.8.8.8', '127.0.0.1']],
+        ];
+    }
 
-        $read = [$listener];
-        $write = $except = [];
-        $this->assertSame(0, stream_select($read, $write, $except, 0, 100000));
-        $this->assertLessThan(1.0, microtime(true) - $startedAt);
-        fclose($listener);
+    public function testExhaustedBudgetIsRejectedAfterDns(): void {
+        $client = new class extends SuplaHttpClient {
+            public function configurationAfterSlowDns(): array {
+                return $this->trustedPeerCurlConfiguration('https://peer.example/', ['8.8.8.8'], hrtime(true) - 11000000000);
+            }
+        };
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('exceeded its time budget');
+        $client->configurationAfterSlowDns();
     }
 
     public function testResolvedProhibitedAddressIsRejectedBeforeLocalHttpFixtureAndIsNotReResolved(): void {
@@ -133,7 +115,7 @@ class SuplaHttpClientTest extends TestCase {
     public function testOverallBudgetStartedBeforeDnsIsCarriedIntoTheCurlTimeouts(): void {
         $resolver = new class extends TrustedPeerDnsResolver {
             public function resolve(string $host): array {
-                usleep(1500000); // slow, but inside its own 2s resolution deadline
+                usleep(1500000);
                 return ['93.184.216.34'];
             }
         };
@@ -157,7 +139,7 @@ class SuplaHttpClientTest extends TestCase {
         $this->assertNotNull($client->observedConfiguration);
         $this->assertLessThan(9500, $client->observedConfiguration[2], 'cURL must receive only the budget remaining after DNS.');
         $this->assertGreaterThan(7000, $client->observedConfiguration[2], 'DNS time must be subtracted from the overall budget, not reset it.');
-        $this->assertLessThan(3.0, $elapsed, 'The overall deadline must bound DNS plus the transfer.');
+        $this->assertLessThan(3.0, $elapsed);
     }
 
     /** @dataProvider prohibitedTrustedPeerAddresses */

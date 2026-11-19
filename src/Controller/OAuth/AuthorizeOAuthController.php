@@ -217,6 +217,9 @@ class AuthorizeOAuthController extends AbstractController {
      * @UnavailableInMaintenance
      */
     public function registerTargetCloudAction(Request $request) {
+        if (!$this->autodiscover->isBroker()) {
+            throw new NotFoundHttpException();
+        }
         if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
             $recaptcha = new ReCaptcha($this->recaptchaSecret);

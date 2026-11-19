@@ -55,6 +55,23 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertSame([['https://supla.private.pl', 'server-info']], $attemptedDestinations);
     }
 
+    public function testRegistrationIsUnavailableOnNonBrokerBeforeProbe(): void {
+        $client = $this->createHttpsClient();
+        $probeCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use (&$probeCalled) {
+            $probeCalled = true;
+            return [null, Response::HTTP_NOT_FOUND];
+        };
+        SuplaAutodiscoverMock::$isBroker = false;
+        try {
+            $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
+            $this->assertStatusCode(404, $client->getResponse());
+            $this->assertFalse($probeCalled);
+        } finally {
+            SuplaAutodiscoverMock::$isBroker = true;
+        }
+    }
+
     public function testRegisteringTargetIfInvalidDomain() {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =

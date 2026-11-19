@@ -279,7 +279,7 @@ existing availability, HTTPS, and minimum-version checks. This probe accepts
 only a canonical HTTPS origin and uses the same pinned outbound transport as
 trusted-peer reads (prohibited-IP rejection, DNS resolution pinned to the
 connection, TLS certificate/host verification, no redirects, and bounded
-connect/overall timeouts). The probe does not mark the origin trusted and does
+connect/transfer timeouts). The probe is available only on a broker. It does not mark the origin trusted and does
 not call the generic broker-token forwarder or attach a stored broker token.
 
 This exception is exclusively for pre-registration `server-info`. OAuth
@@ -287,13 +287,11 @@ authorization, authorization-code exchange, refresh-token exchange, and all
 other credential-bearing or private operations continue to require an
 Autodiscover/private-cloud trusted-peer record and the strict peer selector.
 
-Trusted-peer DNS bounding launches the runtime's PHP CLI executable from
-`PHP_BINDIR` (`php.exe` on Windows) through Symfony Process, which requires
-`proc_open`. The supported `supla-docker` deployment runs the Cloud image's
-console as `php bin/console` (see the
-[supla-docker compose definition](https://github.com/SUPLA/supla-docker/blob/master/docker-compose.yml)
-and its `supla.sh` console command); the runtime therefore needs an available
-PHP CLI. If it is missing or unusable, trusted-peer forwarding fails closed
-before a network connection is made. Install/enable the PHP CLI and
-`proc_open` in the Cloud runtime rather than configuring an alternate
-executable path.
+Trusted-peer DNS resolution runs in the request process using the system
+resolver, without launching PHP CLI or a shell. SUPLA brokers are expected to
+use systemd-resolved, but the application does not check or configure it.
+Resolution is not subject to an application-enforced timeout: a slow resolver
+can block a worker beyond the request's 10-second budget. After DNS returns,
+the elapsed time is deducted from the cURL budget, and an exhausted budget
+causes the request to fail before connecting. Other installations use their
+configured system resolver with the same limitation.
