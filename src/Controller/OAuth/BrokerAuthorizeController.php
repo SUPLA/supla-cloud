@@ -51,8 +51,8 @@ class BrokerAuthorizeController extends AuthorizeController {
 
     /**
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function authorizeAction(Request $request): Response {
         try {
             try {
