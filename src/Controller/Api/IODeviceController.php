@@ -279,8 +279,8 @@ class IODeviceController extends RestController {
      * )
      * @Rest\Put("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putIodeviceAction(
         Request $request,
         IODevice $ioDevice,
@@ -368,8 +368,8 @@ class IODeviceController extends RestController {
      * )
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @Rest\Patch("/iodevices/{ioDevice}", requirements={"ioDevice"="^\d+$"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function patchIodeviceAction(Request $request, IODevice $ioDevice, SuplaAutodiscover $ad) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
@@ -470,8 +470,8 @@ class IODeviceController extends RestController {
      * )
      * @Rest\Delete("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteIodeviceAction(
         IODevice $ioDevice,
         Request $request,
@@ -514,8 +514,8 @@ class IODeviceController extends RestController {
 
     /**
      * @Rest\Patch("/confirm-device-unlock/{device}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function confirmDeviceUnlockAction(IODevice $device, Request $request, SuplaAutodiscover $ad) {
         if (!$device->isLocked()) {
             throw $this->createNotFoundException();

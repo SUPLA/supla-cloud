@@ -156,8 +156,8 @@ class AccessIDController extends RestController {
      * )
      * @Rest\Post("/accessids")
      * @Security("is_granted('ROLE_ACCESSIDS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postAccessidAction(Request $request) {
         $user = $this->getUser();
         $accessIdCount = $user->getAccessIDS()->count();
@@ -182,8 +182,8 @@ class AccessIDController extends RestController {
      * )
      * @Rest\Delete("/accessids/{accessId}")
      * @Security("accessId.belongsToUser(user) and is_granted('ROLE_ACCESSIDS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteAccessidAction(AccessID $accessId) {
         Assertion::greaterThan($this->getUser()->getAccessIDS()->count(), 1, 'You cannot delete your last access identifier.'); //i18n
         $result = $this->transactional(function (EntityManagerInterface $em) use ($accessId) {
@@ -215,8 +215,8 @@ class AccessIDController extends RestController {
      * )
      * @Rest\Put("/accessids/{accessId}")
      * @Security("accessId.belongsToUser(user)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putAccessidAction(
         Request $request,
         AccessID $accessId,

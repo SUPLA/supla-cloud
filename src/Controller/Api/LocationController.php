@@ -127,8 +127,8 @@ class LocationController extends RestController {
      * )
      * @Rest\Post("/locations")
      * @Security("is_granted('ROLE_LOCATIONS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postLocationAction(Request $request) {
         $user = $this->getUser();
         $locationsCount = $user->getLocations()->count();
@@ -171,8 +171,8 @@ class LocationController extends RestController {
      * )
      * @Rest\Delete("/locations/{location}")
      * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteLocationAction(Location $location) {
         $this->ensureNoRelatedEntities(
             $location->getIoDevices(),
@@ -224,8 +224,8 @@ class LocationController extends RestController {
      * )
      * @Rest\Put("/locations/{location}")
      * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
         $location->setCaption(trim($updatedLocation->getCaption()));
         $location->setEnabled($updatedLocation->getEnabled());

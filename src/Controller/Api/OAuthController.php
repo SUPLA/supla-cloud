@@ -85,8 +85,8 @@ class OAuthController extends RestController {
     /**
      * @Security("is_granted('ROLE_WEBAPP')")
      * @Rest\Post("/oauth-clients")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postOAuthClientsAction(ApiClient $newClient, Request $request) {
         $user = $this->getUser();
         Assertion::false($user->isLimitOAuthClientExceeded(), 'OAuth clients limit has been exceeded');
@@ -99,8 +99,8 @@ class OAuthController extends RestController {
     /**
      * @Security("client.belongsToUser(user) && is_granted('ROLE_WEBAPP')")
      * @Rest\Put("/oauth-clients/{client}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putOAuthClientAction(ApiClient $client, ApiClient $updatedClient, Request $request) {
         $client->setName($updatedClient->getName());
         $client->setDescription($updatedClient->getDescription());
@@ -112,8 +112,8 @@ class OAuthController extends RestController {
     /**
      * @Security("client.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
      * @Rest\Delete("/oauth-clients/{client}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteOAuthClientAction(ApiClient $client) {
         return $this->transactional(function (EntityManagerInterface $em) use ($client) {
             $em->remove($client);
@@ -136,8 +136,8 @@ class OAuthController extends RestController {
     /**
      * @Rest\Delete("/oauth-authorized-clients/{authorizedApp}")
      * @Security("authorizedApp.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteAuthorizedClientsAction(ApiClientAuthorization $authorizedApp, Request $request) {
         return $this->transactional(function (EntityManagerInterface $em) use ($authorizedApp) {
             $em->remove($authorizedApp);
@@ -157,8 +157,8 @@ class OAuthController extends RestController {
     /**
      * @Rest\Post("/oauth-personal-tokens")
      * @Security("is_granted('ROLE_WEBAPP')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postPersonalTokensAction(Request $request) {
         $data = $request->request->all();
         Assertion::keyExists($data, 'name');
@@ -181,8 +181,8 @@ class OAuthController extends RestController {
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}", name="delete_personal_token")
      * @Rest\Delete("/access-tokens/{accessToken}", name="delete_access_token")
      * @Security("accessToken.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deletePersonalTokenAction(AccessToken $accessToken) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {
             $em->remove($accessToken);

@@ -69,8 +69,8 @@ class DefaultController extends AbstractController {
      * @Route("/auth/create", name="_auth_create")
      * @Route("/account/create", name="_account_create")
      * @Route("/account/create_here/{locale}", name="_account_create_here")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function createAction(Request $request, $locale = null) {
         if ($this->getUser()) {
             return $this->redirectToRoute('_homepage');

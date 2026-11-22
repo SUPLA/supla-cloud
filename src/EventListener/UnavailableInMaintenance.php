@@ -17,6 +17,6 @@
 
 namespace App\EventListener;
 
-/** @Annotation */
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class UnavailableInMaintenance {
 }

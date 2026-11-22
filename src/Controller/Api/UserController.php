@@ -223,8 +223,8 @@ class UserController extends RestController {
     /**
      * @Rest\Patch("/users/current")
      * @Security("is_granted('ROLE_ACCOUNT_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->getUser();
@@ -363,8 +363,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Post("/register-account")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function routeAccountCreateAction(Request $request) {
         $server = $this->autodiscover->getRegisterServerForUser($request);
         if ($server->isLocal()) {
@@ -377,8 +377,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Post("/register")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function accountCreateAction(Request $request) {
         if (!$this->accountsRegistrationEnabled) {
             return $this->view(
@@ -461,8 +461,8 @@ class UserController extends RestController {
     /**
      * @Rest\Post("/register-resend", name="resend_activation_email_post")
      * @Rest\Patch("/register-resend", name="resend_activation_email_patch")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function resendActivationEmailAction(Request $request) {
         $data = $request->request->all();
         $username = $data['email'] ?? '';
@@ -489,8 +489,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/confirm/{token}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
@@ -500,8 +500,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Get("/account-deletion/{token}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function confirmDeletingAccountTokenExistsAction(string $token) {
         $this->userManager->findByDeleteToken($token);
         return $this->view(['exists' => true], Response::HTTP_OK);
@@ -509,8 +509,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Put("/account-deletion")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function requestUserDeletionAction(Request $request, BrokerRequestSecurityVoter $brokerRequestSecurityVoter) {
         $data = $request->request->all();
         Assert::that($data)->keyExists('username')->keyExists('password');
@@ -540,8 +540,8 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/account-deletion")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function confirmDeletingAccountAction(Request $request) {
         $data = $request->request->all();
         Assertion::keyExists($data, 'token', 'Invalid request - no token.');
@@ -567,8 +567,8 @@ class UserController extends RestController {
      * @Rest\Post("/forgotten-password", name="forgot_passwd_patch")
      * @Rest\Head("/forgotten-password/{token}", name="forgot_passwd_head")
      * @Rest\Put("/forgotten-password/{token}", name="forgot_passwd_put")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function forgotPasswordAction(Request $request, ?string $token = null) {
         $data = json_decode($request->getContent(), true);
         $username = $data['email'] ?? '';

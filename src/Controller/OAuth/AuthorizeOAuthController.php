@@ -214,8 +214,8 @@ class AuthorizeOAuthController extends AbstractController {
 
     /**
      * @Route("/api/register-target-cloud", methods={"POST"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function registerTargetCloudAction(Request $request) {
         if (!$this->autodiscover->isBroker()) {
             throw new NotFoundHttpException();
@@ -258,8 +258,8 @@ class AuthorizeOAuthController extends AbstractController {
 
     /**
      * @Route("/api/remove-target-cloud", methods={"POST"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function issueRemovalTokenForTargetCloudAction(Request $request, MessageBusInterface $messageBus): Response {
         if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
@@ -283,8 +283,8 @@ class AuthorizeOAuthController extends AbstractController {
 
     /**
      * @Route("/api/remove-target-cloud/{targetCloudId}/{token}", methods={"DELETE"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function removeTargetCloudAction(int $targetCloudId, string $token): Response {
         $this->autodiscover->removeTargetCloud($targetCloudId, $token);
         return new Response('', Response::HTTP_NO_CONTENT);

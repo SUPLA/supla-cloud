@@ -17,19 +17,15 @@
 
 namespace App\EventListener;
 
-use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class UnavailableInMaintenanceRequestListener {
-    /** @var Reader */
-    private $reader;
     /** @var bool */
     private $maintenanceMode;
 
-    public function __construct(Reader $annotationsReader, bool $maintenanceMode) {
-        $this->reader = $annotationsReader;
+    public function __construct(bool $maintenanceMode) {
         $this->maintenanceMode = $maintenanceMode;
     }
 
@@ -42,11 +38,11 @@ class UnavailableInMaintenanceRequestListener {
         }
         [$controller, $methodName] = $controllers;
         $reflectionClass = new \ReflectionClass($controller);
-        $classAnnotation = $this->reader->getClassAnnotation($reflectionClass, UnavailableInMaintenance::class);
+        $classAttributes = $reflectionClass->getAttributes(UnavailableInMaintenance::class);
         $reflectionObject = new \ReflectionObject($controller);
         $reflectionMethod = $reflectionObject->getMethod($methodName);
-        $methodAnnotation = $this->reader->getMethodAnnotation($reflectionMethod, UnavailableInMaintenance::class);
-        if ($classAnnotation || $methodAnnotation) {
+        $methodAttributes = $reflectionMethod->getAttributes(UnavailableInMaintenance::class);
+        if ($classAttributes || $methodAttributes) {
             return $event->setController(
                 function () {
                     $message = 'Maintenance mode active. You cannot modify any data now.'; // i18n

@@ -96,8 +96,8 @@ class ClientAppController extends RestController {
      * )
      * @Rest\Put("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and is_granted('ROLE_CLIENTAPPS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putClientAppAction(Request $request, ClientApp $clientApp) {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp, $request) {
             $data = $request->request->all();
@@ -134,8 +134,8 @@ class ClientAppController extends RestController {
      * )
      * @Rest\Delete("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and is_granted('ROLE_CLIENTAPPS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteClientAppAction(ClientApp $clientApp): Response {
         return $this->transactional(function (EntityManagerInterface $entityManager) use ($clientApp) {
             $entityManager->remove($clientApp);

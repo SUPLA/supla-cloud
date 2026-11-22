@@ -315,8 +315,8 @@ class ChannelController extends RestController {
      * )
      * @Rest\Put("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putChannelAction(
         Request $request,
         IODeviceChannel $channel,
@@ -645,8 +645,8 @@ class ChannelController extends RestController {
      * )
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @Rest\Delete("/channels/{channel}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteChannelAction(
         IODeviceChannel $channel,
         Request $request,
@@ -733,8 +733,8 @@ class ChannelController extends RestController {
      * )
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @Rest\Patch("/channels/{channel}/subdevice", requirements={"channel"="^\d+$"})
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function patchSubdeviceAction(Request $request, IODeviceChannel $channel) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
@@ -772,8 +772,8 @@ class ChannelController extends RestController {
      * )
      * @Security("is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/channels")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function createVirtualChannelAction(Request $request, VirtualChannelFactory $channelFactory) {
         $user = $this->getUser();
         Assertion::lessThan(

@@ -197,8 +197,8 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Post("/direct-links")
      * @Security("is_granted('ROLE_DIRECTLINKS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postDirectLinkAction(
         Request $request,
         DirectLink $directLink,
@@ -225,8 +225,8 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Put("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putDirectLinkAction(DirectLink $directLink, DirectLink $updated, Request $request) {
         $directLink = $this->transactional(function (EntityManagerInterface $em) use ($directLink, $updated) {
             $directLink->setCaption($updated->getCaption());
@@ -245,8 +245,8 @@ class DirectLinkController extends RestController {
     /**
      * @Rest\Delete("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteDirectLinkAction(DirectLink $directLink) {
         return $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
             $em->remove($directLink);

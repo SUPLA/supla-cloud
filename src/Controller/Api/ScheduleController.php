@@ -169,8 +169,8 @@ class ScheduleController extends RestController {
     /**
      * @Security("is_granted('ROLE_SCHEDULES_RW')")
      * @Rest\Post("/schedules")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
@@ -186,8 +186,8 @@ class ScheduleController extends RestController {
     /**
      * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
      * @Rest\Put("/schedules/{schedule}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
@@ -241,8 +241,8 @@ class ScheduleController extends RestController {
     /**
      * @Security("is_granted('ROLE_SCHEDULES_RW')")
      * @Rest\Patch("/schedules")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function patchSchedulesAction(Request $request) {
         $data = $request->request->all();
         $this->entityManager->transactional(function () use ($data) {
@@ -260,8 +260,8 @@ class ScheduleController extends RestController {
     /**
      * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
      * @Rest\Delete("/schedules/{schedule}")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteScheduleAction(Schedule $schedule) {
         $this->scheduleManager->delete($schedule);
         return new Response('', Response::HTTP_NO_CONTENT);

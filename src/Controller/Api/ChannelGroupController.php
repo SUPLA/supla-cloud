@@ -185,8 +185,8 @@ class ChannelGroupController extends RestController {
      * )
      * @Rest\Post("/channel-groups")
      * @Security("is_granted('ROLE_CHANNELGROUPS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postChannelGroupAction(Request $request, ChannelGroupRequestFiller $channelGroupFiller) {
         $user = $this->getUser();
         Assertion::lessThan(
@@ -235,8 +235,8 @@ class ChannelGroupController extends RestController {
      * )
      * @Rest\Put("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function putChannelGroupAction(
         IODeviceChannelGroup $channelGroup,
         ChannelGroupRequestFiller $channelGroupFiller,
@@ -259,8 +259,8 @@ class ChannelGroupController extends RestController {
      * )
      * @Rest\Delete("/channel-groups/{channelGroup}")
      * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteChannelGroupAction(
         Request $request,
         IODeviceChannelGroup $channelGroup,

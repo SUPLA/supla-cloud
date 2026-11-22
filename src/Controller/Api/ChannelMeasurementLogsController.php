@@ -672,8 +672,8 @@ class ChannelMeasurementLogsController extends RestController {
      * )
      * @Rest\Delete("/channels/{channel}/measurement-logs")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();

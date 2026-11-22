@@ -89,8 +89,8 @@ class UserIconController extends RestController {
      * )
      * @Security("is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postIconAction(Request $request) {
         $files = $request->files;
         Assertion::greaterThan(count($files), 0, 'You have not uploaded any files, or the uploaded files are too big.');
@@ -125,8 +125,8 @@ class UserIconController extends RestController {
      * )
      * @Security("is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons.base64")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function postIconBase64Action(Request $request) {
         return $this->storeIcon($request, function (string $imageName) use ($request) {
             $image = $request->get($imageName);
@@ -287,8 +287,8 @@ class UserIconController extends RestController {
      * )
      * @Rest\Delete("/user-icons/{userIcon}")
      * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW')")
-     * @UnavailableInMaintenance
      */
+    #[UnavailableInMaintenance]
     public function deleteUserIconAction(UserIcon $userIcon) {
         return $this->transactional(function (EntityManagerInterface $em) use ($userIcon) {
             foreach ($userIcon->getChannels() as $channel) {
