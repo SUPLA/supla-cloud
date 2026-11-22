@@ -2,7 +2,6 @@
 
 namespace App\Tests\EventListener;
 
-use App\EventListener\UnavailableInMaintenance;
 use App\EventListener\UnavailableInMaintenanceRequestListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,20 +50,5 @@ class UnavailableInMaintenanceRequestListenerTest extends TestCase {
             new Request(),
             HttpKernelInterface::MAIN_REQUEST
         );
-    }
-}
-
-class MaintenanceMethodController {
-    #[UnavailableInMaintenance]
-    public function blocked(): void {
-    }
-
-    public function allowed(): void {
-    }
-}
-
-#[UnavailableInMaintenance]
-class MaintenanceClassController {
-    public function action(): void {
     }
 }
