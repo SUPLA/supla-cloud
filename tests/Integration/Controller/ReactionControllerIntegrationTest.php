@@ -47,6 +47,8 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
     private $thermometer;
     /** @var IODeviceChannel */
     private $lightswitch;
+    /** @var IODeviceChannel */
+    private $generalPurposeText;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
@@ -55,9 +57,11 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
+            [ChannelType::GENERAL_PURPOSE_TEXT, ChannelFunction::GENERAL_PURPOSE_TEXT],
         ]);
         $this->lightswitch = $this->device->getChannels()[0];
         $this->thermometer = $this->device->getChannels()[1];
+        $this->generalPurposeText = $this->device->getChannels()[3];
     }
 
     public function testCreatingReaction() {
@@ -176,6 +180,31 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 
+    public function testCreatingReactionWhenTextValueDoesNotChange() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', "/api/channels/{$this->generalPurposeText->getId()}/reactions", [
+            'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'trigger' => ['on_change' => ['duration_sec' => 60]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(60, $content['trigger']['on_change']['duration_sec']);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
+        return $content['id'];
+    }
+
+    /** @depends testCreatingReactionWhenTextValueDoesNotChange */
+    public function testGettingReactionWhenTextValueDoesNotChange(int $id) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->generalPurposeText->getId()}/reactions/{$id}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(60, $content['trigger']['on_change']['duration_sec']);
+    }
+
     public function testCreatingReactionWithNotification() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', "/api/channels/{$this->thermometer->getId()}/reactions", [
@@ -226,5 +255,38 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertIsArray($content['actionParam']);
         $this->assertArrayHasKey('body', $content['actionParam']);
         $this->assertStringContainsString('Test', $content['actionParam']['body']);
+    }
+
+    public function testCreatingReactionWithSceneForGeneralPurposeText() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'Scene for GPT reaction',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->lightswitch->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
+                ],
+            ],
+        ]);
+        $sceneResponse = $client->getResponse();
+        $this->assertStatusCode(201, $sceneResponse);
+        $scene = json_decode($sceneResponse->getContent(), true);
+
+        $client->apiRequestV24('POST', "/api/channels/{$this->generalPurposeText->getId()}/reactions", [
+            'subjectId' => $scene['id'],
+            'subjectType' => ActionableSubjectType::SCENE,
+            'actionId' => ChannelFunctionAction::EXECUTE,
+            'trigger' => ['on_change' => ['duration_sec' => 60]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ActionableSubjectType::SCENE, $content['subjectType']);
+        $this->assertEquals($scene['id'], $content['subjectId']);
+        $this->assertEquals(ChannelFunctionAction::EXECUTE, $content['actionId']);
+        $this->assertEquals(60, $content['trigger']['on_change']['duration_sec']);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 }

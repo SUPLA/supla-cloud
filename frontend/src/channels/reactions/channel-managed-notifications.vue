@@ -11,7 +11,7 @@
         </p>
         <div class="row">
           <div class="col-lg-offset-3 col-lg-6">
-            <CustomNotificationEditForm :notification="notification" />
+            <CustomNotificationEditForm :notification="notification" :subject="subject" />
           </div>
         </div>
       </div>

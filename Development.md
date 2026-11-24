@@ -7,8 +7,11 @@ It does **not** apply to production or self-hosted deployments.
 Please note that this setup installs **SUPLA Cloud only**, without the device communication server
 ([supla-server](https://github.com/SUPLA/supla-core/tree/master/supla-server)).
 
-Managing real devices using SUPLA Cloud alone is not possible. By default, the development environment uses a
-**mocked supla-server** for local testing.
+Managing real devices using SUPLA Cloud alone is not possible. By default, the development environment tries to
+connect to a real **supla-server** via a Unix socket. If the socket is unavailable, channels are shown as
+disconnected and no state values are returned. To connect a real server, run
+[supla-server](https://github.com/SUPLA/supla-core/tree/master/supla-server) locally and set the socket path in
+`config/packages/supla.yaml` (`supla.server_socket`).
 
 ---
 
@@ -104,17 +107,34 @@ npm run serve
 
 `http://localhost:8080`
 
-4. Log in using the sample account:
+4. Log in using one of the default accounts:
 
-   * email: `user@supla.org`
-   * password: `pass`
+   | Role          | Email               | Password |
+   |---------------|---------------------|----------|
+   | Regular user  | `user@supla.org`    | `pass`   |
+   | Administrator | `admin@supla.org`   | `pass`   |
+
+---
+
+## Emails in development
+
+The development environment does **not** send real emails. All outgoing mail is captured by a local
+fake SMTP server included in the Docker stack.
+
+To view captured emails (e.g. account activation links, password resets):
+
+Open **http://localhost:6245** in your browser.
+
+This is the web UI of the fake SMTP server (`supla-dev-smtp` container). Every email that
+SUPLA Cloud sends during local development appears here instead of being delivered to a real inbox.
 
 ---
 
 ## Notes on scope
 
 * This setup is intended **only for development and testing**.
-* It uses a mocked device server and does not support real device connections.
+* It attempts to communicate with a real supla-server via a Unix socket. Without a running server all channels
+  appear as disconnected. No random mock state data is generated.
 * For production or self-hosted installations, use:
   [https://github.com/SUPLA/supla-docker](https://github.com/SUPLA/supla-docker)
 

@@ -161,7 +161,7 @@
       if (this.supportsChart) {
         await this.initializeStorage();
       } else {
-        this.hasLogs = true;
+        this.hasLogs = false;
       }
       if (this.supportedChartModes.length > 0) {
         this.chartMode = this.supportedChartModes[0];
