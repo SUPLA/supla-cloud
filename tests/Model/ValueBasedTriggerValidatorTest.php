@@ -73,6 +73,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"ge": 20, "name": "battery_level", "resume": {"lt": 20}}}'],
             [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"eq": "on", "name": "battery_powered"}}'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "hi", "name": "connected"}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "hi", "name": "connected", "duration_sec": 172800}}'],
         ];
     }
 
@@ -116,6 +117,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"ge": 20}}'],
             [ChannelFunction::HUMIDITY(), '{"on_change_to": {"ge": 20}}'],
             [ChannelFunction::THERMOMETER(), '{"on_change": {}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "hi", "name": "connected", "duration_sec": 172801}}'],
         ];
     }
 }

@@ -123,7 +123,7 @@ class SceneOperation implements HasSubject {
         }
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
-        Assertion::between($userDelayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
+        Assertion::between($userDelayMs, 0, 172800000, 'Maximum delay is 48 hours.'); // i18n
         $this->userDelayMs = $userDelayMs;
         $this->delayMs = $userDelayMs;
         $this->waitForCompletion = $waitForCompletion;

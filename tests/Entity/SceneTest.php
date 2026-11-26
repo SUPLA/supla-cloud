@@ -23,6 +23,7 @@ use App\Entity\Main\Scene;
 use App\Entity\Main\SceneOperation;
 use App\Enums\ChannelFunctionAction;
 use App\Tests\Integration\Traits\UnitTestHelper;
+use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class SceneTest extends TestCase {
@@ -46,5 +47,21 @@ class SceneTest extends TestCase {
         $scene->setOpeartions([$operation, $operation2]);
         $scene->setOpeartions([$operation2, $operation]);
         $this->assertCount(2, $scene->getOperations());
+    }
+
+    public function testAcceptsMaximumDelay() {
+        $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN(), [], 172800000);
+        $this->assertEquals(172800000, $operation->getUserDelayMs());
+    }
+
+    public function testRejectsDelayAboveMaximum() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Maximum delay is 48 hours.');
+        new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN(), [], 172800001);
+    }
+
+    public function testDelayOnlyAcceptsMaximumDelay() {
+        $operation = SceneOperation::delayOnly(172800000);
+        $this->assertEquals(172800000, $operation->getUserDelayMs());
     }
 }

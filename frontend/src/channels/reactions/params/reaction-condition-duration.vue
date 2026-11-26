@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="px-4">
-      <TimeIntervalSlider v-model="model" :min="minDuration" :max="3600" seconds class="mt-5" no-fractions />
+      <TimeIntervalSlider v-model="model" :min="minDuration" :max="172800" seconds class="mt-5" no-fractions />
     </div>
   </div>
 </template>
