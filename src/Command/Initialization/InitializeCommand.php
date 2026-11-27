@@ -10,7 +10,7 @@ class InitializeCommand extends Command {
     /** @var InitializationCommand[] */
     private $initializationCommands;
 
-    public function __construct(iterable $initializationCommands) {
+    public function __construct(iterable $initializationCommands, private ConfigurationValidator $configurationValidator) {
         parent::__construct();
         $this->initializationCommands = $initializationCommands;
     }
@@ -23,6 +23,7 @@ class InitializeCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        $this->configurationValidator->validate();
         $this->getApplication()->setAutoExit(false);
         $this->getApplication()->run(new StringInput('supla:check-db-connection'), $output);
         $this->getApplication()->setCatchExceptions(false);

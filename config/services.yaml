@@ -65,6 +65,8 @@ services:
     $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
   App\Command\Initialization\InitializeCommand:
     - !tagged supla.initialization_command
+  App\Command\Initialization\ConfigurationValidator:
+    $suplaHost: '%supla.host%'
   App\Command\User\ApiInfoCommand:
     $enabled: '%supla.api_rate_limit.enabled%'
     $blocking: '%supla.api_rate_limit.blocking%'
