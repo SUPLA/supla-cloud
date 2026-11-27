@@ -34,7 +34,7 @@
   const currentUser = useCurrentUserStore();
   const route = useRoute();
 
-  const showNavbar = computed(() => currentUser.username && !['directLinkExecution'].includes(route.name));
+  const showNavbar = computed(() => currentUser.username && !['directLinkExecution', 'oauthAuthorization'].includes(route.name));
 
   onMounted(() => {
     document.getElementById('page-preloader').remove();

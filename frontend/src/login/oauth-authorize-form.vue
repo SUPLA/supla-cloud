@@ -4,9 +4,11 @@
       <div v-if="loading" class="text-center" role="status">{{ $t('Loading authorization details…') }}</div>
       <template v-else-if="presentation">
         <div class="authorization-logo">
-          <span class="app-name">{{ presentation.application.name }}</span>
-          <span class="arrow"><span class="pe-7s-link"></span></span>
-          <img src="../assets/img/logo.svg" alt="SUPLA" />
+          <div class="authorization-identity app-name">{{ presentation.application.name }}</div>
+          <span class="authorization-connection" aria-hidden="true"><span class="pe-7s-link"></span></span>
+          <div class="authorization-identity supla-identity">
+            <img src="../assets/img/logo.svg" alt="SUPLA" />
+          </div>
         </div>
         <p v-if="presentation.application.description" class="text-center">
           <i18n-text :text="presentation.application.description" />
@@ -32,18 +34,6 @@
           </div>
         </div>
 
-        <div class="alert alert-info">
-          <span class="pe-7s-info"></span>
-          {{ $t('After granting the access, you can always remove it by adjusting the settings in your account settings section.') }}
-        </div>
-
-        <div class="alert alert-info text-center" role="status">
-          <span v-if="presentation.status === 'unauthenticated'">{{ $t('Sign in to continue') }}</span>
-          <span v-else-if="presentation.status === 'consent_required'">{{ $t('Review these permissions to continue.') }}</span>
-          <span v-else-if="presentation.status === 'already_authorized'">{{ $t('You have already authorized this application.') }}</span>
-          <span v-if="presentation.email"> — {{ presentation.email }}</span>
-        </div>
-
         <div v-if="privateCloudSelectionAvailable" class="private-cloud-selection">
           <label class="checkbox2 checkbox2-grey">
             <input v-model="selectPrivateCloud" type="checkbox" @change="privateCloudError = undefined" />
@@ -65,28 +55,42 @@
               {{ $t('Only domain names with an optional port number are allowed. HTTPS is required.') }}
             </p>
             <div v-if="privateCloudError" class="alert alert-warning" role="alert">{{ privateCloudError }}</div>
-            <button class="btn btn-default" type="submit" :disabled="privateCloudSubmitting">
+            <button class="btn btn-white" type="submit" :disabled="privateCloudSubmitting">
               {{ $t('Continue to private Cloud') }}
             </button>
           </form>
         </div>
 
         <div v-if="error" class="alert alert-warning" role="alert">{{ error }}</div>
-        <form class="form-group" @submit.prevent="authorize('approve')">
-          <label for="oauth-username">{{ $t('E-mail') }}</label>
-          <input id="oauth-username" v-model.trim="username" class="form-control" type="email" autocomplete="username" required />
-          <label for="oauth-password">{{ $t('Password') }}</label>
-          <input id="oauth-password" v-model="password" class="form-control" type="password" autocomplete="current-password" required />
-          <div class="buttons">
-            <button class="btn btn-primary" type="submit" :disabled="submitting">
-              {{ $t('Sign in and grant access') }}
+        <form class="authorization-credentials" @submit.prevent="authorize('approve')">
+          <div class="form-group form-group-lg">
+            <label for="oauth-username">{{ $t('E-mail') }}</label>
+            <span class="input-group">
+              <span class="input-group-addon"><span class="pe-7s-user"></span></span>
+              <input id="oauth-username" v-model.trim="username" class="form-control" type="email" autocomplete="username" :readonly="signedIn" required />
+            </span>
+            <button v-if="signedIn" class="btn btn-link" type="button" :disabled="submitting" @click="signOut">
+              {{ $t('Sign Out') }}
             </button>
-            <button class="btn btn-default" type="button" :disabled="submitting" @click="authorize('deny')">
-              {{ $t('Deny') }}
+          </div>
+          <div class="form-group form-group-lg">
+            <label for="oauth-password">{{ $t('Password') }}</label>
+            <span class="input-group">
+              <span class="input-group-addon"><span class="pe-7s-lock"></span></span>
+              <input id="oauth-password" v-model="password" class="form-control" type="password" autocomplete="current-password" required />
+            </span>
+          </div>
+          <div class="buttons">
+            <button class="btn btn-red-outline btn-lg deny-button" type="button" :disabled="submitting" :aria-label="$t('Deny')" @click="authorize('deny')">
+              <button-loading-dots v-if="submitting && submittingDecision === 'deny'" />
+              <template v-else>{{ $t('Deny') }}</template>
+            </button>
+            <button class="btn btn-green btn-lg" type="submit" :disabled="submitting" :aria-label="$t('Sign in and grant access')">
+              <button-loading-dots v-if="submitting && submittingDecision === 'approve'" />
+              <template v-else>{{ $t('Sign in and grant access') }}</template>
             </button>
           </div>
         </form>
-        <div v-if="submitting" class="text-center" role="status">{{ $t('Submitting your decision…') }}</div>
       </template>
       <div v-else-if="error" class="alert alert-warning" role="alert">{{ error }}</div>
     </div>
@@ -100,13 +104,17 @@
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
   import {deepCopy} from '@/common/utils.js';
   import I18nText from '../account/integrations/catalog/i18n-text.vue';
+  import ButtonLoadingDots from '@/common/gui/loaders/button-loading-dots.vue';
 
   export default {
     compatConfig: {MODE: 3},
-    components: {I18nText},
+    components: {I18nText, ButtonLoadingDots},
     computed: {
       privateCloudSelectionAvailable() {
         return !!useFrontendConfigStore().config.actAsBrokerCloud;
+      },
+      signedIn() {
+        return !!useCurrentUserStore().userToken && !!this.presentation?.email;
       },
     },
     data() {
@@ -117,6 +125,7 @@
         username: '',
         password: '',
         submitting: false,
+        submittingDecision: undefined,
         selectPrivateCloud: false,
         privateCloudHost: '',
         privateCloudSubmitting: false,
@@ -141,6 +150,14 @@
       this.loadAuthorizationRequest();
     },
     methods: {
+      async signOut() {
+        useCurrentUserStore().forget();
+        this.password = '';
+        this.username = '';
+        this.presentation = undefined;
+        this.loading = true;
+        await this.loadAuthorizationRequest(false);
+      },
       async loadAuthorizationRequest(retryWithoutToken = true) {
         this.error = undefined;
         // Keep the entire original query (including encoded state and PKCE) as
@@ -224,6 +241,7 @@
         if (this.submitting) return;
         this.error = undefined;
         this.submitting = true;
+        this.submittingDecision = decision;
         const form = new FormData();
         const authorizationFields = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'code_challenge', 'code_challenge_method'];
         new URLSearchParams(window.location.search).forEach((value, name) => {
@@ -266,6 +284,7 @@
           })
           .finally(() => {
             this.submitting = false;
+            this.submittingDecision = undefined;
             this.password = '';
           });
       },
@@ -307,30 +326,61 @@
     width: 90%;
     max-width: 600px;
     margin: 0 auto;
-    padding-top: 10px;
+    padding: 30px 0 40px;
     .authorization-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      .authorization-identity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 180px;
+        min-width: 0;
+        min-height: 120px;
+        text-align: center;
+      }
       .app-name {
+        font-size: 26px;
+        line-height: 1.2;
+        font-weight: 500;
+        overflow-wrap: anywhere;
+      }
+      .authorization-connection {
+        flex: none;
+        color: $supla-green;
         font-size: 40px;
-        display: inline-block;
-        max-width: 55%;
-        vertical-align: middle;
       }
-      .arrow {
-        font-size: 50px;
-        font-weight: bold;
-        display: inline-block;
-        padding: 0 20px;
-        vertical-align: middle;
-      }
-      text-align: center;
-      margin-bottom: 40px;
       img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
+      }
+    }
+    .authorization-credentials {
+      .input-group-addon > span {
+        font-size: 2em;
+      }
+      .form-control {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid $supla-grey-light;
+        box-shadow: initial;
+        background: transparent;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
     .buttons {
-      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+      .btn {
+        white-space: normal;
+      }
     }
     .scope-selector {
       display: flex;

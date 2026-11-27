@@ -4,7 +4,7 @@ import {afterEach, describe, expect, it, vi} from 'vitest';
 const {get, post, currentUser, frontendConfig} = vi.hoisted(() => ({
   get: vi.fn(),
   post: vi.fn(),
-  currentUser: {userToken: null, forgetOAuthToken: vi.fn()},
+  currentUser: {userToken: null, forgetOAuthToken: vi.fn(), forget: vi.fn()},
   frontendConfig: {config: {actAsBrokerCloud: true}},
 }));
 vi.mock('@/api/api', () => ({api: {get, post}}));
@@ -19,6 +19,7 @@ describe('OAuthAuthorizeForm request errors', () => {
     post.mockReset();
     currentUser.userToken = null;
     currentUser.forgetOAuthToken.mockReset();
+    currentUser.forget.mockReset();
   });
 
   it.each([
@@ -94,7 +95,7 @@ describe('OAuthAuthorizeForm request errors', () => {
     await new Promise((resolve) => setTimeout(resolve));
     wrapper.vm.username = 'user@example.com';
     await wrapper.vm.$nextTick();
-    await wrapper.get('button.btn-default').trigger('click');
+    await wrapper.get('.deny-button').trigger('click');
 
     const [, form] = post.mock.calls[0];
     expect(Object.fromEntries(form.entries())).toEqual({
@@ -108,6 +109,38 @@ describe('OAuthAuthorizeForm request errors', () => {
     });
   });
 
+  it.each(['approve', 'deny'])('shows loading on the %s button and disables both decisions until the request fails', async (decision) => {
+    get.mockResolvedValue({body: {application: {name: 'Test application'}, scopes: {requested: [], implicit: []}}});
+    let rejectRequest;
+    post.mockReturnValue(
+      new Promise((resolve, reject) => {
+        rejectRequest = reject;
+      })
+    );
+    const wrapper = mount(OAuthAuthorizeForm, {global: {mocks: {$t: (text) => text}}});
+    await new Promise((resolve) => setTimeout(resolve));
+    const denyButton = wrapper.get('.deny-button');
+    const approveButton = wrapper.get('button[type="submit"]');
+
+    if (decision === 'deny') {
+      await denyButton.trigger('click');
+    } else {
+      await wrapper.get('.authorization-credentials').trigger('submit');
+    }
+
+    expect(denyButton.attributes('disabled')).toBeDefined();
+    expect(approveButton.attributes('disabled')).toBeDefined();
+    expect(denyButton.find('button-loading-dots-stub').exists()).toBe(decision === 'deny');
+    expect(approveButton.find('button-loading-dots-stub').exists()).toBe(decision === 'approve');
+    expect(wrapper.text()).not.toContain('Submitting your decision');
+
+    rejectRequest({body: {errorCode: 'invalid_request'}, status: 400});
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(denyButton.attributes('disabled')).toBeUndefined();
+    expect(approveButton.attributes('disabled')).toBeUndefined();
+    expect(wrapper.find('button-loading-dots-stub').exists()).toBe(false);
+  });
+
   it.each([
     [{status: 403}, 'Access to this authorization request is unavailable.'],
     [new Error('offline'), 'Authorization is temporarily unavailable. Please try again.'],
@@ -118,7 +151,7 @@ describe('OAuthAuthorizeForm request errors', () => {
     await new Promise((resolve) => setTimeout(resolve));
     wrapper.vm.username = 'user@example.com';
     await wrapper.vm.$nextTick();
-    await wrapper.get('button.btn-default').trigger('click');
+    await wrapper.get('.deny-button').trigger('click');
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(wrapper.get('[role="alert"]').text()).toBe(message);
@@ -180,6 +213,36 @@ describe('OAuthAuthorizeForm request errors', () => {
     expect(wrapper.find('#oauth-password').exists()).toBe(true);
     expect(wrapper.get('[role="alert"]').text()).toBe('Enter your password to approve these permissions.');
     expect(currentUser.forgetOAuthToken).not.toHaveBeenCalled();
+  });
+
+  it('locks the signed-in email and signs out without changing the authorization request', async () => {
+    currentUser.userToken = 'browser-token';
+    currentUser.forget.mockImplementation(() => {
+      currentUser.userToken = null;
+    });
+    const application = {name: 'Test application'};
+    const scopes = {requested: ['account_r'], implicit: []};
+    get
+      .mockResolvedValueOnce({body: {application, scopes, status: 'consent_required', email: 'user@example.com'}})
+      .mockResolvedValueOnce({body: {application, scopes, status: 'unauthenticated'}});
+    const authorizationUrl = '/oauth/v2/auth?client_id=client&state=preserve%2Bstate';
+    window.history.replaceState({}, '', authorizationUrl);
+    const wrapper = mount(OAuthAuthorizeForm, {global: {mocks: {$t: (text) => text}}});
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(wrapper.get('#oauth-username').element.value).toBe('user@example.com');
+    expect(wrapper.get('#oauth-username').attributes('readonly')).toBeDefined();
+    await wrapper.get('#oauth-password').setValue('old-password');
+    await wrapper.get('.authorization-credentials .btn-link').trigger('click');
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(currentUser.forget).toHaveBeenCalledOnce();
+    expect(get).toHaveBeenLastCalledWith('oauth/authorization-request?client_id=client&state=preserve%2Bstate', {skipErrorHandler: [401, 403]});
+    expect(wrapper.get('#oauth-username').attributes('readonly')).toBeUndefined();
+    expect(wrapper.get('#oauth-username').element.value).toBe('');
+    expect(wrapper.get('#oauth-password').element.value).toBe('');
+    expect(wrapper.find('.authorization-credentials .btn-link').exists()).toBe(false);
+    expect(`${window.location.pathname}${window.location.search}`).toBe(authorizationUrl);
   });
 
   it('clears an expired token and retries presentation without losing the OAuth URL', async () => {
@@ -300,7 +363,7 @@ describe('OAuthAuthorizeForm request errors', () => {
     await new Promise((resolve) => setTimeout(resolve));
     wrapper.vm.username = 'remote@example.com';
     await wrapper.vm.$nextTick();
-    await wrapper.get('button.btn-default').trigger('click');
+    await wrapper.get('.deny-button').trigger('click');
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(wrapper.get('[role="alert"]').text()).toBe(message);
@@ -328,7 +391,7 @@ describe('OAuthAuthorizeForm request errors', () => {
     await new Promise((resolve) => setTimeout(resolve));
     wrapper.vm.username = 'remote@example.com';
     await wrapper.vm.$nextTick();
-    await wrapper.get('button.btn-default').trigger('click');
+    await wrapper.get('.deny-button').trigger('click');
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(wrapper.get('[role="alert"]').text()).toBe('The account cloud is temporarily unavailable. Please try again.');

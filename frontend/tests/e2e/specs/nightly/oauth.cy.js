@@ -66,7 +66,6 @@ describe('OAuth tests', () => {
     cy.contains('Channels').should('be.visible');
     cy.contains('Modification').should('be.visible');
     cy.contains('Read').should('be.visible');
-    cy.contains('Sign in to continue').should('be.visible');
     cy.location('pathname').should('eq', '/oauth/v2/auth');
     cy.location('search').should('eq', authorizationUrl.substring(authorizationUrl.indexOf('?')));
     cy.document().its('body.innerHTML').should('not.contain', 'window.oauthAuthorizeRequest');
@@ -151,6 +150,7 @@ describe('OAuth tests', () => {
     });
     cy.wait('@existingGrant');
     cy.wait('@authorizationAttempt');
+    cy.get('#logoutButton').should('not.exist');
     cy.get('[role="alert"]').should('contain', 'Enter your password to approve these permissions.');
     cy.get('#oauth-password').scrollIntoView();
     cy.get('#oauth-password').type('fresh-password', {force: true});
